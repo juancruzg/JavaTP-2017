@@ -1,29 +1,67 @@
 package datos;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 
-import conexion.Conexion;
 import entidades.Usuario;
+import excepciones.RespuestaServidor;
 
 public class CatalogoUsuario extends CatalogoBase {
-	public Usuario obtenerUsuario(String usuario) {
-		PreparedStatement sentencia = null;
-		Usuario u = new Usuario();
-		String sql = "SELECT * FROM usuario WHERE usuario = ?";
-
-		try {
-			sentencia = Conexion.getInstancia().getConn().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			sentencia.setString(1, usuario);
-		} 
-		catch (SQLException e) {
-			return u;
-		}
+	// Métodos públicos
+	public ArrayList<Usuario> getUsuarios() throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM usuario");
 		
-		query(sentencia, u);
+		return super.getAll(data, rs -> fetchUsuarioFromDB(rs));
+	}
+	
+	public ArrayList<Usuario> getUsuarios(int paginaActual, int porPagina) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM usuario LIMIT ?, ?");
 		
-		return u;
+		data.addParameter(paginaActual);
+		data.addParameter(porPagina);
+		
+		return super.getAll(data, rs -> fetchUsuarioFromDB(rs));
+	}
+	
+	public Usuario getUsuario(String usuario) throws RespuestaServidor { 
+		DBData data = new DBData("SELECT * FROM usuario WHERE usuario = ?");
+		
+		data.addParameter(usuario);
+		
+		return super.getOne(data, rs -> fetchUsuarioFromDB(rs));
+	}
+	
+	public int insertUsuario(Usuario usuario) throws RespuestaServidor {
+		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido) VALUES (?, ?, ?, ?)");
+		
+		data.addParameter(usuario.getUsuario());
+		data.addParameter(usuario.getPassword());
+		data.addParameter(usuario.getNombre());
+		data.addParameter(usuario.getApellido());
+		
+		return super.save(data);
+	}
+	
+	// Métodos privados
+	private Usuario fetchUsuarioFromDB(ResultSet rs) {
+		CatalogoSucursal cs = new CatalogoSucursal();
+	    Usuario user = new Usuario();
+	    
+	    try {
+	    	user.setUsuario(rs.getString("usuario"));
+	    	user.setNombre(rs.getString("nombre"));
+	    	user.setApellido(rs.getString("apellido"));
+	    	user.setFechaAlta(rs.getTimestamp("fechaAlta"));
+	    	user.setPassword(rs.getString("password"));
+	    	
+	    	user.setUsuarioAlta(getUsuario(rs.getString("usuarioAlta")));
+	    	user.setSucursal(cs.getSucursal(rs.getInt("idSucursal")));
+	    }
+	    catch (SQLException | RespuestaServidor ex) {
+	    	ex.printStackTrace();
+	    }
+	    
+	    return user;
 	}
 }

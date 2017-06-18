@@ -1,7 +1,5 @@
 package entidades;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class Usuario implements EntidadBase {
@@ -87,17 +85,5 @@ public class Usuario implements EntidadBase {
 	
 	public String toJson() {
 		return "";
-	}
-	
-	public void autoFill(ResultSet rs) {
-		try {
-			usuario = rs.getString("usuario");
-			password = rs.getString("password");
-			nombre = rs.getString("nombre");
-			apellido = rs.getString("apellido");
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 }
