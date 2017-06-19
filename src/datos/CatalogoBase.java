@@ -9,7 +9,7 @@ import entidades.EntidadBase;
 
 public class CatalogoBase {
 		
-	public void query(PreparedStatement sentencia, EntidadBase entidad) {
+	public void query(PreparedStatement sentencia, EntidadBase entidad) {  
 		ResultSet rs = null;
 		
 		try {

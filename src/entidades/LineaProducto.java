@@ -1,5 +1,8 @@
 package entidades;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class LineaProducto implements EntidadBase {
 	private int stock;
 	private Producto producto;
@@ -57,5 +60,17 @@ public class LineaProducto implements EntidadBase {
 	
 	public String toJson() {
 		return "";
+	}
+	
+	public void autoFill(ResultSet rs) {
+		try {
+			this.stock = rs.getInt("stock");
+			this.producto.setId(rs.getInt("idProducto"));
+			this.talle.setId(rs.getInt("idTalle"));
+			this.color = rs.getString("color");
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
