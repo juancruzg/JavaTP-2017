@@ -4,7 +4,9 @@ public class LineaProducto implements EntidadBase {
 	private int stock;
 	private Producto producto;
 	private Talle talle;
-	private String color;
+	private Color color;
+	private Sucursal sucursal;
+	private Usuario usuarioAlta;
 	
 	/* Constructors */
 	
@@ -12,11 +14,13 @@ public class LineaProducto implements EntidadBase {
 		
 	}
 	
-	public LineaProducto(int stock, Producto producto, Talle talle, String color) {
+	public LineaProducto(int stock, Producto producto, Talle talle, Color color, Sucursal sucursal, Usuario usuario) {
 		this.stock = stock;
 		this.producto = producto;
 		this.talle = talle;
 		this.color = color;
+		this.sucursal = sucursal;
+		this.usuarioAlta = usuario;
 	}
 	
 	/* Getters y Setters */
@@ -45,16 +49,32 @@ public class LineaProducto implements EntidadBase {
 		this.talle = talle;
 	}
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/* Public Methods */
 	
+	public Sucursal getSucursal() {
+		return sucursal;
+	}
+
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
+	}
+
+	public Usuario getUsuarioAlta() {
+		return usuarioAlta;
+	}
+
+	public void setUsuarioAlta(Usuario usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
+
 	public String toJson() {
 		return "";
 	}

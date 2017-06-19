@@ -3,6 +3,7 @@ package entidades;
 public class Talle implements EntidadBase {
 	private int id;
 	private String talle;
+	private Usuario usuarioAlta;
 	
 	/* Constructors */
 	
@@ -10,9 +11,10 @@ public class Talle implements EntidadBase {
 		
 	}
 	
-	public Talle(int id, String talle) {
+	public Talle(int id, String talle, Usuario usuario) {
 		this.id = id;
 		this.talle = talle;
+		this.usuarioAlta = usuario;
 	}
 
 	/* Getters y Setters */
@@ -31,6 +33,14 @@ public class Talle implements EntidadBase {
 
 	public void setTalle(String talle) {
 		this.talle = talle;
+	}
+	
+	public Usuario getUsuarioAlta() {
+		return usuarioAlta;
+	}
+	
+	public void setUsuarioAlta(Usuario usuario) {
+		this.usuarioAlta = usuario;
 	}
 
 	/* Public Methods */
