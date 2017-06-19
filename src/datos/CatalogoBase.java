@@ -30,7 +30,7 @@ public abstract class CatalogoBase {
                 rs = st.executeQuery(data.getQuery()); 
         	}
         	else {
-        		st = Conexion.getInstancia().getConn().prepareStatement(data.getQuery(), Statement.RETURN_GENERATED_KEYS);;
+        		st = Conexion.getInstancia().getConn().prepareStatement(data.getQuery(), Statement.RETURN_GENERATED_KEYS);
         		
         		int i = 0;
         		
@@ -76,7 +76,7 @@ public abstract class CatalogoBase {
                 rs = st.executeQuery(data.getQuery()); 
         	}
         	else {
-        		st = Conexion.getInstancia().getConn().prepareStatement(data.getQuery(), Statement.RETURN_GENERATED_KEYS);;
+        		st = Conexion.getInstancia().getConn().prepareStatement(data.getQuery(), Statement.RETURN_GENERATED_KEYS);
         		
         		int i = 0;
         		
@@ -114,7 +114,7 @@ public abstract class CatalogoBase {
     	RespuestaServidor res = new RespuestaServidor();
     	
     	try {
-    		st = Conexion.getInstancia().getConn().prepareStatement(data.getQuery(), Statement.RETURN_GENERATED_KEYS);;
+    		st = Conexion.getInstancia().getConn().prepareStatement(data.getQuery(), Statement.RETURN_GENERATED_KEYS);
     		
     		int i = 0;
     		
