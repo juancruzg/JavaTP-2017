@@ -1,13 +1,23 @@
 package entidades;
 
-import java.sql.ResultSet;
 
-public class Color implements EntidadBase{
+public class Color implements EntidadBase {
 	private int id;
-	private String color;
+	private String color, codigoColor;
 	private Usuario usuarioAlta;
 	
-	/* Getters & Setters */
+	public Color() {
+		
+	}
+	
+	public Color(int id, String color, String codigoColor, Usuario usuarioAlta) {
+		this.id = id;
+		this.color = color;
+		this.codigoColor = codigoColor;
+		this.usuarioAlta = usuarioAlta;
+	}
+	
+
 	public int getId() {
 		return id;
 	}
@@ -32,16 +42,16 @@ public class Color implements EntidadBase{
 		this.usuarioAlta = usuarioAlta;
 	}
 
-	@Override
+
+	public String getCodigoColor() {
+		return codigoColor;
+	}
+
+	public void setCodigoColor(String codigoColor) {
+		this.codigoColor = codigoColor;
+	}
+	
 	public String toJson() {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
-
-	@Override
-	public void autoFill(ResultSet rs) {
-		// TODO Auto-generated method stub
-		
-	}
-
 }

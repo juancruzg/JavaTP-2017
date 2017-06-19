@@ -6,6 +6,7 @@ public class Precio implements EntidadBase {
 	private Timestamp fecha;
 	private Producto producto;
 	private float precio;
+	private Usuario usuarioAlta;
 	
 	/* Constructors */
 	
@@ -13,10 +14,11 @@ public class Precio implements EntidadBase {
 		
 	}
 	
-	public Precio(Timestamp fecha, Producto producto, float precio) {
+	public Precio(Timestamp fecha, Producto producto, float precio, Usuario usuarioAlta) {
 		this.fecha = fecha;
 		this.producto = producto;
 		this.precio = precio;
+		this.usuarioAlta = usuarioAlta;
 	}
 	
 	/* Getters y Setters */
@@ -43,6 +45,14 @@ public class Precio implements EntidadBase {
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+	
+	public Usuario getUsuarioAlta() {
+		return usuarioAlta;
+	}
+
+	public void setUsuarioAlta(Usuario usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
 	}
 
 	/* Public Methods */

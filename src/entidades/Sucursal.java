@@ -1,6 +1,6 @@
 package entidades;
 
-public class Sucursal {
+public class Sucursal implements EntidadBase {
 	private int id;
 	private String domicilio, telefono;
 
