@@ -33,12 +33,25 @@ public class CatalogoUsuario extends CatalogoBase {
 	}
 	
 	public int insertUsuario(Usuario usuario) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido) VALUES (?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal) VALUES (?, ?, ?, ?, ?)");
 		
 		data.addParameter(usuario.getUsuario());
 		data.addParameter(usuario.getPassword());
 		data.addParameter(usuario.getNombre());
 		data.addParameter(usuario.getApellido());
+		data.addParameter(usuario.getSucursal().getId());
+		
+		return super.save(data);
+	}
+	
+	public int updateUsuario(Usuario usuario) throws RespuestaServidor {
+		DBData data = new DBData("UPDATE usuario SET password = ?, nombre = ?, apellido = ?, idSucursal = ? WHERE usuario = ?");
+		
+		data.addParameter(usuario.getPassword());
+		data.addParameter(usuario.getNombre());
+		data.addParameter(usuario.getApellido());
+		data.addParameter(usuario.getSucursal().getId());
+		data.addParameter(usuario.getUsuario());
 		
 		return super.save(data);
 	}

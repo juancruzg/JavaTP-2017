@@ -43,6 +43,19 @@ public class CatalogoCliente extends CatalogoBase {
 		
 		return super.save(data);
 	}
+	
+	public int updateCliente(Cliente cliente) throws RespuestaServidor {
+		DBData data = new DBData("UPDATE cliente SET nombre = ?, apellido = ?, telefono = ?, domicilio = ?, activo = ? WHERE id = ?");
+		
+		data.addParameter(cliente.getNombre());
+		data.addParameter(cliente.getApellido());
+		data.addParameter(cliente.getTelefono());
+		data.addParameter(cliente.getDomicilio());
+		data.addParameter(cliente.isActivo());
+		data.addParameter(cliente.getId());
+		
+		return super.save(data);
+	}
 
 	private Cliente fetchClienteFromDB(ResultSet rs) {
 		CatalogoUsuario cu = new CatalogoUsuario();

@@ -8,7 +8,7 @@ public class testControladores {
 		ControladorUsuario cu = new ControladorUsuario();
 		
 		try {
-			cu.insertUsuario("Test", "Test", "test", "", 0, null);
+			cu.saveUsuario("Test", "Test", "test12", "testes123", 0, null);
 		} catch (RespuestaServidor e) {
 			System.out.println(e.toString());
 		}

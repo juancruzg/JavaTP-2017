@@ -21,10 +21,12 @@ public class ControladorUsuario {
 		return cu.getUsuarios(paginaActual, porPagina);
 	}
 	
-	public int insertUsuario(String nombre, String apellido, String usuario, String password, int idSucursal, String usuarioUsuarioAlta) throws RespuestaServidor {
+	public int saveUsuario(String nombre, String apellido, String usuario, String password, int idSucursal, String usuarioUsuarioAlta) throws RespuestaServidor {
 		RespuestaServidor rs = new RespuestaServidor();
 		CatalogoUsuario cu = new CatalogoUsuario();
 		CatalogoSucursal cs = new CatalogoSucursal();
+		
+		Usuario usuarioDB = cu.getUsuario(usuario);
 		
 		// Fetcheo las FKs
 		Usuario usuarioAlta = cu.getUsuario(usuarioUsuarioAlta);
@@ -45,7 +47,10 @@ public class ControladorUsuario {
 		if (!rs.getStatus())
 			throw rs;
 		
-		return cu.insertUsuario(u);
+		if (usuarioDB == null)
+			return cu.insertUsuario(u);
+		else
+			return cu.updateUsuario(u);
 	}
 	
 	private RespuestaServidor validarUsuario(Usuario u) {
