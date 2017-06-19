@@ -40,6 +40,16 @@ public class CatalogoSucursal extends CatalogoBase {
 		return super.save(data);
 	}
 	
+	public int updateSucursal(Sucursal sucursal) throws RespuestaServidor {
+		DBData data = new DBData("UPDATE sucursal SET domicilio = ?, telefono = ? WHERE id = ?");
+		
+		data.addParameter(sucursal.getDomicilio());
+		data.addParameter(sucursal.getTelefono());
+		data.addParameter(sucursal.getId());
+		
+		return super.save(data);
+	}
+	
 	private Sucursal fetchSucursalFromDB(ResultSet rs) {
 		Sucursal sucursal = new Sucursal();
 		

@@ -56,6 +56,7 @@ CREATE TABLE IF NOT EXISTS talle (
 CREATE TABLE IF NOT EXISTS color (
   id int NOT NULL AUTO_INCREMENT,
   color varchar(30),
+  codigoColor varchar(30),
   usuarioAlta varchar(20),
   fechaAlta datetime,
   PRIMARY KEY (id),
