@@ -5,9 +5,8 @@ import java.util.ArrayList;
 public class Producto implements EntidadBase {
 	private int id;
 	private String descripcion;
-	private ArrayList<LineaProducto> lineas;
 	private Precio precio;
-	private ArrayList<Precio> historicoPrecios;
+	private Usuario usuarioAlta;
 	
 	/* Constructors */
 	
@@ -15,12 +14,11 @@ public class Producto implements EntidadBase {
 		
 	}
 	
-	public Producto(int id, String descripcion, ArrayList<LineaProducto> lineas, Precio precio, ArrayList<Precio> historicoPrecios) {
+	public Producto(int id, String descripcion, Precio precio, Usuario usuario) {
 		this.id = id;
 		this.descripcion = descripcion;
-		this.lineas = lineas;
 		this.precio = precio;
-		this.historicoPrecios = historicoPrecios;
+		this.usuarioAlta = usuario;
 	}
 
 	/* Getters y Setters */
@@ -40,14 +38,6 @@ public class Producto implements EntidadBase {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public ArrayList<LineaProducto> getLineas() {
-		return lineas;
-	}
-
-	public void setLineas(ArrayList<LineaProducto> lineas) {
-		this.lineas = lineas;
-	}
 	
 	public Precio getPrecio() {
 		return precio;
@@ -57,12 +47,12 @@ public class Producto implements EntidadBase {
 		this.precio = precio;
 	}
 
-	public ArrayList<Precio> getHistoricoPrecios() {
-		return historicoPrecios;
+	public Usuario getUsuarioAlta(){
+		return usuarioAlta;
 	}
-
-	public void setHistoricoPrecios(ArrayList<Precio> historicoPrecios) {
-		this.historicoPrecios = historicoPrecios;
+	
+	public void setUsuarioAlta(Usuario usuario){
+		this.usuarioAlta = usuario;
 	}
 
 	/* Public Methods */

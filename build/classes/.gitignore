@@ -1,0 +1,10 @@
+<<<<<<< HEAD
+/entidades/
+/datos/
+=======
+/datos/
+/entidades/
+/negocio/
+>>>>>>> juan-backend
+/excepciones/
+/tests/

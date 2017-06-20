@@ -10,6 +10,7 @@ import conexion.Conexion;
 import entidades.EntidadBase;
 import excepciones.RespuestaServidor;
 
+
 public abstract class CatalogoBase {	   
 	/**
 	 * @author Juan Grasso

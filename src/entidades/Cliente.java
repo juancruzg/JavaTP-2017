@@ -1,5 +1,7 @@
 package entidades;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 
 public class Cliente implements EntidadBase {
@@ -96,5 +98,21 @@ public class Cliente implements EntidadBase {
 
 	public String toJson() {
 		return "";
+	}
+	
+	public void autoFill(ResultSet rs) {
+		try {
+			this.id =  rs.getInt("id");
+			this.nombre =  rs.getString("nombre");
+			this.apellido =  rs.getString("apellido");
+			this.telefono =  rs.getString("telefono");
+			this.domicilio =  rs.getString("domicilio");
+			//usuarioAlta.autoFill(rs);
+			this.activo = rs.getBoolean("activo");
+			this.fechaAlta =  rs.getTimestamp("usuario");
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

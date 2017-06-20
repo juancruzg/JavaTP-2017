@@ -1,19 +1,23 @@
 package entidades;
 
+
 public class Color implements EntidadBase {
 	private int id;
 	private String color, codigoColor;
+	private Usuario usuarioAlta;
 	
 	public Color() {
 		
 	}
 	
-	public Color(int id, String color, String codigoColor) {
+	public Color(int id, String color, String codigoColor, Usuario usuarioAlta) {
 		this.id = id;
 		this.color = color;
 		this.codigoColor = codigoColor;
+		this.usuarioAlta = usuarioAlta;
 	}
 	
+
 	public int getId() {
 		return id;
 	}
@@ -29,6 +33,15 @@ public class Color implements EntidadBase {
 	public void setColor(String color) {
 		this.color = color;
 	}
+
+	public Usuario getUsuarioAlta() {
+		return usuarioAlta;
+	}
+
+	public void setUsuarioAlta(Usuario usuarioAlta) {
+		this.usuarioAlta = usuarioAlta;
+	}
+
 
 	public String getCodigoColor() {
 		return codigoColor;
