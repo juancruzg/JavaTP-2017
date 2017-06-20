@@ -1,0 +1,217 @@
+body {
+    overflow-x: hidden;
+    background-color: #35254C;
+    color: #CDC5D9;
+ }
+
+/* Toggle Styles */
+
+#wrapper {
+    padding-left: 0;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    background-color: #1A1A1A;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 250px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #FFF;
+    background: linear-gradient(to right, #1A1A1A 50%, #987DBF 50%);
+    background-size: 200% 100%;
+    transition: background-position 0.5s;
+    border-left: solid 4px #987DBF;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    background-position: -100% 0;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #FFF;
+    transition: background-color 0.5s;
+    border: none;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    background: #232323;
+}
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 0;
+    }
+
+    #wrapper.toggled {
+        padding-left: 250px;
+    }
+
+    #sidebar-wrapper {
+        width: 0;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+
+/*FONT AWESOME transitions*/
+
+.fa {
+    transition: all 0.5s;
+}
+
+.fa:hover {
+  transform: scaleY(1.4);
+}
+
+.toggle-button, .toggle-button:hover {
+  color: #FFF;
+  cursor: pointer;
+}
+
+/*General fonts*/
+
+h1 {
+  color: #FFF;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #A08DAC;
+}
+
+hr {
+  border-top: 3px double #A08DAC;
+}
+
+hr.body-separator {
+  border-top: 1px solid #A08DAC;
+}
+
+.table tbody tr td, .table thead tr th, .table {
+  border-color: #A08DAC;
+}
+
+/*Bootstrap button override*/
+.btn-success,
+.btn-success:active,
+.btn-success:active:focus,
+.btn-success:visited,
+.btn-success:focus {
+    background-color: #8064A2;
+    border-color: #8064A2;
+}
+
+.btn-success:hover {
+  background-color: #9B78C4;
+  border-color: #9B78C4;
+}
+
+.btn-success:disabled:active, .btn-success:disabled:hover {
+  background-color: #6B5487;
+  border-color: #6B5487;
+}
+
+/*Custom circe button*/
+.btn-fixed {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.btn-circle{
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  padding: 6px 0;
+  font-size: 12px;
+  line-height: 1.428571429;
+  border-radius: 15px;
+}
+
+.btn-circle.btn-lg {
+  width: 50px;
+  height: 50px;
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.33;
+  border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  font-size: 24px;
+  line-height: 1.33;
+  border-radius: 35px;
+}
