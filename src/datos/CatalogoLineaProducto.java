@@ -70,16 +70,14 @@ public class CatalogoLineaProducto extends CatalogoBase {
 		CatalogoSucursal cs = new CatalogoSucursal();
 		CatalogoUsuario cu = new CatalogoUsuario();
 	    
-	    try {
-	    	
+	    try {    	
 	    	lp.setStock(rs.getInt("stock"));
 	    	
 	    	lp.setProducto(cp.getProducto(rs.getInt("idProducto")));
 	    	lp.setTalle(ct.getTalle(rs.getInt("idTalle")));
 	    	lp.setColor(cc.getColor(rs.getInt("color")));
 	    	lp.setSucursal(cs.getSucursal(rs.getInt("idSucursal")));
-	    	lp.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));
-	    	
+	    	lp.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));	    	
 	    }
 	    catch (SQLException | RespuestaServidor ex) {
 	    	ex.printStackTrace();

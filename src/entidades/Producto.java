@@ -1,7 +1,5 @@
 package entidades;
 
-import java.util.ArrayList;
-
 public class Producto implements EntidadBase {
 	private int id;
 	private String descripcion;
