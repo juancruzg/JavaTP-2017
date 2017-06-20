@@ -24,16 +24,13 @@
                   		<a ui-sref="home"><i class="fa fa-home" aria-hidden="true"></i> Inicio</a>
 					</li>
 					<li>
-					    <a ui-sref="clients"><i class="fa fa-users" aria-hidden="true"></i> Clientes</a>
+					    <a ui-sref="clientes"><i class="fa fa-users" aria-hidden="true"></i> Clientes</a>
 					</li>
 					<li>
-					    <a ui-sref="products"><i class="fa fa-user-secret" aria-hidden="true"></i> Productos</a>
+					    <a ui-sref="productos"><i class="fa fa-user-secret" aria-hidden="true"></i> Productos</a>
 					</li>
 					<li>
-					    <a ui-sref="sales"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ventas</a>
-					</li>
-					<li>
-				  		<a><i class="fa fa-sign-out" aria-hidden="true"></i> Exit</a>
+					    <a ui-sref="ventas"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Ventas</a>
 					</li>
               </ul>
 			</div>

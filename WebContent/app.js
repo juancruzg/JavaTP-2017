@@ -1,8 +1,18 @@
 var app = angular.module('shop-management', ['ui.router', 'cfp.hotkeys']);
 
-app.config(function(hotkeysProvider) {
-  hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";
-  hotkeysProvider.templateTitle = "Puede usar los siguientes controles para una mejor experiencia:"
+app.config(function($stateProvider, $urlRouterProvider) {
+	var home = {
+		name: "home",
+		templateUrl: './areas/home/home.html',
+		url:"/home"
+	}
+	
+	$urlRouterProvider.otherwise('/home');
+	$stateProvider.state(home);
+})
+.config(function(hotkeysProvider) {
+	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";
+	hotkeysProvider.templateTitle = "Puede usar los siguientes controles para una mejor experiencia:"
 });
 
 app.controller('indexController', indexController);
