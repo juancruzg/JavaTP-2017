@@ -1,11 +1,13 @@
-Usuario -> Hecho
-Sucursal -> Falta el controlador | JUAN
-Cliente -> Falta el controlador | JUAN
-Producto | NICO
-LíneaProducto | NICO
-Talle | NICO
-Color (falta entidad) | JUAN (porque es re fácil este :D)
-Venta (falta entidad) | LEO
-DetalleVenta (falta entidad) | LEO
-Precio (falta entidad) | LEO
-TipoPago (falta entidad) | LEO o NICO, el que termine primero
+Usuario -> Hecho (JUAN)
+Sucursal -> Hecho (JUAN)
+Cliente -> Hecho (JUAN)
+Producto -> Hecho (NICO) --- Falta controlador
+LíneaProducto -> Hecho (NICO) --- Falta controlador
+Talle -> Hecho (NICO) --- Falta controlador
+Color -> Hecho (JUAN)
+Venta -> Hecho (JUAN) --- Faltan validaciones
+DetalleVenta -> Hecho (JUAN) --- Faltan validaciones
+Precio -> Hecho (NICO) --- Falta controlador
+TipoPago -> Hecho (JUAN)
+
+También hay que hacer el método para realizar una venta.

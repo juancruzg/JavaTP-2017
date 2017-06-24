@@ -25,6 +25,7 @@ public class ControladorCliente {
 		CatalogoCliente cc = new CatalogoCliente();
 		CatalogoUsuario cu = new CatalogoUsuario();
 		
+		// Instancio y construyo el cliente, busco las FK en la DB.
 		Cliente c = new Cliente();
 		
 		c.setActivo(activo);
@@ -35,8 +36,10 @@ public class ControladorCliente {
 		c.setTelefono(telefono);
 		c.setUsuarioAlta(cu.getUsuario(usuarioAlta));
 		
+		// Corren las validaciones
 		rs = validarCliente(c);
 		
+		// Si falla alguna, lanzar el error
 		if (!rs.getStatus())
 			throw rs;
 		

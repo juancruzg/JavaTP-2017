@@ -23,14 +23,17 @@ public class ControladorSucursal {
 		RespuestaServidor sr = new RespuestaServidor();
 		CatalogoSucursal cs = new CatalogoSucursal();
 		
+		// Instancio y construyo la sucursal
 		Sucursal s = new Sucursal();
 		
 		s.setDomicilio(domicilio);
 		s.setTelefono(telefono);
 		s.setId(idSucursal);
 		
+		// Corrent las validaciones
 		sr = validarSucursal(s);
-		
+
+		// Si falla alguna, lanzar el error
 		if (!sr.getStatus())
 			throw sr;
 		

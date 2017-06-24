@@ -23,14 +23,17 @@ public class ControladorColor {
 		RespuestaServidor sr = new RespuestaServidor();
 		CatalogoColor cc = new CatalogoColor();
 		
+		// Instancio y construyo el color
 		Color c = new Color();
 		
 		c.setCodigoColor(codigoColor);
 		c.setColor(color);
 		c.setId(idColor);
 		
+		// Corren las validaciones
 		sr = validarColor(c);
-		
+
+		// Si falla alguna, lanzar el error
 		if (!sr.getStatus())
 			throw sr;
 		

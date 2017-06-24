@@ -32,7 +32,7 @@ public class ControladorUsuario {
 		Usuario usuarioAlta = cu.getUsuario(usuarioUsuarioAlta);
 		Sucursal sucursal = cs.getSucursal(idSucursal);
 		
-		// Creo un nuevo usuario y llamo al método para guardar en la capa de datos
+		// Construyo el usuario y valido que no exista en la DB para crearlo. De lo contrario se edita
 		Usuario u = new Usuario();
 		
 		u.setApellido(apellido);
@@ -42,8 +42,10 @@ public class ControladorUsuario {
 		u.setUsuarioAlta(usuarioAlta);
 		u.setUsuario(usuario);
 		
+		// Corren las validaciones
 		rs = validarUsuario(u);
-		
+
+		// Si falla alguna, lanzar el error
 		if (!rs.getStatus())
 			throw rs;
 		

@@ -57,4 +57,5 @@
 <script type="text/javascript" src="./lib/ui-router/angular-ui-router.min.js"></script>
 <script type="text/javascript" src="./lib/hotkeys/hotkeys.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>
+<script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>
 

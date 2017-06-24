@@ -4,11 +4,19 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	var home = {
 		name: "home",
 		templateUrl: './areas/home/home.html',
-		url:"/home"
+		url: "/home"
+	}
+	
+	var clientes = {
+		name: "clientes",
+		templateUrl: './areas/clientes/clientes.html',
+		url: "/clientes",
+		controller: "controladorClientes",
+		controllerAs: "VMClientes"
 	}
 	
 	$urlRouterProvider.otherwise('/home');
-	$stateProvider.state(home);
+	$stateProvider.state(home).state(clientes);
 })
 .config(function(hotkeysProvider) {
 	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";
