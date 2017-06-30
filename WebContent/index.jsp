@@ -9,8 +9,9 @@
 	
 		<link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link href="./lib/hotkeys/hotkeys.min.css" rel="stylesheet">
-		<link href="./lib/custom/app.css" rel="stylesheet">
 		<link href="./lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+		<link href="./lib/custom/app.css" rel="stylesheet">
+		<link href="./lib/custom/modal.css" rel="stylesheet">
 	</head>
 	<body>
   	<body ng-app="shop-management" ng-controller="indexController as indexVm">
@@ -49,7 +50,6 @@
               </div>
           </div>
 		</div>
-			
 	</body>
 </html>
 
@@ -58,4 +58,6 @@
 <script type="text/javascript" src="./lib/hotkeys/hotkeys.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>
 <script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>
+<script type="text/javascript" src="./directivas/modal/modal.directiva.js"></script>
+<script type="text/javascript" src="./directivas/modal/modal.controlador.js"></script>
 

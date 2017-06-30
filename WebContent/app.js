@@ -3,20 +3,28 @@ var app = angular.module('shop-management', ['ui.router', 'cfp.hotkeys']);
 app.config(function($stateProvider, $urlRouterProvider) {
 	var home = {
 		name: "home",
-		templateUrl: './areas/home/home.html',
+		templateUrl: "./areas/home/home.html",
 		url: "/home"
 	}
 	
 	var clientes = {
 		name: "clientes",
-		templateUrl: './areas/clientes/clientes.html',
+		templateUrl: "./areas/clientes/clientes.html",
 		url: "/clientes",
 		controller: "controladorClientes",
 		controllerAs: "VMClientes"
 	}
 	
+	var editarClientes = {
+		name: "clientes.editar",
+		templateUrl: "./areas/clientes/clientes.editar.html",
+		url: "editar/:idCliente",
+		controller: "controladorClientes",
+		controllerAs: "VMClientes"
+	}
+	
 	$urlRouterProvider.otherwise('/home');
-	$stateProvider.state(home).state(clientes);
+	$stateProvider.state(home).state(clientes).state(editarClientes);
 })
 .config(function(hotkeysProvider) {
 	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";

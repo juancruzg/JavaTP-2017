@@ -3,7 +3,7 @@
 
   angular
       .module('shop-management')
-      .directive('shopTable', function (){
+      .directive('tabla', function (){
         return {
           restrict: 'E',
           scope: {
@@ -12,8 +12,8 @@
             'edit': '=',
             'search': '='
           },
-          templateUrl: './areas/shared/table.html',
-          controller: 'tableController',
+          templateUrl: './tabla.html',
+          controller: 'controladorTabla',
           controllerAs: 'tableVm'
         };
       });

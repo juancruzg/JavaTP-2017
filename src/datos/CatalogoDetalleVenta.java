@@ -32,16 +32,27 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 		return super.getAll(data, rs -> fetchDetalleVentaFromDB(rs));
 	}
 	
+	// TODO:Revisar este método...
 	public int insertDetalleVenta(DetalleVenta dv) throws RespuestaServidor {
+		CatalogoVenta cv = new CatalogoVenta();
 		DBData data = new DBData("INSERT INTO detalleVenta (idVenta, idProducto, cantidad, llevaAProbar, fechaDevolucion) VALUES (?, ?, ?, ?, ?)");
 		
-		data.addParameter(dv.getVenta().getId());
-		data.addParameter(dv.getProducto().getId());
-		data.addParameter(dv.getCantidad());
-		data.addParameter(dv.isLlevaAProbar());
-		data.addParameter(dv.getFechaDevolucion());
+		int guardado = 0;
 		
-		return super.save(data);
+		if (cv.getVenta(dv.getVenta().getId()) == null)
+			guardado = cv.insertVenta(dv.getVenta());
+		
+		if (guardado != 0) {
+			data.addParameter(dv.getVenta().getId());
+			data.addParameter(dv.getProducto().getId());
+			data.addParameter(dv.getCantidad());
+			data.addParameter(dv.isLlevaAProbar());
+			data.addParameter(dv.getFechaDevolucion());
+			
+			return super.save(data);
+		}
+		
+		return 0;
 	}
 	
 	public int updateDetalleVenta(DetalleVenta dv) throws RespuestaServidor {
