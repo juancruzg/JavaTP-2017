@@ -26,7 +26,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	var editarClientes = {
 		name: "clientes.editar",
 		templateUrl: "./areas/clientes/clientes.editar.html",
-		url: "editar/:idCliente",
+		url: "/editar/:idCliente",
 		controller: "controladorClientes",
 		controllerAs: "VMClientes"
 	}

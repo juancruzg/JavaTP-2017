@@ -61,9 +61,14 @@
 <script type="text/javascript" src="./lib/hotkeys/hotkeys.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>
 
+<!-- DIRECTIVES -->
+<script type="text/javascript" src="./directivas/modal/modal.directiva.js"></script>
+<script type="text/javascript" src="./directivas/modal/modal.controlador.js"></script>
+<script type="text/javascript" src="./directivas/tabla/tabla.directiva.js"></script>
+<script type="text/javascript" src="./directivas/tabla/tabla.controlador.js"></script>
+
+<!-- ABM's CONTROLLERS -->
 <script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>
 <script type="text/javascript" src="./areas/usuarios/usuarios.controlador.js"></script>
 
-<script type="text/javascript" src="./directivas/modal/modal.directiva.js"></script>
-<script type="text/javascript" src="./directivas/modal/modal.controlador.js"></script>
 

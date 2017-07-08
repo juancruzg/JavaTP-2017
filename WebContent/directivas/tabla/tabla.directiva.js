@@ -10,9 +10,10 @@
         	'data' : '=',
           	'remove': '=',
             'edit': '=',
-            'search': '='
+            'search': '=',
+            'renderizarEditar' : '='
           },
-          templateUrl: './tabla.html',
+          templateUrl: './directivas/tabla/tabla.html',
           controller: 'controladorTabla',
           controllerAs: 'tableVm'
         };
