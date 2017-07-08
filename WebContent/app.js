@@ -15,6 +15,14 @@ app.config(function($stateProvider, $urlRouterProvider) {
 		controllerAs: "VMClientes"
 	}
 	
+	var usuarios = {
+		name: "usuarios",
+		templateUrl: "./areas/usuarios/usuarios.html",
+		url: "/usuarios",
+		controller: "controladorUsuarios",
+		controllerAs: "VMUsuarios"
+	}
+	
 	var editarClientes = {
 		name: "clientes.editar",
 		templateUrl: "./areas/clientes/clientes.editar.html",
@@ -24,7 +32,12 @@ app.config(function($stateProvider, $urlRouterProvider) {
 	}
 	
 	$urlRouterProvider.otherwise('/home');
-	$stateProvider.state(home).state(clientes).state(editarClientes);
+	
+	$stateProvider
+		.state(home)
+		.state(clientes)
+		.state(usuarios)
+		.state(editarClientes);
 })
 .config(function(hotkeysProvider) {
 	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";

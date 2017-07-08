@@ -28,6 +28,9 @@
 					    <a ui-sref="clientes"><i class="fa fa-users" aria-hidden="true"></i> Clientes</a>
 					</li>
 					<li>
+					    <a ui-sref="usuarios"><i class="fa fa-users" aria-hidden="true"></i> Usuarios</a>
+					</li>
+					<li>
 					    <a ui-sref="productos"><i class="fa fa-user-secret" aria-hidden="true"></i> Productos</a>
 					</li>
 					<li>
@@ -57,7 +60,10 @@
 <script type="text/javascript" src="./lib/ui-router/angular-ui-router.min.js"></script>
 <script type="text/javascript" src="./lib/hotkeys/hotkeys.min.js"></script>
 <script type="text/javascript" src="./app.js"></script>
+
 <script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>
+<script type="text/javascript" src="./areas/usuarios/usuarios.controlador.js"></script>
+
 <script type="text/javascript" src="./directivas/modal/modal.directiva.js"></script>
 <script type="text/javascript" src="./directivas/modal/modal.controlador.js"></script>
 
