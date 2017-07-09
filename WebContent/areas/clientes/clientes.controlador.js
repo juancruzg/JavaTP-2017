@@ -12,11 +12,22 @@
 	  var vm = this;
 	  
 	  vm.renderizarEditarcliente = renderizarEditarcliente;
-	  vm.data = {"data": [{"nombre": "Leo", "apellido": "Peretti"}], "header": [{ "caption": "Nombre", "dataField": "nombre" }, { "caption": "Apellido", "dataField": "apellido" }]};
+	  vm.editarTabla = editarTabla;
+	  vm.data = {"body": 
+		  [{ "apellido": "Peretti", "nombre": "Leo", "direccion": "A la vuelta de la facu", "telefono": "iphone6" }
+		  ,{ "apellido": "Giordano", "nombre": "Nicolás", "direccion": "Santiago y Zeballos", "telefono": "12314" }
+		  ,{ "direccion": "San Lorenzo 1759", "telefono": "3444539608", "nombre": "Juan", "apellido": "Grasso"}], 
+		  
+	  "headers": 
+		  [{ "caption": "Nombre", "isVisible": true, "dataField": "nombre" }
+		  ,{ "caption": "Apellido", "isVisible": true, "dataField": "apellido" }
+		  ,{ "caption": "Dirección", "isVisible": true, "dataField": "direccion" }
+		  ,{ "caption": "Teléfono", "isVisible": true, "dataField": "telefono" }]};
+	  
 	  	  
-	  vm.editTabla = function(e){
+	  function editarTabla(e) {
 		  alert(e);
-	  };
+	  }
 	  
 	  function renderizarEditarcliente(idCliente) {
 		  if(!idCliente)

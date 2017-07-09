@@ -42,7 +42,6 @@ public class Color implements EntidadBase {
 		this.usuarioAlta = usuarioAlta;
 	}
 
-
 	public String getCodigoColor() {
 		return codigoColor;
 	}

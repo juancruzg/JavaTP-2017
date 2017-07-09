@@ -1,14 +1,14 @@
 <button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="tableVm.renderizarEditar()"><i class="fa fa-plus"></i></button> 
 <table class="table table-hover">
-	 <thead>
+	<thead>
       	<tr>
-      		<th ng-repeat="header in tableVm.data.header">{{header.caption}}</th>
+      		<th ng-repeat="header in tableVm.data.headers">{{header}}</th>
       	</tr>
     </thead>
      <tbody>
-      	<tr ng-repeat="row in tableVm.data.data">
-      		<td ng-repeat="(key, value) in row">{{value}}</td>
-      	</tr>
+     	<tr ng-repeat="row in tableVm.data.rows">
+     		<td ng-repeat="(key, value) in row" ng-if="value.hasOwnProperty('row')">{{value.row}}</td>
+     	</tr>
     </tbody>
 </table>
 
