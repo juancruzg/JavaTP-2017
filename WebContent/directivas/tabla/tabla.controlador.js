@@ -18,6 +18,7 @@
     vm.mostrarTabla = mostrarTabla;
     vm.avanzarPagina = avanzarPagina;
     vm.volverPagina = volverPagina;
+    vm.mostrarEditar = $scope.mostrarEditar;
     
     // Lo corro ni bien carga la tabla para que se muestre...
     actualizarTabla(0, 2);
@@ -48,9 +49,6 @@
     	var rows = [];
     	var headers = [];
     	
-
-    	console.log(dataSrc);
-    	
     	// Primero lleno el array de headers
     	dataSrc.headers.forEach(function(header) {
     		if (header.isVisible)
@@ -59,17 +57,19 @@
     	
     	// Después lleno el array de rows, ordenándolos de la misma manera que se muestran los headers
 		dataSrc.body.forEach(function(originalRow) {
-			var row = [];
+			var row = {};
+			
+			row.data = [];
 			
 			dataSrc.headers.forEach(function(header) {
 				if (header.isVisible) {
 					if (originalRow[header.dataField])
-						row.push({ "row": originalRow[header.dataField] });
+						row.data.push(originalRow[header.dataField]);
 				}
 			});
 			
 			// Pusheo al array la row original
-			row.push({ "originalRow": originalRow });
+			row.originalRow = originalRow;
 			
 			// Al final pusheo el Row a mi array de Rows
 			rows.push(row);

@@ -11,7 +11,7 @@
   function controladorClientes($scope, $state, $api, $tabla, $q) {
 	  var vm = this;
 	  
-	  vm.renderizarEditarcliente = renderizarEditarcliente;
+	  vm.mostrarEditar = mostrarEditar;
 	  vm.editarTabla = editarTabla;
 	  vm.listar = listar;
 	  
@@ -21,12 +21,9 @@
 		  var data = { 'paginaActual': paginaActual, 'porPagina': porPagina };
 		  
 		  var headers = [{ "caption": "Nombre", "isVisible": true, "dataField": "nombre" }
-		  ,{ "caption": "Apellido", "isVisible": true, "dataField": "apellido" }
-		  ,{ "caption": "Dirección", "isVisible": true, "dataField": "domicilio" }
-		  ,{ "caption": "Telefono", "isVisible": true, "dataField": "telefono" }];
+		  ,{ "caption": "Apellido", "isVisible": true, "dataField": "apellido" }];
 		  
 		  $api.getData("Clientes", data).then(function(data) {
-			  console.log(data.data);
 			  deferred.resolve($tabla.popularTabla(data.data, headers));
 		  });
 		  
@@ -37,9 +34,13 @@
 		  alert(e);
 	  }
 	  
-	  function renderizarEditarcliente(idCliente) {
-		  if(!idCliente)
-			  idCliente = 0;
+	  function mostrarEditar(cliente) {
+		  // Acá le estoy mandando el cliente entero, así que podríamos usarlo dirctamente para mostrarlo
+		  // o podemos usar el id para hacer un nuevo get... Elijan uds :) -Juan
+		  var idCliente = 0;
+		  
+		  if (cliente && cliente.id)
+			  idCliente = cliente.id;
 		  
 		  $state.go("clientes.editar", {"idCliente": idCliente});
 	  }

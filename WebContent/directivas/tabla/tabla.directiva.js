@@ -7,7 +7,7 @@
         return {
           restrict: 'E',
           scope: {
-          	'mostrarABM': '=',
+          	'mostrarEditar': '=',
           	'guardar': '=',
           	'listar': '='
           },
