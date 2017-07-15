@@ -7,12 +7,10 @@
       .controller('controladorTabla', controladorTabla);
 
 
-  controladorTabla.$inject = ["$scope", "$rootScope", "hotkeys", "$tabla"];
+  controladorTabla.$inject = ["$scope", "$q", "hotkeys", "$tabla"];
 
-  function controladorTabla($scope, $rootScope, hotkeys, $tabla) {
+  function controladorTabla($scope, $q, hotkeys, $tabla) {
     var vm = this;
-    
-    var totalTabla = $scope.data.totalTabla; // En el json que trae toda la data de la tabla tendría que también venir el tamaño
     
     // Tal vez... seria buena idea poder pasar como parámetro la data de paginación...
     vm.paginaActual = 0;
@@ -22,7 +20,7 @@
     vm.volverPagina = volverPagina;
     
     // Lo corro ni bien carga la tabla para que se muestre...
-    mostrarTabla($scope.data);
+    actualizarTabla(0, 2);
     
     function avanzarPagina() {
     	if (vm.paginaActual < totalTabla)
@@ -40,7 +38,7 @@
        
     function actualizarTabla(paginaActual, porPagina) {
     	$scope.listar(paginaActual, porPagina).then(function(data) {
-    		mostrarTabla($tabla.popularTabla(data, $scope.data.headers));
+    		mostrarTabla(data);
     	});   	
     }
     

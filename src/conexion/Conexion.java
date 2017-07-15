@@ -8,6 +8,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import javax.servlet.ServletContext;
+
 public class Conexion {
 	private Properties prop = new Properties();
 	private InputStream input = null;
@@ -40,7 +42,7 @@ public class Conexion {
 	
 	public Connection getConn() {
 		try {
-			input = new FileInputStream("resources/config.properties");
+			input = Thread.currentThread().getContextClassLoader().getResourceAsStream("/config.properties");
 			
 			prop.load(input);
 			

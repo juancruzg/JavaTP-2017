@@ -12,11 +12,11 @@
 			var deferred = $q.defer();
 			var queryString = "";
 		
-			// Si viene data genero el QueryString
+			// Si viene data, genero el QueryString
 			if (data) {			
 				for (var properties in data) {
-					if (queryString)
-						queryString =+ "&" + properties + "=" + data[properties];
+					if (queryString != "")
+						queryString = queryString + "&" + properties + "=" + data[properties];
 					else
 						queryString = "?" + properties + "=" + data[properties];
 				}

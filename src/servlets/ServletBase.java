@@ -1,9 +1,11 @@
 package servlets;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
@@ -28,5 +30,11 @@ public class ServletBase extends HttpServlet {
 		
 		Gson gson = new Gson();
 		return gson.fromJson(jb.toString(), T);
+	}
+	
+	protected void enviarJSON(HttpServletRequest request, HttpServletResponse response, String json) throws IOException {
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		response.getWriter().print(json);
 	}
 }

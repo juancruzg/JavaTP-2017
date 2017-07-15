@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import entidades.Cliente;
+import excepciones.RespuestaServidor;
+import negocio.ControladorCliente;
+import util.Tipos;
 
 @WebServlet("/Clientes")
 public class Clientes extends ServletBase {
@@ -20,8 +24,24 @@ public class Clientes extends ServletBase {
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*LLEGA BIEN LA DATA DEL REQUEST*/
-		String data = request.getParameter("idCliente");
+		ControladorCliente cc = new ControladorCliente();
+		
+		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
+		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
+		
+		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+		
+		try {
+			clientes = cc.getClientes(paginaActual, porPagina);
+		}
+		catch(RespuestaServidor rs) {
+			
+		}
+		
+		Gson gson = new Gson();
+		String json = gson.toJson(clientes);
+		
+		enviarJSON(request, response, json);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
