@@ -7,23 +7,51 @@
       .controller('controladorTabla', controladorTabla);
 
 
-  controladorTabla.$inject = ["$scope", "$rootScope", "hotkeys"];
+  controladorTabla.$inject = ["$scope", "$rootScope", "hotkeys", "$tabla"];
 
-  function controladorTabla($scope, $rootScope, hotkeys) {
+  function controladorTabla($scope, $rootScope, hotkeys, $tabla) {
     var vm = this;
-
-    vm.edit = $scope.edit;
-    vm.renderizarEditar = $scope.renderizarEditar;
+    
+    var totalTabla = $scope.data.totalTabla; // En el json que trae toda la data de la tabla tendría que también venir el tamaño
+    
+    // Tal vez... seria buena idea poder pasar como parámetro la data de paginación...
+    vm.paginaActual = 0;
     vm.data = null;
+    vm.mostrarTabla = mostrarTabla;
+    vm.avanzarPagina = avanzarPagina;
+    vm.volverPagina = volverPagina;
     
     // Lo corro ni bien carga la tabla para que se muestre...
-    mostrarTabla();
+    mostrarTabla($scope.data);
     
-    function mostrarTabla() {
-    	var dataSrc = $scope.data;
+    function avanzarPagina() {
+    	if (vm.paginaActual < totalTabla)
+    	vm.paginaActual ++;
+    	
+    	//actualizarTabla();
+    }
+ 
+    function volverPagina() {
+    	if (vm.paginaActual > 0)
+    	vm.paginaActual --;
+    	
+    	//actualizarTabla();
+    }
+       
+    function actualizarTabla(paginaActual, porPagina) {
+    	$scope.listar(paginaActual, porPagina).then(function(data) {
+    		mostrarTabla($tabla.popularTabla(data, $scope.data.headers));
+    	});   	
+    }
+    
+    function mostrarTabla(data) {
+    	var dataSrc = data;
     	
     	var rows = [];
     	var headers = [];
+    	
+
+    	console.log(dataSrc);
     	
     	// Primero lleno el array de headers
     	dataSrc.headers.forEach(function(header) {

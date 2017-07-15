@@ -62,7 +62,8 @@
 <script type="text/javascript" src="./app.js"></script>
 
 <!-- SERVICES -->
-<script type="text/javascript" src="./services/apiService.js"></script>
+<script type="text/javascript" src="./servicios/api.servicio.js"></script>
+<script type="text/javascript" src="./servicios/tabla.servicio.js"></script>
 
 <!-- DIRECTIVES -->
 <script type="text/javascript" src="./directivas/modal/modal.directiva.js"></script>

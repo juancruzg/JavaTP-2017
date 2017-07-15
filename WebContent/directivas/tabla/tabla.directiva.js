@@ -7,11 +7,10 @@
         return {
           restrict: 'E',
           scope: {
-        	'data' : '=',
-          	'remove': '=',
-            'edit': '=',
-            'search': '=',
-            'renderizarEditar' : '='
+        	'data': '=',
+          	'mostrarABM': '=',
+          	'guardar': '=',
+          	'listar': '='
           },
           templateUrl: './directivas/tabla/tabla.html',
           controller: 'controladorTabla',
