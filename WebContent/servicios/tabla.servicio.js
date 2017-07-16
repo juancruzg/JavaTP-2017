@@ -14,14 +14,15 @@
 				error = true;
 			}			
 			
-			//if (JSON.isJSONArray(data)) {
-				//error = true;
-			//}
+			/*if (data.constructor === [].constructor) {
+				console.log("La data enviada no es un JSON Array");
+				error = true;
+			}
 			
-			//if (JSON.isJSONArray(headers)) {
-				//error = true;
-			//}
-			
+			if (headers.constructor === [].constructor) {
+				console.log("El header enviado no es un JSON Array");
+				error = true;
+			}*/
 			if (headers.length === 0) {
 				console.log("Debe haber al menos un header...");
 				error = true;

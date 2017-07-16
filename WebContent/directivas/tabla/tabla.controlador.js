@@ -18,23 +18,24 @@
     vm.mostrarTabla = mostrarTabla;
     vm.avanzarPagina = avanzarPagina;
     vm.volverPagina = volverPagina;
+    vm.porPagina = 10;
     vm.mostrarEditar = $scope.mostrarEditar;
     
     // Lo corro ni bien carga la tabla para que se muestre...
-    actualizarTabla(0, 2);
+    actualizarTabla(0, 10);
     
     function avanzarPagina() {
     	if (vm.paginaActual < totalTabla)
     	vm.paginaActual ++;
     	
-    	//actualizarTabla();
+    	actualizarTabla(vm.paginaActual, vm.porPagina);
     }
  
     function volverPagina() {
     	if (vm.paginaActual > 0)
     	vm.paginaActual --;
     	
-    	//actualizarTabla();
+    	actualizarTabla(vm.paginaActual, vm.porPagina);
     }
        
     function actualizarTabla(paginaActual, porPagina) {
@@ -74,7 +75,7 @@
 			// Al final pusheo el Row a mi array de Rows
 			rows.push(row);
 		});
-		
+
 		vm.data = { "headers": headers, "rows": rows };
     }
   }

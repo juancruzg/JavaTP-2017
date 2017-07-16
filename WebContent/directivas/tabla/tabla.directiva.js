@@ -8,7 +8,6 @@
           restrict: 'E',
           scope: {
           	'mostrarEditar': '=',
-          	'guardar': '=',
           	'listar': '='
           },
           templateUrl: './directivas/tabla/tabla.html',
