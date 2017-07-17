@@ -1,5 +1,6 @@
 package negocio;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import datos.CatalogoCliente;
@@ -34,6 +35,7 @@ public class ControladorCliente {
 		c.setId(idCliente);
 		c.setNombre(nombre);
 		c.setTelefono(telefono);
+		c.setFechaAlta(new Timestamp(System.currentTimeMillis()));
 		c.setUsuarioAlta(cu.getUsuario(usuarioAlta));
 		
 		// Corren las validaciones

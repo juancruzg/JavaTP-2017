@@ -73,6 +73,7 @@
 
 <!-- ABM's CONTROLLERS -->
 <script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>
+<script type="text/javascript" src="./areas/clientes/clientes.editar.controlador.js"></script>
 <script type="text/javascript" src="./areas/usuarios/usuarios.controlador.js"></script>
 
 

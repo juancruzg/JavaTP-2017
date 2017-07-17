@@ -10,7 +10,6 @@
 
   function controladorClientes($scope, $state, $api, $tabla, $q) {
 	  var vm = this;
-	  
 	  vm.mostrarEditar = mostrarEditar;
 	  vm.listar = listar;
 	  
@@ -27,7 +26,9 @@
 			  // Armo los th de la tabla y se lo paso junto con la data a la promesa
 			  var headers = [
 				  { "caption": "Nombre", "isVisible": true, "dataField": "nombre" },
-				  { "caption": "Apellido", "isVisible": true, "dataField": "apellido" }
+				  { "caption": "Apellido", "isVisible": true, "dataField": "apellido" },
+				  { "caption": "Domicilio", "isVisible": true, "dataField": "domicilio" },
+				  { "caption": "Telefono", "isVisible": true, "dataField": "telefono" }
 			  ];
 			  deferred.resolve($tabla.popularTabla(data.data, headers));
 		  });
@@ -36,14 +37,9 @@
 	  }
 	  
 	  function mostrarEditar(cliente) {
-		  // Acá le estoy mandando el cliente entero, así que podríamos usarlo dirctamente para mostrarlo
-		  // o podemos usar el id para hacer un nuevo get... Elijan uds :) -Juan
-		  var idCliente = 0;
-		  
-		  if (cliente && cliente.id)
-			  idCliente = cliente.id;
-		  
-		  $state.go("clientes.editar", {"idCliente": idCliente});
+		  $state.go('clientes.editar', {"cliente": cliente})
+/*
+		  $state.go("clientes.editar", {"idCliente": idCliente});*/
 	  }
   }
 })();

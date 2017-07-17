@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import entidades.Cliente;
+import entidades.Usuario;
 import excepciones.RespuestaServidor;
 import negocio.ControladorCliente;
 import util.Tipos;
@@ -45,10 +46,19 @@ public class Clientes extends ServletBase {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ControladorCliente cc = new ControladorCliente();
+		
 		Cliente rc = (Cliente) procesarRequest(request, Cliente.class);
-		 
-		Gson gson = new Gson();
-		System.out.println(gson.toJson(rc).toString());
+		try
+		{
+			int rta = cc.saveCliente(rc.getNombre(), rc.getApellido(), rc.getId(), rc.getTelefono(), rc.getDomicilio(), rc.isActivo(), "Leonardo");
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(rta).toString());
+		} 
+		catch (RespuestaServidor e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
