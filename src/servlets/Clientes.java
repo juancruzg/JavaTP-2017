@@ -51,7 +51,6 @@ public class Clientes extends ServletBase {
 			
 			try {
 				cliente = cc.getCliente(idCliente);
-				System.out.println(cliente);
 			}
 			catch(RespuestaServidor rs) {
 				
@@ -67,28 +66,48 @@ public class Clientes extends ServletBase {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ControladorCliente cc = new ControladorCliente();
 		
-		Cliente rc = (Cliente) procesarRequest(request, Cliente.class);
+		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
+		int rta = 0;
+		
 		try
 		{
-			int rta = cc.saveCliente(rc.getNombre(), rc.getApellido(), rc.getId(), rc.getTelefono(), rc.getDomicilio(), rc.isActivo(), "Leonardo");
-			Gson gson = new Gson();
-			System.out.println(gson.toJson(rta).toString());
+			rta = cc.saveCliente(c);
 		} 
 		catch (RespuestaServidor e)
 		{
 			e.printStackTrace();
 		}
+		
+		Gson gson = new Gson();
+		System.out.println(gson.toJson(rta).toString());
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cliente rc = (Cliente) procesarRequest(request, Cliente.class);
+		ControladorCliente cc = new ControladorCliente();
 		
-		System.out.println(rc.isActivo());
+		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
+		int rta = 0;
+		
+		Usuario u = new Usuario();
+		
+		u.setUsuario("juan");
+		
+		c.setUsuarioAlta(new Usuario());
+		
+		try
+		{
+			rta = cc.saveCliente(c);
+		} 
+		catch (RespuestaServidor e)
+		{
+			e.printStackTrace();
+		}
+		
+		Gson gson = new Gson();
+		System.out.println(gson.toJson(rta).toString());
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Cliente rc = (Cliente) procesarRequest(request, Cliente.class);
-		
-		System.out.println("delete " + rc.isActivo());
+
 	}
 }

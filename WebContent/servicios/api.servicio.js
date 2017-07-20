@@ -24,7 +24,7 @@
 			
 			$http({
 				method: 'GET',
-				url: url + queryString,
+				url: url + queryString
 			})
 			.then(function(data) {
 				deferred.resolve(data);

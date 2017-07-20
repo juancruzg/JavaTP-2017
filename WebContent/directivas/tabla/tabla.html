@@ -1,6 +1,6 @@
 <button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="tableVm.mostrarEditar()"><i class="fa fa-plus"></i></button> 
 <div style="height: 300px; overflow: auto;">
-	<table class="table table-hover table-bordered">
+	<table class="table table-hover table-bordered unselectable">
 		<thead>
 	      	<tr>
 	      		<th ng-repeat="header in tableVm.data.headers">{{header}}</th>

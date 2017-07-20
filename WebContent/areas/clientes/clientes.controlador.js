@@ -6,9 +6,9 @@
       .module('shop-management')
       .controller('controladorClientes', controladorClientes);
 
-  controladorClientes.$inject = ["$scope", "$state", "$api", "$tabla", "$q"];
+  controladorClientes.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$util"];
 
-  function controladorClientes($scope, $state, $api, $tabla, $q) {
+  function controladorClientes($scope, $state, $api, $tabla, $q, $util) {
 	  var vm = this;
 	  vm.mostrarEditar = mostrarEditar;
 	  vm.listar = listar;
@@ -37,9 +37,10 @@
 	  }
 	  
 	  function mostrarEditar(cliente) {
-		  $state.go('clientes.editar', {"idCliente": cliente.id, "cliente": cliente})
-/*
-		  $state.go("clientes.editar", {"idCliente": idCliente});*/
+		  if (cliente)
+			  $state.go('clientes.editar', { "idCliente": cliente.id, "cliente": cliente });
+		  else
+			  $state.go('clientes.editar', { "idCliente": null });		  
 	  }
   }
 })();
