@@ -225,3 +225,11 @@ hr.body-separator {
 	-ms-user-select: none;
 	user-select: none;
 }
+
+.tabla-puntero tr {
+	cursor: pointer;
+}
+
+.selected {
+	background-color: #8064A2;
+}

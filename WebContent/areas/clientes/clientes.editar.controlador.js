@@ -18,22 +18,20 @@
 	  vm.cancelar = cancelar;
 	  
 	  function guardar() {
+		  var promesa;
+		  
 		  if (vm.clienteSeleccionado && vm.clienteSeleccionado.id && vm.clienteSeleccionado.id != 0) { 
 			  // Si ya existe, lo edito.
-			  $api.postData("Clientes", vm.clienteSeleccionado).then(function(data) {
-				  // Vuelvo al padre.
-				  $state.go('^', null, { 'reload': true });
-				  $util.scrollTo(document.body, 0, 500);		  
-			  });
+			  promesa = $api.postData("Clientes", vm.clienteSeleccionado);
 		  }
 		  else {
 			  // Si no existe lo creo.
-			  $api.putData("Clientes", vm.clienteSeleccionado).then(function(data) {
-				  // Vuelvo al padre.
-				  $state.go('clientes', null, { 'reload': true });
-				  $util.scrollTo(document.body, 0, 500);		  
-			  });
+			  promesa = $api.putData("Clientes", vm.clienteSeleccionado);
 		  }
+		  
+		  promesa.then(function (data) {
+			  $state.go('clientes', null, { 'reload': true });	  
+		  });
 	  };
 	  
 	  function seleccionarCliente() {

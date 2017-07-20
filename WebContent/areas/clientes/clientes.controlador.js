@@ -10,6 +10,7 @@
 
   function controladorClientes($scope, $state, $api, $tabla, $q, $util) {
 	  var vm = this;
+	  
 	  vm.mostrarEditar = mostrarEditar;
 	  vm.listar = listar;
 	  
@@ -36,9 +37,10 @@
 		  return deferred.promise;
 	  }
 	  
-	  function mostrarEditar(cliente) {
-		  if (cliente)
+	  function mostrarEditar(cliente) {		  
+		  if (cliente) {
 			  $state.go('clientes.editar', { "idCliente": cliente.id, "cliente": cliente });
+		  }
 		  else
 			  $state.go('clientes.editar', { "idCliente": null });		  
 	  }

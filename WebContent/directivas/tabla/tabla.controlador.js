@@ -19,10 +19,34 @@
     vm.avanzarPagina = avanzarPagina;
     vm.volverPagina = volverPagina;
     vm.porPagina = 10;
-    vm.mostrarEditar = $scope.mostrarEditar;
+    vm.mostrarEditar = mostrarEditar;
+    vm.rowSeleccionado = null;
     
     // Lo corro ni bien carga la tabla para que se muestre...
     actualizarTabla(0, 10);
+    
+    
+    hotkeys.bindTo($scope).add({
+        combo: 'right',
+        description: 'Navegar a la derecha en la tabla',
+        allowIn: ['INPUT'],
+        callback: function() {
+        	avanzarPagina();
+        }
+      }).add({
+        combo: 'left',
+        description: 'Navegar a la izquierda en la tabla',
+        allowIn: ['INPUT'],
+        callback: function() {
+        	volverPagina();
+        }
+      }).add({
+        combo: '+',
+        description: 'Agregar un nuevo registro',
+        callback: function() {
+            $scope.mostrarEditar(null);
+        }
+      });
     
     function avanzarPagina() {
     	if (vm.paginaActual < totalTabla)
@@ -77,6 +101,12 @@
 		});
 
 		vm.data = { "headers": headers, "rows": rows };
+    }
+    
+    function mostrarEditar(row) {
+    	vm.rowSeleccionado = row;
+    	
+    	$scope.mostrarEditar(row);
     }
   }
 })();
