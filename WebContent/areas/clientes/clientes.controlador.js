@@ -37,7 +37,7 @@
 	  }
 	  
 	  function mostrarEditar(cliente) {
-		  $state.go('clientes.editar', {"cliente": cliente})
+		  $state.go('clientes.editar', {"idCliente": cliente.id, "cliente": cliente})
 /*
 		  $state.go("clientes.editar", {"idCliente": idCliente});*/
 	  }

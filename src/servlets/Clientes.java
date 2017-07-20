@@ -27,20 +27,39 @@ public class Clientes extends ServletBase {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ControladorCliente cc = new ControladorCliente();
 		
+		String json;
+		
 		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
 		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
-		
-		ArrayList<Cliente> clientes = new ArrayList<Cliente>();
-		
-		try {
-			clientes = cc.getClientes(paginaActual, porPagina);
-		}
-		catch(RespuestaServidor rs) {
+		int idCliente = Tipos.toInt(request.getParameter("idCliente"));
+
+		if (idCliente == 0) {
+			ArrayList<Cliente> clientes = new ArrayList<Cliente>();
 			
+			try {
+				clientes = cc.getClientes(paginaActual, porPagina);
+			}
+			catch(RespuestaServidor rs) {
+				
+			}
+			
+			Gson gson = new Gson();
+			json = gson.toJson(clientes);
 		}
-		
-		Gson gson = new Gson();
-		String json = gson.toJson(clientes);
+		else {
+			Cliente cliente = new Cliente();
+			
+			try {
+				cliente = cc.getCliente(idCliente);
+				System.out.println(cliente);
+			}
+			catch(RespuestaServidor rs) {
+				
+			}
+			
+			Gson gson = new Gson();
+			json = gson.toJson(cliente);
+		}
 		
 		enviarJSON(request, response, json);
 	}

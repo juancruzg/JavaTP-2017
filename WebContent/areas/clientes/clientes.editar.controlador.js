@@ -1,7 +1,6 @@
 (function() {
   'use strict';
   
-  // Create module and controller
   angular
       .module('shop-management')
       .controller('controladorClientesEditar', controladorClientesEditar);
@@ -10,16 +9,28 @@
 
   function controladorClientesEditar($scope, $state, $api, $tabla, $q, $stateParams) {
 	  var vm = this;
-	  vm.clienteSeleccionado = $stateParams.cliente;
+	  
+	  if ($stateParams.cliente)
+		  vm.clienteSeleccionado = $stateParams.cliente;
+	  else
+		  buscarCliente($stateParams.idCliente);
 	  
 	  vm.onClickGuardar = onClickGuardar;
 	  
 	  function onClickGuardar(cliente){
-		  
 		  $api.postData("Clientes", cliente).then(function(data) {
 			
 			
 		  });
 	  };
+	  
+	  function buscarCliente(idCliente) {
+		  $api.getData("Clientes", { "idCliente": idCliente }).then(function(data) {
+			  if (data && data.data)
+				  vm.clienteSeleccionado = data.data;	
+			  else
+				  vm.clienteSeleccionado = null; // En realidad acá debería dar 404...
+		  });
+	  }
   }
 })();
