@@ -67,44 +67,52 @@ public class Clientes extends ServletBase {
 		ControladorCliente cc = new ControladorCliente();
 		
 		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
-		int rta = 0;
+		RespuestaServidor sr = new RespuestaServidor();
+		int nro = 0;
 		
 		try
 		{
-			rta = cc.saveCliente(c);
+			nro = cc.saveCliente(c);
 		} 
 		catch (RespuestaServidor e)
 		{
-			e.printStackTrace();
+			sr = e;
 		}
 		
-		Gson gson = new Gson();
-		System.out.println(gson.toJson(rta).toString());
+		Respuesta rta = new Respuesta();
+		
+		rta.setData(nro);
+		rta.setErrores(sr.getErrores());
+		
+		enviarJSON(request, response, rta.toJson());
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ControladorCliente cc = new ControladorCliente();
 		
 		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
-		int rta = 0;
+		RespuestaServidor sr = new RespuestaServidor();
+		int nro = 0;
 		
 		Usuario u = new Usuario();
-		
 		u.setUsuario("juan");
-		
 		c.setUsuarioAlta(new Usuario());
 		
 		try
 		{
-			rta = cc.saveCliente(c);
+			nro = cc.saveCliente(c);
 		} 
 		catch (RespuestaServidor e)
 		{
-			e.printStackTrace();
+			sr = e;
 		}
 		
-		Gson gson = new Gson();
-		System.out.println(gson.toJson(rta).toString());
+		Respuesta rta = new Respuesta();
+		
+		rta.setData(nro);
+		rta.setErrores(sr.getErrores());
+		
+		enviarJSON(request, response, rta.toJson());
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

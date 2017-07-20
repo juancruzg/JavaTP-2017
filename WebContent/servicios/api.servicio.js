@@ -48,7 +48,12 @@
 		        data: JSON.stringify(data),
 		    })
 		    .then(function(data) {
-		  		deferred.resolve(data);
+		    	if (data.data.errores) {
+		    		listarErrores(data.data.errores);
+		    		deferred.reject;
+		    	}
+		    	else
+		    		deferred.resolve(data.data.data);
 		  	})
 		  	.catch(function(info) {
 		  		if(info.status == 404)
@@ -69,7 +74,12 @@
 		        data: JSON.stringify(data),
 		    })
 		    .then(function(data) {
-		  		deferred.resolve(data);
+		    	if (data.data.errores) {
+		    		listarErrores(data.data.errores);
+		    		deferred.reject;
+		    	}
+		    	else
+		    		deferred.resolve(data.data.data);
 		  	})
 		  	.catch(function(info) {
 		  		if(info.status == 404)
@@ -90,7 +100,12 @@
 			            data: JSON.stringify(data),
 			        })
 		        .then(function(data) {
-		      		deferred.resolve(data);
+		        	if (data.data.errores) {
+			    		listarErrores(data.data.errores);
+			    		deferred.reject;
+			    	}
+			    	else
+			    		deferred.resolve(data.data.data);
 		      	})
 		      	.catch(function(info) {
 		      		if(info.status == 404)
@@ -99,5 +114,11 @@
 		      	
 	      	return deferred.promise;
     	};
+	
+    	function listarErrores(errores) {
+    		errores.forEach(function(error) {
+    			console.log(error.mensajeError);
+    		});
+    	}
 	}
 })();

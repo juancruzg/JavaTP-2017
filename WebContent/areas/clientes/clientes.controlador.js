@@ -31,6 +31,7 @@
 				  { "caption": "Domicilio", "isVisible": true, "dataField": "domicilio" },
 				  { "caption": "Telefono", "isVisible": true, "dataField": "telefono" }
 			  ];
+			  
 			  deferred.resolve($tabla.popularTabla(data.data, headers));
 		  });
 		  

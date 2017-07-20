@@ -9,7 +9,7 @@ import excepciones.RespuestaServidor;
 
 public class CatalogoCliente extends CatalogoBase {
 	public Cliente getCliente(int idCliente) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM cliente WHERE id = ?");
+		DBData data = new DBData("SELECT * FROM cliente WHERE id = ? AND activo = 1");
 		
 		data.addParameter(idCliente);
 		
@@ -17,13 +17,13 @@ public class CatalogoCliente extends CatalogoBase {
 	}
 	
 	public ArrayList<Cliente> getClientes() throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM cliente");
+		DBData data = new DBData("SELECT * FROM cliente WHERE activo = 1");
 		
 		return super.getAll(data, rs -> fetchClienteFromDB(rs));
 	}
 	
 	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM cliente LIMIT ?, ?");
+		DBData data = new DBData("SELECT * FROM cliente WHERE activo = 1 LIMIT ?, ?");
 		
 		data.addParameter(paginaAtual);
 		data.addParameter(porPagina);
