@@ -1,0 +1,24 @@
+<hr>
+<form>
+  <div class="form-group">
+    <label>Nombre:</label>
+    <input type="text" ng-model="VMClientesEditar.clienteSeleccionado.nombre" class="form-control">
+  </div>
+  <div class="form-group">
+    <label>Apellido:</label>
+    <input type="text" ng-model="VMClientesEditar.clienteSeleccionado.apellido" class="form-control">
+  </div>
+   <div class="form-group">
+    <label>Tel�fono:</label>
+    <input type="text" ng-model="VMClientesEditar.clienteSeleccionado.telefono" class="form-control">
+  </div>
+   <div class="form-group">
+    <label>Domicilio:</label>
+    <input type="text" ng-model="VMClientesEditar.clienteSeleccionado.domicilio" class="form-control">
+  </div>
+  <div class="checkbox">
+    <label><input type="checkbox">Inactivo</label>
+  </div>
+  <button style="float:right;" type="submit" class="btn btn-success" ng-click="VMClientesEditar.guardar()">Guardar</button>
+  <button style="float:right;" type="submit" class="btn btn-default" ng-click="VMClientesEditar.cancelar()">Cancelar</button>
+</form>

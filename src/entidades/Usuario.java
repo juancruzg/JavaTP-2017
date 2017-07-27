@@ -84,6 +84,6 @@ public class Usuario implements EntidadBase {
 	/* Public Methods */
 	
 	public String toJson() {
-		return "";
+		return null;
 	}
 }

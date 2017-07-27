@@ -1,27 +1,17 @@
-<button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="tableVm.edit()"><i class="fa fa-plus"></i></button> 
-<div class="table-responsive" style="height: 377px">
-  <table class="table">
-    <thead>
-      <tr>
-        <th ng-repeat="header in tableVm.data.headers track by $index">{{ header }}</th>
-        <th width="30%">
-          <div class="input-group pull-right" style="">
-            <span class="input-group-addon" id="basic-addon1"><i class="fa fa-search"></i></span>
-            <input type="text" class="form-control" aria-describedby="basic-addon1" ng-model="tableVm.searchText" ng-change="tableVm.searchTestChanged()">
-          </div>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="row in tableVm.content track by $index">
-        <td ng-repeat="(key, value) in row track by $index" ng-if="$index !== 0">{{ value }}</td>
-        <td>
-          <button type="button" class="btn btn-success pull-right" ng-click="tableVm.remove(row)"><i class="fa fa-trash-o"></i></button>
-          <button type="button" class="btn btn-default pull-right" ng-click="tableVm.edit(row)"><i class="fa fa-pencil-square-o"></i></button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="tableVm.mostrarEditar()"><i class="fa fa-plus"></i></button> 
+<div style="height: 300px; overflow: auto;">
+	<table class="table table-hover table-bordered tabla-puntero unselectable">
+		<thead>
+	      	<tr>
+	      		<th ng-repeat="header in tableVm.data.headers">{{header}}</th>
+	      	</tr>
+	    </thead>
+	     <tbody>
+	     	<tr ng-repeat="row in tableVm.data.rows" ng-click="tableVm.mostrarEditar(row.originalRow)" ng-class="{ selected: (row.originalRow === tableVm.rowSeleccionado) }">
+	     		<td ng-repeat="(key, value) in row.data track by $index">{{value}}</td>
+	     	</tr>
+	    </tbody>
+	</table>
 </div>
 <div class="row">
   <div class="col-md-10">
@@ -29,7 +19,7 @@
     <span>Página actual: <b>{{ tableVm.currentPage + 1 }}</b></span>
     <button class="btn btn-link" ng-click="tableVm.nextPage();">Siguiente <i class="fa fa-arrow-right"></i></button>
   </div>
-  <div class="col-md-2">
+ <div class="col-md-2">
     <br>
     <span class="pull-right">Total: <b>{{ tableVm.totalPages }} páginas</b></span>
   </div>

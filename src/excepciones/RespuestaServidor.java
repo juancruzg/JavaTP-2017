@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class RespuestaServidor extends Exception {
 	private static final long serialVersionUID = 1L;
 	
-	ArrayList<ErrorServidor> errores;
+	private ArrayList<ErrorServidor> errores;
+	private boolean status;
 	
 	public String toString() {
 		String ret;
@@ -34,7 +35,8 @@ public class RespuestaServidor extends Exception {
 	}
 	
 	public boolean getStatus() {
-		return errores == null || errores.isEmpty();
+		status = errores == null || errores.isEmpty();
+		return status;
 	}
 	
 	public ArrayList<ErrorServidor> getErrores() {

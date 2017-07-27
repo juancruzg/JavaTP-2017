@@ -4,94 +4,109 @@
   // Create module and controller
   angular
       .module('shop-management')
-      .controller('tableController', tableController);
+      .controller('controladorTabla', controladorTabla);
 
 
-  tableController.$inject = ["$scope", "$rootScope", "hotkeys"];
+  controladorTabla.$inject = ["$scope", "$q", "hotkeys", "$tabla"];
 
-  function tableController($scope, $rootScope, hotkeys) {
+  function controladorTabla($scope, $q, hotkeys, $tabla) {
     var vm = this;
-
-    vm.currentPage = 0;
-    vm.totalPages = 0;
     
-    vm.data = $scope.data;
-    vm.remove = $scope.remove;
-    vm.edit = $scope.edit;
+    // Tal vez... seria buena idea poder pasar como parámetro la data de paginación...
+    vm.paginaActual = 0;
+    vm.data = null;
+    vm.mostrarTabla = mostrarTabla;
+    vm.avanzarPagina = avanzarPagina;
+    vm.volverPagina = volverPagina;
+    vm.porPagina = 10;
+    vm.mostrarEditar = mostrarEditar;
+    vm.rowSeleccionado = null;
     
-    vm.nextPage = nextPage;
-    vm.previousPage = previousPage;
-    vm.searchTestChanged = searchTestChanged;
-    vm.content = null;
-
-    showList(vm.currentPage);
-
+    // Lo corro ni bien carga la tabla para que se muestre...
+    actualizarTabla(0, 10);
+    
+    
     hotkeys.bindTo($scope).add({
-      combo: 'right',
-      description: 'Navegar a la derecha en la tabla',
-      allowIn: ['INPUT'],
-      callback: function() {
-        nextPage();
-      }
-    }).add({
-      combo: 'left',
-      description: 'Navegar a la izquierda en la tabla',
-      allowIn: ['INPUT'],
-      callback: function() {
-        previousPage();
-      }
-    }).add({
-      combo: '+',
-      description: 'Agregar un nuevo registro',
-      callback: function() {
-        vm.edit();
-      }
-    });
-
-    function nextPage() {
-      if (vm.currentPage < vm.totalPages - 1)
-      {
-        vm.currentPage++;
-
-        if (!vm.searchText || vm.searchText === "")
-          showList(vm.currentPage);
-        else
-          search(vm.currentPage);
-      }
-    }
-
-    function previousPage() {
-      if (vm.currentPage > 0) {
-        vm.currentPage--;
-
-        if (!vm.searchText || vm.searchText === "")
-          showList(vm.currentPage);
-        else
-          search(vm.currentPage);
-      }
-    }
-
-    function search(currentPage) {
-      var searchText = vm.searchText;
-
-      $scope.search(searchText, currentPage, function(content, numOfRows) {
-        vm.content = content;
-        vm.totalPages = Math.ceil(numOfRows/6);
-        $scope.$apply();
+        combo: 'right',
+        description: 'Navegar a la derecha en la tabla',
+        allowIn: ['INPUT'],
+        callback: function() {
+        	avanzarPagina();
+        }
+      }).add({
+        combo: 'left',
+        description: 'Navegar a la izquierda en la tabla',
+        allowIn: ['INPUT'],
+        callback: function() {
+        	volverPagina();
+        }
+      }).add({
+        combo: '+',
+        description: 'Agregar un nuevo registro',
+        callback: function() {
+            $scope.mostrarEditar(null);
+        }
       });
+    
+    function avanzarPagina() {
+    	if (vm.paginaActual < totalTabla)
+    	vm.paginaActual ++;
+    	
+    	actualizarTabla(vm.paginaActual, vm.porPagina);
     }
-
-    function showList(currentPage) {
-      $scope.data.list(currentPage).then(function (content) {
-        vm.content = content.list;
-        vm.totalPages = Math.ceil(content.numOfRows/6); //numOfRows
-        $scope.$apply();
-      });
+ 
+    function volverPagina() {
+    	if (vm.paginaActual > 0)
+    	vm.paginaActual --;
+    	
+    	actualizarTabla(vm.paginaActual, vm.porPagina);
     }
+       
+    function actualizarTabla(paginaActual, porPagina) {
+    	$scope.listar(paginaActual, porPagina).then(function(data) {
+    		mostrarTabla(data);
+    	});   	
+    }
+    
+    function mostrarTabla(data) {
+    	var dataSrc = data;
+    	
+    	var rows = [];
+    	var headers = [];
+    	
+    	// Primero lleno el array de headers
+    	dataSrc.headers.forEach(function(header) {
+    		if (header.isVisible)
+    			headers.push(header.caption);
+    	});
+    	
+    	// Después lleno el array de rows, ordenándolos de la misma manera que se muestran los headers
+		dataSrc.body.forEach(function(originalRow) {
+			var row = {};
+			
+			row.data = [];
+			
+			dataSrc.headers.forEach(function(header) {
+				if (header.isVisible) {
+					if (originalRow[header.dataField])
+						row.data.push(originalRow[header.dataField]);
+				}
+			});
+			
+			// Pusheo al array la row original
+			row.originalRow = originalRow;
+			
+			// Al final pusheo el Row a mi array de Rows
+			rows.push(row);
+		});
 
-    function searchTestChanged() {
-      vm.currentPage = 0;
-      search(0);
+		vm.data = { "headers": headers, "rows": rows };
+    }
+    
+    function mostrarEditar(row) {
+    	vm.rowSeleccionado = row;
+    	
+    	$scope.mostrarEditar(row);
     }
   }
 })();

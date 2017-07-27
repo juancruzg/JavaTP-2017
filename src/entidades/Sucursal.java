@@ -45,6 +45,12 @@ public class Sucursal implements EntidadBase {
 	/* Public Methods */
 	
 	public String toJson() {
-		return "";
+		String json = "{ " + 
+				"\"domicilio\": \"" + this.domicilio + "\"" +
+				"\"id\": " + this.id +
+				"\"telefono\" : \"" + this.telefono + "\" " + 
+				"}";
+		
+		return json;
 	}
 }

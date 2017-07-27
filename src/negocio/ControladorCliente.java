@@ -1,5 +1,6 @@
 package negocio;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import datos.CatalogoCliente;
@@ -21,8 +22,6 @@ public class ControladorCliente {
 	}
 	
 	public int saveCliente(String nombre, String apellido, int idCliente, String telefono, String domicilio, boolean activo, String usuarioAlta) throws RespuestaServidor {
-		RespuestaServidor rs = new RespuestaServidor();
-		CatalogoCliente cc = new CatalogoCliente();
 		CatalogoUsuario cu = new CatalogoUsuario();
 		
 		// Instancio y construyo el cliente, busco las FK en la DB.
@@ -34,8 +33,16 @@ public class ControladorCliente {
 		c.setId(idCliente);
 		c.setNombre(nombre);
 		c.setTelefono(telefono);
+		c.setFechaAlta(new Timestamp(System.currentTimeMillis()));
 		c.setUsuarioAlta(cu.getUsuario(usuarioAlta));
 		
+		return saveCliente(c);
+	}
+	
+	public int saveCliente(Cliente c) throws RespuestaServidor {
+		RespuestaServidor rs = new RespuestaServidor();
+		CatalogoCliente cc = new CatalogoCliente();
+
 		// Corren las validaciones
 		rs = validarCliente(c);
 		
@@ -43,7 +50,7 @@ public class ControladorCliente {
 		if (!rs.getStatus())
 			throw rs;
 		
-		if (idCliente == 0)
+		if (c.getId() == 0)
 			return cc.insertCliente(c);
 		else
 			return cc.updateCliente(c);
