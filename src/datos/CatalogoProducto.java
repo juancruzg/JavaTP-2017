@@ -33,19 +33,21 @@ public class CatalogoProducto extends CatalogoBase {
 	}
 	
 	public int insertProducto(Producto producto) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO producto (id, descripcion,usuarioAlta) VALUES (?, ?, ?)");
+		DBData data = new DBData("INSERT INTO producto (id, descripcion,usuarioAlta,activo) VALUES (?, ?, ?, ?)");
 		
 		data.addParameter(producto.getId());
 		data.addParameter(producto.getDescripcion());
 		data.addParameter(producto.getUsuarioAlta());
+		data.addParameter(producto.isActivo());
 		
 		return super.save(data);
 	}
 	
 	public int updateProducto(Producto producto) throws RespuestaServidor {
-		DBData data = new DBData("UPDATE producto SET descripcion = ? WHERE id = ?");
+		DBData data = new DBData("UPDATE producto SET descripcion = ?, activo = ? WHERE id = ?");
 		
 		data.addParameter(producto.getDescripcion());
+		data.addParameter(producto.isActivo());
 		data.addParameter(producto.getId());
 		
 		return super.save(data);
@@ -61,6 +63,7 @@ public class CatalogoProducto extends CatalogoBase {
 	    	prod.setId(rs.getInt("id"));
 	    	prod.setDescripcion(rs.getString("denominacion"));
 	    	prod.setPrecio(cp.getUltimoPrecio(prod.getId()));
+	    	prod.setActivo(rs.getBoolean("activo"));
 	    	prod.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));	
 	    }
 	    catch (SQLException | RespuestaServidor ex) {
