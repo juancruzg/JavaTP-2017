@@ -90,7 +90,6 @@ public abstract class CatalogoBase {
                 rs = ((PreparedStatement)st).executeQuery();
         	}
         	
-            
             if (rs.next())
                 result = (T) converter.createFromDB(rs);
         }

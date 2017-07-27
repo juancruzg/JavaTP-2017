@@ -5,6 +5,7 @@ public class Producto implements EntidadBase {
 	private String descripcion;
 	private Precio precio;
 	private Usuario usuarioAlta;
+	private boolean activo;
 	
 	/* Constructors */
 	
@@ -44,7 +45,15 @@ public class Producto implements EntidadBase {
 	public void setPrecio(Precio precio) {
 		this.precio = precio;
 	}
+	
+	public boolean isActivo() {
+		return activo;
+	}
 
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+	
 	public Usuario getUsuarioAlta(){
 		return usuarioAlta;
 	}
@@ -52,6 +61,7 @@ public class Producto implements EntidadBase {
 	public void setUsuarioAlta(Usuario usuario){
 		this.usuarioAlta = usuario;
 	}
+	
 
 	/* Public Methods */
 	

@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS sucursal (
   id int NOT NULL AUTO_INCREMENT,
   domicilio varchar(100),
   telefono varchar(20),
+  activo boolean,
   PRIMARY KEY (id)
 );
 
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS usuario (
   idSucursal int,
   usuarioAlta varchar(20),
   fechaAlta datetime,
+  activo boolean,
   PRIMARY KEY (usuario),
   CONSTRAINT fk_usuario_usuario FOREIGN KEY (usuarioAlta) REFERENCES usuario (usuario),
   CONSTRAINT fk_usuario_sucursal FOREIGN KEY (idSucursal) REFERENCES sucursal (id)
@@ -40,6 +42,7 @@ CREATE TABLE IF NOT EXISTS producto (
   descripcion varchar(50),
   usuarioAlta varchar(20),
   fechaAlta datetime,
+  activo boolean,
   PRIMARY KEY (id),
   CONSTRAINT fk_producto_usuario FOREIGN KEY (usuarioAlta) REFERENCES usuario (usuario)
 );
@@ -101,9 +104,11 @@ CREATE TABLE IF NOT EXISTS venta (
   idCliente int NOT NULL,
   idTipoPago int NOT NULL,
   fecha datetime,
+  idEstado int,
   PRIMARY KEY (id),
   CONSTRAINT fk_venta_cliente FOREIGN KEY (idCliente) REFERENCES cliente (id),
   CONSTRAINT fk_venta_tipoPago FOREIGN KEY (idTipoPago) REFERENCES tipoPago (id)
+  CONSTRAINT fk_venta_estado FOREIGN KEY (idEstado) REFERENCES estado (id)
 );
 
 CREATE TABLE IF NOT EXISTS detalleVenta (
@@ -115,4 +120,10 @@ CREATE TABLE IF NOT EXISTS detalleVenta (
   PRIMARY KEY (idVenta, idProducto),
   CONSTRAINT fk_detalleVenta_venta FOREIGN KEY (idVenta) REFERENCES venta (id),
   CONSTRAINT fk_detalleVenta_producto FOREIGN KEY (idProducto) REFERENCES producto (id)
+);
+
+CREATE TABLE IF NOT EXISTS estado (
+  id int NOT NULL AUTO_INCREMENT,
+  estado varchar(20),
+  PRIMARY KEY (id)	
 );
