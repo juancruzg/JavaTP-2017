@@ -1,13 +1,33 @@
 Usuario -> Hecho (JUAN)
 Sucursal -> Hecho (JUAN)
 Cliente -> Hecho (JUAN)
-Producto -> Hecho (NICO) --- Falta controlador
-LíneaProducto -> Hecho (NICO) --- Falta controlador
-Talle -> Hecho (NICO) --- Falta controlador
+Producto -> Hecho (NICO)
+LíneaProducto -> Hecho (NICO)
+Talle -> Hecho (NICO)
 Color -> Hecho (JUAN)
-Venta -> Hecho (JUAN) --- Faltan validaciones
-DetalleVenta -> Hecho (JUAN) --- Faltan validaciones
-Precio -> Hecho (NICO) --- Falta controlador
+Venta -> Hecho (JUAN)
+DetalleVenta -> Hecho (JUAN)
+Precio -> Hecho (NICO)
 TipoPago -> Hecho (JUAN)
 
-También hay que hacer el método para realizar una venta.
+----------------------------------------------------
+FRONT END (Ordenados por prioridad)
+----------------------------------------------------
+
+•ABMClientes -> Falta sólo la baja. El resto tiene pinta de estar funcionando bien
+•ABMUsuarios
+•ABMProductos/línea/precio
+•Venta (Este va a ser el más complicado de todos. Creo que en mi otro proyecto se los mostré, pero yo había hecho un miniwizard.)
+•Reporte de Ventas || Filtros: fecha, cliente, usuario)
+•Reporte estadístico de productos vendidos
+•Reporte estadístico de clientes más concurrentes
+•ABMTalle (Parece que no, pero por ahí podemos dejarle la carga de talles al cliente... No hay un estandar único)
+•*ABMColor (Acá dejenmé aclarar que tengo una idea medio loca, pero este ABM iría medio mezclado con el de productos)
+
+----------------------------------------------------
+
+•Código compartido:
+•Directiva datepicker (un txt con un selector de fecha)
+•Directiva daterange (esta no la veo tan necesaria, pero si a Leo le copa, que la haga :D, sería para elegir entre un rango de fechas y poder obtener valores útiles, tipo cantidad de días entre medio, fecha inicial, fecha final, etc.)
+•Directiva combo (esta no la veo tampoco muy necesaria, pero lo mismo que antes, si se hace algo copado nos puede facilitar la vida imagino)
+

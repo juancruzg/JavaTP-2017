@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="tableVm.mostrarEditar()"><i class="fa fa-plus"></i></button> 
 <div style="height: 300px; overflow: auto;">
-	<table class="table table-hover table-bordered tabla-puntero unselectable">
+	<table class="table table-hover table-bordered unselectable">
 		<thead>
 	      	<tr>
 	      		<th ng-repeat="header in tableVm.data.headers">{{header}}</th>
 	      	</tr>
 	    </thead>
-	     <tbody>
+	     <tbody class="tabla-puntero">
 	     	<tr ng-repeat="row in tableVm.data.rows" ng-click="tableVm.mostrarEditar(row.originalRow)" ng-class="{ selected: (row.originalRow === tableVm.rowSeleccionado) }">
 	     		<td ng-repeat="(key, value) in row.data track by $index">{{value}}</td>
 	     	</tr>

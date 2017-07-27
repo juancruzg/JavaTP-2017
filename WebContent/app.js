@@ -1,6 +1,14 @@
-var app = angular.module('shop-management', ['ui.router', 'cfp.hotkeys']);
+var app = angular.module('shop-management', ['ui.router', 'ngAnimate', 'ngSanitize', 'ngToast', 'cfp.hotkeys']);
 
-app.config(function($stateProvider, $urlRouterProvider) {
+app
+.config(['ngToastProvider', function(ngToast) {
+    ngToast.configure({
+      animation: 'slide',
+      maxNumber: 0,
+      combineDuplications: true
+    });
+  }])
+.config(function($stateProvider, $urlRouterProvider) {
 	var home = {
 		name: "home",
 		templateUrl: "./areas/home/home.html",

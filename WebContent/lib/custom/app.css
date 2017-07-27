@@ -233,3 +233,13 @@ hr.body-separator {
 .selected {
 	background-color: #8064A2;
 }
+
+/* Listas */
+.list-group-item:hover {
+    background-color: #8064A2;
+}
+
+.list-group-item {
+	cursor: pointer;
+	color: black;
+}

@@ -8,6 +8,7 @@
 		<title>Negocio Ropa v1.0</title>
 	
 		<link href="./lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="./lib/ng-toast/ngToast.min.css" rel="stylesheet">
 		<link href="./lib/hotkeys/hotkeys.min.css" rel="stylesheet">
 		<link href="./lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="./lib/custom/app.css" rel="stylesheet">
@@ -15,6 +16,7 @@
 	</head>
 	<body>
   	<body ng-app="shop-management" ng-controller="indexController as indexVm">
+  		<toast></toast>
   		<div id="wrapper" ng-class="{'toggled': indexVm.menuToggled}">
 			<div id="sidebar-wrapper">
 				<ul class="sidebar-nav">
@@ -57,8 +59,13 @@
 </html>
 
 <script type="text/javascript" src="./lib/angular/angular.min.js"></script>
+<script type="text/javascript" src="./lib/angular/angular-animate.min.js"></script>
+<script type="text/javascript" src="./lib/angular/angular-sanitize.min.js"></script>
+
 <script type="text/javascript" src="./lib/ui-router/angular-ui-router.min.js"></script>
+<script type="text/javascript" src="./lib/ng-toast/ngToast.min.js"></script>
 <script type="text/javascript" src="./lib/hotkeys/hotkeys.min.js"></script>
+
 <script type="text/javascript" src="./app.js"></script>
 
 <!-- SERVICES -->
@@ -71,6 +78,8 @@
 <script type="text/javascript" src="./directivas/modal/modal.controlador.js"></script>
 <script type="text/javascript" src="./directivas/tabla/tabla.directiva.js"></script>
 <script type="text/javascript" src="./directivas/tabla/tabla.controlador.js"></script>
+<script type="text/javascript" src="./directivas/selector/selector.directiva.js"></script>
+<script type="text/javascript" src="./directivas/selector/selector.controlador.js"></script>
 
 <!-- ABM's CONTROLLERS -->
 <script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>

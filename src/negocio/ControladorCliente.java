@@ -21,6 +21,12 @@ public class ControladorCliente {
 		return cc.getClientes(paginaActual, porPagina);
 	}
 	
+	public ArrayList<Cliente> getClientes(int paginaActual, int porPagina, String query) throws RespuestaServidor {
+		CatalogoCliente cc = new CatalogoCliente();
+		
+		return cc.getClientes(paginaActual, porPagina, query);
+	}
+	
 	public int saveCliente(String nombre, String apellido, int idCliente, String telefono, String domicilio, boolean activo, String usuarioAlta) throws RespuestaServidor {
 		CatalogoUsuario cu = new CatalogoUsuario();
 		
@@ -69,7 +75,7 @@ public class ControladorCliente {
 			sr.addError("El nombre del cliente no puede estar en blanco.");
 		
 		if (cliente.getApellido() == null || cliente.getApellido().isEmpty())
-			sr.addError("El nombre del cliente no puede estar en blanco.");
+			sr.addError("El apellido del cliente no puede estar en blanco.");
 		
 		return sr;
 	}

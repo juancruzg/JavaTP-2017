@@ -5,9 +5,9 @@
 		.module('shop-management')
 		.service('$api', servicioApi);
   
-	servicioApi.$inject = ["$http", "$q"];
+	servicioApi.$inject = ["$http", "$q", "ngToast"];
 	  
-	function servicioApi ($http, $q) {
+	function servicioApi ($http, $q, ngToast) {
 		this.getData = function (url, data) {
 			var deferred = $q.defer();
 			var queryString = "";
@@ -27,7 +27,12 @@
 				url: url + queryString
 			})
 			.then(function(data) {
-				deferred.resolve(data);
+				if (data.data.errores) {
+		    		listarErrores(data.data.errores);
+		    		deferred.reject;
+		    	}
+		    	else
+		    		deferred.resolve(data.data.data);
 			})
 			.catch(function(info) {
 				if(info.status == 404);
@@ -116,8 +121,16 @@
     	};
 	
     	function listarErrores(errores) {
+    		var msg = "<ul class='mensaje fa-ul'>"
     		errores.forEach(function(error) {
-    			console.log(error.mensajeError);
+    			msg = msg + "<li><i class='fa-li fa fa-exclamation-triangle'></i>" + error.mensajeError + "</li>";
+    		});
+    		msg = msg + "</ul>"
+    		
+    		ngToast.create({
+    			'content': msg,
+    			'className': "danger",
+    			'dismissButton': true
     		});
     	}
 	}

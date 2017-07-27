@@ -10,8 +10,9 @@
   function controladorClientesEditar($scope, $state, $api, $tabla, $q, $stateParams, $util) {
 	  var vm = this;
 	  
-	  // Ni bien carga el controller, scrolleo hasta el fondo.
+	  // Ni bien carga el controller, scrolleo hasta el fondo y hago focus al nombre.
 	  $util.scrollTo(document.body, document.body.scrollHeight, 500);	
+	  $util.focus("nombre");
 	  
 	  vm.clienteSeleccionado = seleccionarCliente();
 	  vm.guardar = guardar;
@@ -35,18 +36,19 @@
 	  };
 	  
 	  function seleccionarCliente() {
+		  if (!$stateParams.idCliente)
+			  return {};
+			  
 		  if ($stateParams.cliente)
 			  return $stateParams.cliente;
-		  else if ($stateParams.idCliente)
-			  return buscarCliente($stateParams.idCliente);
 		  else
-			  return {};
+			  return buscarCliente($stateParams.idCliente);
 	  }
 	  
 	  function buscarCliente(idCliente) {
 		  $api.getData("Clientes", { "idCliente": idCliente }).then(function(data) {
-			  if (data && data.data)
-				  vm.clienteSeleccionado = data.data;	
+			  if (data)
+				  vm.clienteSeleccionado = data;	
 			  else
 				  vm.clienteSeleccionado = null; // En realidad acá debería dar 404...
 		  });

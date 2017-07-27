@@ -32,7 +32,7 @@
 				  { "caption": "Telefono", "isVisible": true, "dataField": "telefono" }
 			  ];
 			  
-			  deferred.resolve($tabla.popularTabla(data.data, headers));
+			  deferred.resolve($tabla.popularTabla(data, headers));
 		  });
 		  
 		  return deferred.promise;

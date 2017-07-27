@@ -31,6 +31,23 @@ public class CatalogoCliente extends CatalogoBase {
 		return super.getAll(data, rs -> fetchClienteFromDB(rs));
 	}
 	
+	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina, String query) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM cliente WHERE activo = 1 AND (nombre LIKE ? OR apellido LIKE ?) LIMIT ?, ?");
+		
+		if (query != "") {
+			query = "%" + query + "%";
+			
+			data.addParameter(query);
+			data.addParameter(query);
+			data.addParameter(paginaAtual);
+			data.addParameter(porPagina);
+			
+			return super.getAll(data, rs -> fetchClienteFromDB(rs));
+		}
+		else
+			return new ArrayList<Cliente>();
+	}
+	
 	public int insertCliente(Cliente cliente) throws RespuestaServidor {
 		DBData data = new DBData("INSERT INTO cliente (nombre, apellido, telefono, domicilio, activo, usuarioAlta) VALUES (?, ?, ?, ?, ?, ?)");
 		

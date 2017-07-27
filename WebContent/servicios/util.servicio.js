@@ -5,8 +5,11 @@
 		.module('shop-management')
 		.service('$util', servicioUtil);
 	  
-	function servicioUtil () {
+	servicioUtil.$inject = [ '$timeout', '$window' ];
+	
+	function servicioUtil ($timeout, $window) {
 		this.scrollTo = scrollTo;
+		this.focus = focus;
 			
 		function scrollTo(element, to, duration) {
 		    if (duration <= 0) 
@@ -24,5 +27,14 @@
 		        scrollTo(element, to, duration - 10);
 		    }, 10);
 		}
+		
+		function focus(id) {
+	      $timeout(function() {
+	        var element = $window.document.getElementById(id);
+	        
+	        if(element)
+	          element.focus();
+	      });
+	    }
 	}
 })();
