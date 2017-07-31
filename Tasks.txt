@@ -14,10 +14,10 @@ TipoPago -> Hecho (JUAN)
 FRONT END (Ordenados por prioridad)
 ----------------------------------------------------
 
-•ABMClientes -> Falta sólo la baja. El resto tiene pinta de estar funcionando bien
+•ABMClientes -> Hecho (JUAN)
 •ABMUsuarios
 •ABMProductos/línea/precio
-•Venta (Este va a ser el más complicado de todos. Creo que en mi otro proyecto se los mostré, pero yo había hecho un miniwizard.)
+•Venta (Este va a ser el más complicado de todos. Creo que en mi otro proyecto se los mostré, pero yo había hecho un miniwizard.) -> A medias (JUAN)
 •Reporte de Ventas || Filtros: fecha, cliente, usuario)
 •Reporte estadístico de productos vendidos
 •Reporte estadístico de clientes más concurrentes
@@ -27,7 +27,8 @@ FRONT END (Ordenados por prioridad)
 ----------------------------------------------------
 
 •Código compartido:
-•Directiva datepicker (un txt con un selector de fecha)
+•Directiva para listar en un txt -> Hecho (JUAN)
+•Directiva datepicker (un txt con un selector de fecha) -> Hecho (JUAN)
 •Directiva daterange (esta no la veo tan necesaria, pero si a Leo le copa, que la haga :D, sería para elegir entre un rango de fechas y poder obtener valores útiles, tipo cantidad de días entre medio, fecha inicial, fecha final, etc.)
 •Directiva combo (esta no la veo tampoco muy necesaria, pero lo mismo que antes, si se hace algo copado nos puede facilitar la vida imagino)
 
