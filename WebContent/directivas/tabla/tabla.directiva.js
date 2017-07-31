@@ -12,7 +12,7 @@
           },
           templateUrl: './directivas/tabla/tabla.html',
           controller: 'controladorTabla',
-          controllerAs: 'tableVm'
+          controllerAs: 'VMTabla'
         };
       });
 })();

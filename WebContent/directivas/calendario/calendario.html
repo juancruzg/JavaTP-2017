@@ -1,0 +1,34 @@
+<div class="calendario">
+	<header>
+    	<div class="row">
+    		<div class="col-lg-2 center">
+    		    <i ng-mousedown="VMCalendario.mesAnterior($event)" class="fa fa-arrow-left" style="cursor:pointer;"></i>
+    		</div>
+    		<div class="col-lg-8 center">
+    		    {{ VMCalendario.mesSeleccionado }}
+    		</div>
+    		<div class="col-lg-2 center">
+    		    <i ng-mousedown="VMCalendario.mesSiguiente($event)" class="fa fa-arrow-right" style="cursor:pointer;"></i>
+    		</div>
+    	</div>
+	</header>
+	
+	<table class="tabla-calendario">
+		<thead>
+			<tr>
+				<th>Lun</th>
+				<th>Mar</th>
+				<th>Mié</th>
+				<th>Jue</th>
+				<th>Vie</th>
+				<th>Sáb</th>
+				<th>Dom</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="semana in VMCalendario.semanas">
+				<td ng-repeat="dia in semana" ng-mousedown="VMCalendario.seleccionarFecha(dia)" ng-class="{'otro-mes': !dia.enMesActual, 'hoy': dia.esHoy, 'seleccionado': dia.seleccionado }">{{ dia.numero }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

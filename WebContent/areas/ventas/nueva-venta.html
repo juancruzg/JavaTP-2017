@@ -1,0 +1,64 @@
+<h1>Nueva venta</h1>
+<h2>Podrá utilizar el siguiente asistente para realizar una venta</h2>
+<hr>
+<div class="row">
+	<div class="col-sm-8">
+		<label>Seleccione un cliente:</label>
+		<selector ng-if="!VMNuevaVenta.clienteSeleccionado" listar="VMNuevaVenta.listarClientes" accion="VMNuevaVenta.accionClientes" clase-icono="'fa fa-user'"></selector>
+		<div class="input-group" ng-if="VMNuevaVenta.clienteSeleccionado">	
+			<span class="input-group-addon">
+				<i class="fa fa-user"></i>
+			</span>
+			<input class="form-control" value="{{VMNuevaVenta.clienteSeleccionado.nombre}}" disabled="disabled">
+			<span class="input-group-btn">
+				<button class="btn btn-danger" ng-click="VMNuevaVenta.limpiarCliente()">Cambiar cliente</button>
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<label>Fecha:</label>
+		<selector-fecha fecha-seleccionada="VMNuevaVenta.fecha" ></selector-fecha>
+	</div>
+</div>
+<hr style="border-style: solid;">
+<div class="row">
+	<div class="col-lg-6">
+		<label>Seleccione productos:</label>
+		<selector listar="VMNuevaVenta.listarProductos" accion="VMNuevaVenta.accionProductos" clase-icono="'fa fa-shopping-bag'"></selector>
+		<div class="row">
+			<div class="col-lg-3">
+				<label>Cantidad: </label>
+				<input type="number" class="form-control" min="1" value="1">
+			</div>
+			<div class="col-lg-3">
+				<label>Color:</label>
+				<select class="form-control">
+					<option>Rojo</option>
+				</select>
+			</div>
+			<div class="col-lg-3">
+				<label>Talle:</label>
+				<select class="form-control">
+					<option>XL</option>
+				</select>
+			</div>
+			<div class="col-lg-3" style="padding-top: 17px;">
+				<button class="btn btn-success btn-circle btn-lg pull-right"><i class="fa fa-plus"></i></button>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12">
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<ul class="list-group">
+			<li class="row list-group-item" style="margin-right: 0; margin-left: 0;">
+				<div class="col-md-8">{{ }}</div> 
+				<div class="col-md-4"><span class="pull-right">${{ }}</span></div>
+			</li>
+		</ul>
+		<span class="pull-right">Total: {{ }}</span>
+	</div>
+</div>
+<hr>

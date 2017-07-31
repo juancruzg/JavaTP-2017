@@ -1,13 +1,13 @@
-<button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="tableVm.mostrarEditar()"><i class="fa fa-plus"></i></button> 
+<button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="VMTabla.mostrarEditar()"><i class="fa fa-plus"></i></button> 
 <div style="height: 300px; overflow: auto;">
 	<table class="table table-hover table-bordered unselectable">
 		<thead>
 	      	<tr>
-	      		<th ng-repeat="header in tableVm.data.headers">{{header}}</th>
+	      		<th ng-repeat="header in VMTabla.data.headers">{{header}}</th>
 	      	</tr>
 	    </thead>
 	     <tbody class="tabla-puntero">
-	     	<tr ng-repeat="row in tableVm.data.rows" ng-click="tableVm.mostrarEditar(row.originalRow)" ng-class="{ selected: (row.originalRow === tableVm.rowSeleccionado) }">
+	     	<tr ng-repeat="row in VMTabla.data.rows" ng-click="VMTabla.mostrarEditar(row.originalRow)" ng-class="{ selected: (row.originalRow === VMTabla.rowSeleccionado) }">
 	     		<td ng-repeat="(key, value) in row.data track by $index">{{value}}</td>
 	     	</tr>
 	    </tbody>
@@ -15,12 +15,12 @@
 </div>
 <div class="row">
   <div class="col-md-10">
-    <button class="btn btn-link" ng-click="tableVm.previousPage()"><i class="fa fa-arrow-left"></i> Anterior</button>
-    <span>Página actual: <b>{{ tableVm.currentPage + 1 }}</b></span>
-    <button class="btn btn-link" ng-click="tableVm.nextPage();">Siguiente <i class="fa fa-arrow-right"></i></button>
+    <button class="btn btn-link" ng-click="VMTabla.previousPage()"><i class="fa fa-arrow-left"></i> Anterior</button>
+    <span>Página actual: <b>{{ VMTabla.currentPage + 1 }}</b></span>
+    <button class="btn btn-link" ng-click="VMTabla.nextPage();">Siguiente <i class="fa fa-arrow-right"></i></button>
   </div>
  <div class="col-md-2">
     <br>
-    <span class="pull-right">Total: <b>{{ tableVm.totalPages }} páginas</b></span>
+    <span class="pull-right">Total: <b>{{ VMTabla.totalPages }} páginas</b></span>
   </div>
 </div>

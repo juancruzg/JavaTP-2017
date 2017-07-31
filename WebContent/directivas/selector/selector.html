@@ -1,6 +1,14 @@
-<div class="form-group" style="position:relative;">
-	<input placeholder="{{ VMSelector.placeholder ? VMSelector.placeholder : 'Buscar...' }}" type="text" class="form-control" ng-keyup="VMSelector.actualizarLista()" ng-model="VMSelector.input">
-	<ul ng-if="VMSelector.lista.length > 0" class="list-group" style="position:absolute; width:100%">
+<div style="position:relative;">
+	<div class="input-group">
+		<span class="input-group-addon" ng-if="VMSelector.claseIcono">
+			<i class="{{ VMSelector.claseIcono }}"></i>
+		</span>
+		<input placeholder="{{ VMSelector.placeholder ? VMSelector.placeholder : 'Buscar...' }}" type="text" class="form-control" ng-keyup="VMSelector.actualizarLista()" ng-model="VMSelector.input">
+		<span class="input-group-addon">
+			<i class="fa fa-search"></i>
+		</span>
+	</div>
+	<ul ng-if="VMSelector.lista.length > 0" class="list-group" style="position:absolute; width:100%; z-index:1000;">
 		<li ng-repeat="item in VMSelector.lista track by $index" ng-click="VMSelector.accion(item.originalRow)" class="list-group-item">{{item.listItem}}</li>
 	</ul>
 </div>

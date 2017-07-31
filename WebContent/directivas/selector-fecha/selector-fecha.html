@@ -1,0 +1,9 @@
+<div class="row">
+	<div class="col-lg-12">
+		<div class="input-group">
+	  		<input readonly="readonly" style="background-color: white;" type="text" class="form-control" ng-focus="VMSelectorFecha.mostrarCalendario(true)" ng-blur="VMSelectorFecha.mostrarCalendario(false)" ng-model="VMSelectorFecha.fechaStr">
+		 	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+		</div>
+		<calendario style="z-index: 1000; position: absolute;" ng-show="VMSelectorFecha.mostrandoCalendario" accion="VMSelectorFecha.seleccionarFecha" fecha-seleccionada="VMSelectorFecha.fechaSeleccionada"></calendario>
+	</div>
+</div>

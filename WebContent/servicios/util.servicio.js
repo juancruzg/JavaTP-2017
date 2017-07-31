@@ -4,7 +4,7 @@
 	angular
 		.module('shop-management')
 		.service('$util', servicioUtil);
-	  
+	
 	servicioUtil.$inject = [ '$timeout', '$window' ];
 	
 	function servicioUtil ($timeout, $window) {

@@ -1,0 +1,75 @@
+.calendario > table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.calendario > table > td {
+	padding: 0;
+}
+
+.calendario {
+	position: relative;
+	width: 100%;
+}
+
+.calendario header {
+	border-radius: 1em 1em 0 0;
+	background: #8064A2;
+	color: #fff;
+	padding-top: 0.5em;
+	padding-bottom: 0.5em;
+}
+
+.calendario > header > .row {
+	font-size: 2em;
+	line-height: 1em;
+	text-transform: lowercase;
+}
+
+.calendario > header > .row > .center {
+	text-align: center;
+}
+
+.otro-mes {
+	background: #eeeeec;
+}
+
+.hoy {
+	background: #eb9e2b;
+}
+
+.tabla-calendario {
+	background: #fff;
+	border-radius: 0 0 1em 1em;
+	-webkit-box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
+	box-shadow: 0 2px 1px rgba(0, 0, 0, .2), 0 3px 1px #fff;
+	color: #555;
+	padding: 2em;
+	width: 100%;
+}
+
+.tabla-calendario thead {
+	color: #eb9e2b;
+	font-weight: 700;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.tabla-calendario td {
+	padding: .5em 1em;
+	text-align: center;
+}
+
+.tabla-calendario th{
+	text-align: center;
+}
+
+.tabla-calendario tbody td:hover {
+	background: #cacaca;
+	color: #fff;
+}
+
+.seleccionado {
+	background: #cacaca;
+	color: #fff;
+}

@@ -50,7 +50,7 @@ public class ControladorProducto {
 				precioDB = cpr.getUltimoPrecio(id);
 				
 				if(precioDB == null){
-					rs.addError("Producto a modificar no contenía un precio");
+					rs.addError("Producto a modificar no contenï¿½a un precio");
 					throw rs;
 				}
 				
@@ -102,10 +102,7 @@ public class ControladorProducto {
 				sr.addError("El producto que intenta editar no existe...");
 		}
 		
-		if (producto.getDescripcion() == null || producto.getNombre().isEmpty())
-			sr.addError("El nombre del cliente no puede estar en blanco.");
-		
-		if (producto.getApellido() == null || producto.getApellido().isEmpty())
+		if (producto.getDescripcion() == null)
 			sr.addError("El nombre del cliente no puede estar en blanco.");
 		
 		return sr;

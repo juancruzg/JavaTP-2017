@@ -9,7 +9,8 @@
           scope: {
           	'listar': '=',
           	'accion': '=',
-          	'placeholder': '='
+          	'placeholder': '=',
+          	'claseIcono': '='
           },
           templateUrl: './directivas/selector/selector.html',
           controller: 'controladorSelector',

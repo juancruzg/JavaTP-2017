@@ -16,6 +16,7 @@
 	  vm.accion = accion;
 	  vm.lista = [];
 	  vm.placeholder = $scope.placeholder;
+	  vm.claseIcono = $scope.claseIcono;
 	  
 	  function actualizarLista() {
 		  var output = [];
