@@ -1,11 +1,14 @@
 package entidades;
 
+import java.util.ArrayList;
+
 public class Producto implements EntidadBase {
 	private int id;
 	private String descripcion;
 	private Precio precio;
 	private Usuario usuarioAlta;
 	private boolean activo;
+	private ArrayList<LineaProducto> lineas;
 	
 	/* Constructors */
 	
@@ -62,6 +65,13 @@ public class Producto implements EntidadBase {
 		this.usuarioAlta = usuario;
 	}
 	
+	public ArrayList<LineaProducto> getLineas() {
+		return lineas;
+	}
+
+	public void setLineas(ArrayList<LineaProducto> lineas) {
+		this.lineas = lineas;
+	}
 
 	/* Public Methods */
 	

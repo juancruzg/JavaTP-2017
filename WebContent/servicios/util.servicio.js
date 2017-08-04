@@ -10,7 +10,8 @@
 	function servicioUtil ($timeout, $window) {
 		this.scrollTo = scrollTo;
 		this.focus = focus;
-			
+		this.containsObject = containsObject;
+		
 		function scrollTo(element, to, duration) {
 		    if (duration <= 0) 
 		    	return;
@@ -36,5 +37,24 @@
 	          element.focus();
 	      });
 	    }
+		
+		function containsObject(obj, list) {
+			var isIdentical;
+			list.forEach(function(o) {	
+				isIdentical = true;
+				
+				for(var propName in o) {
+					if(o[propName] !== obj[propName]) {
+						isIdentical = false;			
+						break;
+					}
+				}
+				
+				if (isIdentical)
+					return;
+			});
+			
+			return isIdentical;
+		}
 	}
 })();

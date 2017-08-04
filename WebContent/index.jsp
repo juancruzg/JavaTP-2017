@@ -70,6 +70,7 @@
 <script type="text/javascript" src="./app.js"></script>
 
 <!-- SERVICES -->
+<script type="text/javascript" src="./servicios/mensajes.js"></script>
 <script type="text/javascript" src="./servicios/util.servicio.js"></script>
 <script type="text/javascript" src="./servicios/api.servicio.js"></script>
 <script type="text/javascript" src="./servicios/tabla.servicio.js"></script>

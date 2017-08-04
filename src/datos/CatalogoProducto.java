@@ -24,6 +24,19 @@ public class CatalogoProducto extends CatalogoBase {
 		return super.getAll(data, rs -> fetchProductoFromDB(rs));
 	}
 	
+	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, String query) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM producto WHERE descripcion LIKE ? LIMIT ?, ?");
+		
+		if (!query.isEmpty())
+			query = "%" + query + "%";
+		
+		data.addParameter(query);
+		data.addParameter(paginaActual);
+		data.addParameter(porPagina);
+		
+		return super.getAll(data, rs -> fetchProductoFromDB(rs));
+	}
+	
 	public Producto getProducto(int id) throws RespuestaServidor { 
 		DBData data = new DBData("SELECT * FROM producto WHERE id = ?");
 		
@@ -61,9 +74,9 @@ public class CatalogoProducto extends CatalogoBase {
 	    
 	    try {   	
 	    	prod.setId(rs.getInt("id"));
-	    	prod.setDescripcion(rs.getString("denominacion"));
+	    	prod.setDescripcion(rs.getString("descripcion"));
 	    	prod.setPrecio(cp.getUltimoPrecio(prod.getId()));
-	    	prod.setActivo(rs.getBoolean("activo"));
+	    	//prod.setActivo(rs.getBoolean("activo"));
 	    	prod.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));	
 	    }
 	    catch (SQLException | RespuestaServidor ex) {

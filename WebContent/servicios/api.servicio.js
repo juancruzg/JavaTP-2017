@@ -5,9 +5,9 @@
 		.module('shop-management')
 		.service('$api', servicioApi);
   
-	servicioApi.$inject = ["$http", "$q", "ngToast"];
+	servicioApi.$inject = ["$http", "$q", "$mensajes"];
 	  
-	function servicioApi ($http, $q, ngToast) {
+	function servicioApi ($http, $q, $mensajes) {
 		this.getData = function (url, data) {
 			var deferred = $q.defer();
 			var queryString = "";
@@ -28,7 +28,7 @@
 			})
 			.then(function(data) {
 				if (data.data.errores) {
-		    		listarErrores(data.data.errores);
+					$mensajes.mostrarErroress(data.data.errores);
 		    		deferred.reject;
 		    	}
 		    	else
@@ -54,7 +54,7 @@
 		    })
 		    .then(function(data) {
 		    	if (data.data.errores) {
-		    		listarErrores(data.data.errores);
+		    		$mensajes.mostrarErrores(data.data.errores);
 		    		deferred.reject;
 		    	}
 		    	else
@@ -80,7 +80,7 @@
 		    })
 		    .then(function(data) {
 		    	if (data.data.errores) {
-		    		listarErrores(data.data.errores);
+		    		$mensajes.mostrarErrores(data.data.errores);
 		    		deferred.reject;
 		    	}
 		    	else
@@ -106,7 +106,7 @@
 			        })
 		        .then(function(data) {
 		        	if (data.data.errores) {
-			    		listarErrores(data.data.errores);
+		        		$mensajes.mostrarErrores(data.data.errores);
 			    		deferred.reject;
 			    	}
 			    	else
@@ -119,19 +119,5 @@
 		      	
 	      	return deferred.promise;
     	};
-	
-    	function listarErrores(errores) {
-    		var msg = "<ul class='mensaje fa-ul'>"
-    		errores.forEach(function(error) {
-    			msg = msg + "<li><i class='fa-li fa fa-exclamation-triangle'></i>" + error.mensajeError + "</li>";
-    		});
-    		msg = msg + "</ul>"
-    		
-    		ngToast.create({
-    			'content': msg,
-    			'className': "danger",
-    			'dismissButton': true
-    		});
-    	}
 	}
 })();

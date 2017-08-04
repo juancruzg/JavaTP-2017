@@ -71,9 +71,9 @@ public class CatalogoPrecio extends CatalogoBase {
 	    	user.setFecha(rs.getTimestamp("fecha"));
 	    	user.setPrecio(rs.getFloat("precio"));
 	    	
-	    	user.setProducto(cp.getProducto(rs.getInt("idProducto")));
+	    	//user.setProducto(cp.getProducto(rs.getInt("idProducto")));
 	    }
-	    catch (SQLException | RespuestaServidor ex) {
+	    catch (SQLException ex) {
 	    	ex.printStackTrace();
 	    }
 	    

@@ -34,7 +34,7 @@ public class CatalogoCliente extends CatalogoBase {
 	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina, String query) throws RespuestaServidor {
 		DBData data = new DBData("SELECT * FROM cliente WHERE activo = 1 AND (nombre LIKE ? OR apellido LIKE ?) LIMIT ?, ?");
 		
-		if (query != "") {
+		if (!query.isEmpty()) {
 			query = "%" + query + "%";
 			
 			data.addParameter(query);

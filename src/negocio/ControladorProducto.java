@@ -5,6 +5,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import conexion.Conexion;
+import datos.CatalogoLineaProducto;
 import datos.CatalogoPrecio;
 import datos.CatalogoProducto;
 import datos.CatalogoUsuario;
@@ -15,13 +16,39 @@ import excepciones.RespuestaServidor;
 public class ControladorProducto {
 	public Producto getProducto(int idProducto) throws RespuestaServidor {
 		CatalogoProducto cc = new CatalogoProducto();
-		return cc.getProducto(idProducto);
+		CatalogoLineaProducto clp = new CatalogoLineaProducto();
+		
+		Producto producto = cc.getProducto(idProducto);
+		
+		producto.setLineas(clp.getLineaProductos(idProducto));
+		
+		return producto;
 	}
 	
 	public ArrayList<Producto> getProductos(int paginaActual, int porPagina) throws RespuestaServidor {
 		CatalogoProducto cc = new CatalogoProducto();
+		CatalogoLineaProducto clp = new CatalogoLineaProducto();
 		
-		return cc.getProductos(paginaActual, porPagina);
+		ArrayList<Producto> productos = cc.getProductos(paginaActual, porPagina);
+		
+		for (Producto producto : productos) {
+			producto.setLineas(clp.getLineaProductos(producto.getId()));
+		}
+		
+		return productos;
+	}
+	
+	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, String query) throws RespuestaServidor {
+		CatalogoProducto cc = new CatalogoProducto();
+		CatalogoLineaProducto clp = new CatalogoLineaProducto();
+		
+		ArrayList<Producto> productos = cc.getProductos(paginaActual, porPagina, query);
+		
+		for (Producto producto : productos) {
+			producto.setLineas(clp.getLineaProductos(producto.getId()));
+		}
+		
+		return productos;
 	}
 	
 	public int saveProducto(int id, String descripcion, float precio, String usuario, boolean activo) throws RespuestaServidor {

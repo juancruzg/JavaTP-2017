@@ -1,5 +1,5 @@
 <div style="position:relative;">
-	<div class="input-group">
+	<div ng-if="!VMSelector.itemSeleccionado" class="input-group">
 		<span class="input-group-addon" ng-if="VMSelector.claseIcono">
 			<i class="{{ VMSelector.claseIcono }}"></i>
 		</span>
@@ -8,7 +8,16 @@
 			<i class="fa fa-search"></i>
 		</span>
 	</div>
+	<div ng-if="VMSelector.itemSeleccionado" class="input-group">
+		<span class="input-group-addon" ng-if="VMSelector.claseIcono">
+			<i class="{{ VMSelector.claseIcono }}"></i>
+		</span>
+		<input class="form-control" disabled="disabled" value="{{ VMSelector.itemSeleccionado }}">
+		<span class="input-group-btn">
+			<button class="btn btn-danger" ng-click="VMSelector.quitarItem()">Cambiar</button>
+		</span>
+	</div>
 	<ul ng-if="VMSelector.lista.length > 0" class="list-group" style="position:absolute; width:100%; z-index:1000;">
-		<li ng-repeat="item in VMSelector.lista track by $index" ng-click="VMSelector.accion(item.originalRow)" class="list-group-item">{{item.listItem}}</li>
+		<li ng-repeat="item in VMSelector.lista track by $index" ng-click="VMSelector.accion(item)" class="list-group-item">{{item.listItem}}</li>
 	</ul>
 </div>

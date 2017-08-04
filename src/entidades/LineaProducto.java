@@ -1,6 +1,5 @@
 package entidades;
 
-
 public class LineaProducto implements EntidadBase {
 	private int stock;
 	private Producto producto;

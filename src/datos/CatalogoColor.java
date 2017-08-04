@@ -54,7 +54,7 @@ public class CatalogoColor extends CatalogoBase {
 		Color c = new Color();
 		
 		try {
-			c.setCodigoColor(rs.getString("codigoColor"));
+			//c.setCodigoColor(rs.getString("codigoColor"));
 			c.setColor(rs.getString("color"));
 			c.setId(rs.getInt("id"));
 		}

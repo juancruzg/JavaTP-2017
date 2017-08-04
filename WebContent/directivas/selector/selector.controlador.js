@@ -14,9 +14,11 @@
 	  vm.input = "";
 	  vm.actualizarLista = actualizarLista;
 	  vm.accion = accion;
+	  vm.itemSeleccionado = null;
 	  vm.lista = [];
 	  vm.placeholder = $scope.placeholder;
 	  vm.claseIcono = $scope.claseIcono;
+	  vm.quitarItem = quitarItem;
 	  
 	  function actualizarLista() {
 		  var output = [];
@@ -42,11 +44,19 @@
 		  });
 	  }
 	  
-	  function accion(row) {
+	  function accion(item) {
 		  vm.input = "";
 		  vm.lista = [];
 		  
-		  $scope.accion(row);
+		  vm.itemSeleccionado = item.listItem;
+		  
+		  $scope.accion(item.originalRow);
+	  }
+	  
+	  function quitarItem() {
+		  vm.itemSeleccionado = null;
+		  
+		  $scope.quitarItem();
 	  }
   }
 })();

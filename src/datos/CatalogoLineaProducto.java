@@ -10,13 +10,21 @@ import excepciones.RespuestaServidor;
 public class CatalogoLineaProducto extends CatalogoBase {
 	// Métodos públicos
 	public ArrayList<LineaProducto> getLineaProductos() throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM lineaproducto");
+		DBData data = new DBData("SELECT * FROM lineaProducto");
+		
+		return super.getAll(data, rs -> fetchLineaProductoFromDB(rs));
+	}
+	
+	public ArrayList<LineaProducto> getLineaProductos(int idProducto) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM lineaProducto WHERE idProducto = ?");
+		
+		data.addParameter(idProducto);
 		
 		return super.getAll(data, rs -> fetchLineaProductoFromDB(rs));
 	}
 	
 	public ArrayList<LineaProducto> getLineaProductos(int paginaActual, int porPagina) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM lineaproducto LIMIT ?, ?");
+		DBData data = new DBData("SELECT * FROM lineaProducto LIMIT ?, ?");
 		
 		data.addParameter(paginaActual);
 		data.addParameter(porPagina);
@@ -25,7 +33,7 @@ public class CatalogoLineaProducto extends CatalogoBase {
 	}
 	
 	public LineaProducto getLineaProducto(int idProducto, int idTalle, int idColor,int idSucursal) throws RespuestaServidor { 
-		DBData data = new DBData("SELECT * FROM lineaproducto WHERE idProducto = ? and idTalle = ? and idColor = ? and idSucursal = ?");
+		DBData data = new DBData("SELECT * FROM lineaProducto WHERE idProducto = ? and idTalle = ? and idColor = ? and idSucursal = ?");
 		
 		data.addParameter(idProducto);
 		data.addParameter(idTalle);
@@ -36,7 +44,7 @@ public class CatalogoLineaProducto extends CatalogoBase {
 	}
 	
 	public int insertLineaProducto(LineaProducto lineaProducto) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO lineaproducto (idProducto,idTalle,idColor,idSucursal,stock,usuarioAlta) VALUES (?, ?, ?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO lineaProducto (idProducto, idTalle, idColor, idSucursal, stock, usuarioAlta) VALUES (?, ?, ?, ?, ?, ?)");
 		
 		data.addParameter(lineaProducto.getProducto().getId());
 		data.addParameter(lineaProducto.getTalle().getId());
@@ -49,7 +57,7 @@ public class CatalogoLineaProducto extends CatalogoBase {
 	}
 	
 	public int updateLineaProducto(LineaProducto usuario) throws RespuestaServidor {
-		DBData data = new DBData("UPDATE lineaproducto SET stock = ? WHERE idProducto = ? and idTalle = ? and idColor = ? and idSucursal = ?");
+		DBData data = new DBData("UPDATE lineaProducto SET stock = ? WHERE idProducto = ? and idTalle = ? and idColor = ? and idSucursal = ?");
 		
 		data.addParameter(usuario.getStock());
 		data.addParameter(usuario.getProducto().getId());
@@ -75,7 +83,7 @@ public class CatalogoLineaProducto extends CatalogoBase {
 	    	
 	    	lp.setProducto(cp.getProducto(rs.getInt("idProducto")));
 	    	lp.setTalle(ct.getTalle(rs.getInt("idTalle")));
-	    	lp.setColor(cc.getColor(rs.getInt("color")));
+	    	lp.setColor(cc.getColor(rs.getInt("idColor")));
 	    	lp.setSucursal(cs.getSucursal(rs.getInt("idSucursal")));
 	    	lp.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));	    	
 	    }

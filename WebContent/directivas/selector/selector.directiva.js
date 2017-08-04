@@ -10,7 +10,8 @@
           	'listar': '=',
           	'accion': '=',
           	'placeholder': '=',
-          	'claseIcono': '='
+          	'claseIcono': '=',
+          	'quitarItem': '='
           },
           templateUrl: './directivas/selector/selector.html',
           controller: 'controladorSelector',
