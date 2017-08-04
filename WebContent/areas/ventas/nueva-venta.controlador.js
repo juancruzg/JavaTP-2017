@@ -5,9 +5,9 @@
 		.module('shop-management')
 		.controller('controladorNuevaVenta', controladorNuevaVenta);
 	
-	controladorNuevaVenta.$inject = ['$scope', '$api', '$tabla', '$q', '$util'];
+	controladorNuevaVenta.$inject = ['$scope', '$api', '$tabla', '$q', '$util', '$mensajes'];
 	
-	function controladorNuevaVenta($scope, $api, $tabla, $q, $util) {
+	function controladorNuevaVenta($scope, $api, $tabla, $q, $util, $mensajes) {
 		var vm = this;
 		
 		// Clientes
@@ -114,30 +114,53 @@
 				
 				producto.color = vm.colorSeleccionado;
 				producto.talle = vm.talleSeleccionado;
-
+	
 				producto.id = vm.productoSeleccionado.id;
 				producto.descripcion = vm.productoSeleccionado.descripcion;
 				producto.precio = vm.productoSeleccionado.precio.precio;
 				
 				var productoDistinto = true;
+				var lineaSeleccionada;
+				
+				vm.productoSeleccionado.lineas.forEach(function(l) {
+					if (l.color.id === producto.color.id && l.talle.id === producto.talle.id) {
+						lineaSeleccionada = l;
+						return;
+					}
+				});
+				
+				var productoActual = null;
+				var stock = 0;
 				
 				// Me fijo que no haya seleccionado antes el mismo producto, y línea.
 				vm.listaProductos.forEach(function(p) {
 					if (producto.id === p.id && producto.color.id === p.color.id && producto.talle.id === p.talle.id) {
-						// De ser así, le sumo la cantidad
-						p.cantidad = p.cantidad + vm.cantidad;
-						productoDistinto = false;
+						
+						productoActual = p;
 						return;
 					}
 				});	
 				
-				if (productoDistinto) {
-					producto.cantidad = vm.cantidad;
-					vm.listaProductos.push(producto);
+				if(productoActual && productoActual.cantidad)
+					stock = productoActual.cantidad + vm.cantidad;
+				else
+					stock = vm.cantidad;
+				
+				if (stock <= lineaSeleccionada.stock) {
+					if (!productoActual) {
+						producto.cantidad = vm.cantidad;
+						vm.listaProductos.push(producto);
+					}
+					else
+						productoActual.cantidad = productoActual.cantidad + vm.cantidad;
+						
+					// Al final calculo el total.
+					calcularTotal();
 				}
-			
-				// Al final calculo el total.
-				calcularTotal();
+				else {
+					var error = "No hay suficiente stock del producto seleccionado."
+					$mensajes.mostrarError(error);
+				}	
 			}
 		}
 		
