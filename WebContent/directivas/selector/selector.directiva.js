@@ -11,7 +11,8 @@
           	'accion': '=',
           	'placeholder': '=',
           	'claseIcono': '=',
-          	'quitarItem': '='
+          	'quitarItem': '=',
+          	'control': '='
           },
           templateUrl: './directivas/selector/selector.html',
           controller: 'controladorSelector',

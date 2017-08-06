@@ -13,6 +13,8 @@
 	  
 	  vm.mostrarEditar = mostrarEditar;
 	  vm.listar = listar;
+	  vm.mostrarInactivos = false;
+	  vm.control = {};
 	  
 	  function listar(paginaActual, porPagina) {
 		  var deferred = $q.defer();
@@ -20,7 +22,8 @@
 		  // Parámetros que le paso al server.
 		  var data = { 
 			  'paginaActual': paginaActual, 
-			  'porPagina': porPagina
+			  'porPagina': porPagina,
+			  'mostrarInactivos': vm.mostrarInactivos
 		  };
 		  
 		  $api.getData("Clientes", data).then(function(data) {

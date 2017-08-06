@@ -28,14 +28,16 @@ public class Productos extends ServletBase {
 		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
 		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
 		int idProducto = Tipos.toInt(request.getParameter("idProducto"));
+		boolean mostrarInactivos = Tipos.toBoolean(request.getParameter("mostrarInactivos"));
+
 		String query = request.getParameter("query");
 
 		if (idProducto == 0) {
 			try {
 				if (query != null)
-					rta.setData(cp.getProductos(paginaActual, porPagina, query));
+					rta.setData(cp.getProductos(paginaActual, porPagina, mostrarInactivos, query));
 				else
-					rta.setData(cp.getProductos(paginaActual, porPagina));
+					rta.setData(cp.getProductos(paginaActual, porPagina, mostrarInactivos));
 			}
 			catch(RespuestaServidor rs) {
 				rta.setErrores(rs.getErrores());

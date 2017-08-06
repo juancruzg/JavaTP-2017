@@ -33,6 +33,8 @@
 		vm.colores = [];
 		vm.talles = [];
 		
+		vm.controlProductos = {};
+		
 		// Clientes
 		function limpiarCliente() {
 			vm.clienteSeleccionado = null;
@@ -76,14 +78,16 @@
 		}
 		
 		function seleccionarColor() {
-			var idColor = vm.colorSeleccionado.id;
-			
-			vm.talles = [];
-			
-			vm.productoSeleccionado.lineas.forEach(function (p) {
-				if ((!$util.containsObject(p.talle, vm.talles)) && p.color.id === idColor)
-					vm.talles.push(p.talle);
-			});
+			if (vm.colorSeleccionado) {
+				var idColor = vm.colorSeleccionado.id;
+				
+				vm.talles = [];
+				
+				vm.productoSeleccionado.lineas.forEach(function (p) {
+					if ((!$util.containsObject(p.talle, vm.talles)) && p.color.id === idColor)
+						vm.talles.push(p.talle);
+				});
+			}
 		}
 		
 		function listarProductos(texto) {
@@ -140,7 +144,7 @@
 						return;
 					}
 				});	
-				
+
 				if(productoActual && productoActual.cantidad)
 					stock = productoActual.cantidad + vm.cantidad;
 				else
@@ -156,6 +160,8 @@
 						
 					// Al final calculo el total.
 					calcularTotal();
+				
+					vm.controlProductos.quitarItem();
 				}
 				else {
 					var error = "No hay suficiente stock del producto seleccionado."

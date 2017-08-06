@@ -1,4 +1,13 @@
 <h1>Productos</h1>
 <h2>Aquí podrá cargar nuevos productos, editarlos y consultar información acerca de ellos</h2>
-<tabla listar="VMProductos.listar" mostrar-editar="VMProductos.mostrarEditar"></tabla>
+
+<div class="row">
+	<div class="col-lg-12">
+		<label class="pull-right">
+			Mostrar inactivos
+			<input type="checkbox" class="form-cnotrol" ng-model="VMProductos.mostrarInactivos" ng-change="VMProductos.control.actualizarTabla(0, 10)">
+		</label>
+	</div>
+</div>
+<tabla listar="VMProductos.listar" mostrar-editar="VMProductos.mostrarEditar" control="VMProductos.control"></tabla>
 <ui-view></ui-view>

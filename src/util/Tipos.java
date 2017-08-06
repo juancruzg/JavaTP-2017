@@ -13,4 +13,17 @@ public class Tipos {
 		
 		return returnValue;
 	}
+	
+	public static boolean toBoolean(String string) {
+		boolean returnValue;
+		
+		try {
+			returnValue = Boolean.parseBoolean(string);
+		}
+		catch (NumberFormatException e) {
+			returnValue = false;
+		}
+		
+		return returnValue;
+	}
 }

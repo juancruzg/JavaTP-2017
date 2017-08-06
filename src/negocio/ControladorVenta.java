@@ -30,7 +30,7 @@ public class ControladorVenta {
 		
 		Venta v = new Venta();
 		
-		v.setCliente(cc.getCliente(idCliente));
+		v.setCliente(cc.getCliente(idCliente, false));
 		v.setFecha(fecha);
 		v.setId(id);
 		v.setTipoPago(ctp.getTipoPago(idTipoPago));

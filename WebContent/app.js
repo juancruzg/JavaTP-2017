@@ -48,6 +48,22 @@ app
 		controllerAs: "VMNuevaVenta"
 	}
 	
+	var productos = {
+		name: "productos",
+		templateUrl: "./areas/productos/productos.html", 
+		url: "/productos",
+		controller: "controladorProductos",
+		controllerAs: "VMProductos"
+	} 
+	
+	var editarProductos = {
+		name: "productos.editar",
+		templateUrl: "./areas/productos/productos.editar.html", 
+		url: "/editar/:idProducto",
+		controller: "controladorProductosEditar",
+		controllerAs: "VMProductosEditar"
+	} 
+	
 	$urlRouterProvider.otherwise('/home');
 	
 	$stateProvider
@@ -55,7 +71,9 @@ app
 		.state(clientes)
 		.state(usuarios)
 		.state(editarClientes)
-		.state(nuevaVenta);
+		.state(nuevaVenta)
+		.state(productos)
+		.state(editarProductos);
 })
 .config(function(hotkeysProvider) {
 	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";

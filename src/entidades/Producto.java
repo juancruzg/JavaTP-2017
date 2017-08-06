@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Producto implements EntidadBase {
 	private int id;
-	private String descripcion;
+	private String descripcion, marca;
 	private Precio precio;
 	private Usuario usuarioAlta;
 	private boolean activo;
@@ -73,9 +73,18 @@ public class Producto implements EntidadBase {
 		this.lineas = lineas;
 	}
 
+	public String getMarca() {
+		return marca;
+	}
+
+	public void setMarca(String marca) {
+		this.marca = marca;
+	}
 	/* Public Methods */
 	
 	public String toJson() {
 		return "";
 	}
+
+	
 }

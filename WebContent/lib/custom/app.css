@@ -181,6 +181,27 @@ hr.body-separator {
   border-color: #6B5487;
 }
 
+/*
+.btn-danger,
+.btn-danger:active,
+.btn-danger:active:focus,
+.btn-danger:visited,
+.btn-danger:focus {
+    background-color: #7E5C4B;
+    border-color: #584135;
+}
+
+.btn-danger:hover {
+  background-color: #8A6552;
+  border-color: #8A6552;
+}
+
+.btn-danger:disabled:active, .btn-danger:disabled:hover {
+  background-color: #6B5487;
+  border-color: #6B5487;
+}
+*/
+
 /*Custom circe button*/
 .btn-fixed {
   position: fixed;
@@ -241,5 +262,18 @@ hr.body-separator {
 
 .list-group-item {
 	cursor: pointer;
+	color: black;
+}
+
+.list-transparent {
+	background-color: transparent;
+}
+
+.list-transparent:hover {
+	background-color: transparent;
+}
+
+input[type="text"]:disabled {
+	background-color: #FFF0DD;
 	color: black;
 }

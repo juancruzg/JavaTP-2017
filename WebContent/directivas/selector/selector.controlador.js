@@ -20,6 +20,9 @@
 	  vm.claseIcono = $scope.claseIcono;
 	  vm.quitarItem = quitarItem;
 	  
+	  if ($scope.control)
+		  $scope.control.quitarItem = quitarItem;
+	  
 	  function actualizarLista() {
 		  var output = [];
 		  

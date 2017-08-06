@@ -59,7 +59,7 @@ public class CatalogoVenta extends CatalogoBase{
 		try {
 			venta.setId(rs.getInt("id"));
 			venta.setFecha(rs.getTimestamp("fecha"));
-			venta.setCliente(cc.getCliente(rs.getInt("idCliente")));
+			venta.setCliente(cc.getCliente(rs.getInt("idCliente"), false));
 			venta.setTipoPago(ctp.getTipoPago(rs.getInt("idTipoPago")));
 		} 
 		catch (SQLException | RespuestaServidor e) {

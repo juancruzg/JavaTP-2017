@@ -8,7 +8,8 @@
           restrict: 'E',
           scope: {
           	'mostrarEditar': '=',
-          	'listar': '='
+          	'listar': '=',
+          	'control': '='
           },
           templateUrl: './directivas/tabla/tabla.html',
           controller: 'controladorTabla',

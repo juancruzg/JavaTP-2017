@@ -25,11 +25,11 @@ public class ControladorProducto {
 		return producto;
 	}
 	
-	public ArrayList<Producto> getProductos(int paginaActual, int porPagina) throws RespuestaServidor {
+	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, boolean mostrarInactivos) throws RespuestaServidor {
 		CatalogoProducto cc = new CatalogoProducto();
 		CatalogoLineaProducto clp = new CatalogoLineaProducto();
 		
-		ArrayList<Producto> productos = cc.getProductos(paginaActual, porPagina);
+		ArrayList<Producto> productos = cc.getProductos(paginaActual, porPagina, mostrarInactivos);
 		
 		for (Producto producto : productos) {
 			producto.setLineas(clp.getLineaProductos(producto.getId()));
@@ -38,11 +38,11 @@ public class ControladorProducto {
 		return productos;
 	}
 	
-	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, String query) throws RespuestaServidor {
+	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, boolean mostrarInactivos, String query) throws RespuestaServidor {
 		CatalogoProducto cc = new CatalogoProducto();
 		CatalogoLineaProducto clp = new CatalogoLineaProducto();
 		
-		ArrayList<Producto> productos = cc.getProductos(paginaActual, porPagina, query);
+		ArrayList<Producto> productos = cc.getProductos(paginaActual, porPagina, mostrarInactivos, query);
 		
 		for (Producto producto : productos) {
 			producto.setLineas(clp.getLineaProductos(producto.getId()));

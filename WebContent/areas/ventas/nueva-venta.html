@@ -13,9 +13,9 @@
 </div>
 <hr style="border-style: solid;">
 <div class="row">
-	<div class="col-lg-6">
+	<div class="col-lg-6">	
 		<label>Seleccione productos:</label>
-		<selector listar="VMNuevaVenta.listarProductos" accion="VMNuevaVenta.accionProductos" clase-icono="'fa fa-shopping-bag'" quitar-item="VMNuevaVenta.limpiarProducto"></selector>
+		<selector listar="VMNuevaVenta.listarProductos" accion="VMNuevaVenta.accionProductos" clase-icono="'fa fa-shopping-bag'" quitar-item="VMNuevaVenta.limpiarProducto" control="VMNuevaVenta.controlProductos"></selector>
 		<div class="row">
 			<div class="col-lg-3">
 				<label>Cantidad: </label>
@@ -41,7 +41,45 @@
 				<div class="col-md-4"><span class="pull-right">${{ producto.precio * producto.cantidad }}</span></div>
 			</li>
 		</ul>
-		<span class="pull-right">Total: ${{ VMNuevaVenta.listaProductos.total }}</span>
+	</div>
+</div>
+<hr style="border-style: solid;">
+<div class="row">
+	<div class="col-lg-4">
+		<label>Total:</label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-money"></i>
+			</span>
+			<input type="text" class="form-control" value="${{ VMNuevaVenta.listaProductos.total }}" disabled>
+		</div>
+	</div>
+	<div class="col-lg-4">
+		<label>Seleccione una forma de pago:</label>
+		<select class="form-control"></select>
+	</div>
+	<div class="col-lg-2">
+		<label>Paga con:</label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-usd"></i>
+			</span>
+			<input type="text" class="form-control">
+		</div>
+	</div>
+	<div class="col-lg-2">
+		<label>Vuelto:</label>
+		<div class="input-group">
+			<span class="input-group-addon">
+				<i class="fa fa-usd"></i>
+			</span>
+			<input type="text" class="form-control" readonly="readonly">
+		</div>
 	</div>
 </div>
 <hr>
+<div class="row">
+	<div class="col-lg-12">
+		<button class="btn btn-success pull-right">Finalizar venta</button>
+	</div>
+</div>

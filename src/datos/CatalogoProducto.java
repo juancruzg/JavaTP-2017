@@ -15,16 +15,17 @@ public class CatalogoProducto extends CatalogoBase {
 		return super.getAll(data, rs -> fetchProductoFromDB(rs));
 	}
 	
-	public ArrayList<Producto> getProductos(int paginaActual, int porPagina) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM producto LIMIT ?, ?");
+	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, boolean mostrarInactivos) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM producto WHERE activo = ? OR activo = 1 LIMIT ?, ?");
 		
+		data.addParameter(!mostrarInactivos);
 		data.addParameter(paginaActual);
 		data.addParameter(porPagina);
 		
 		return super.getAll(data, rs -> fetchProductoFromDB(rs));
 	}
 	
-	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, String query) throws RespuestaServidor {
+	public ArrayList<Producto> getProductos(int paginaActual, int porPagina, boolean mostrarInactivos, String query) throws RespuestaServidor {
 		DBData data = new DBData("SELECT * FROM producto WHERE descripcion LIKE ? LIMIT ?, ?");
 		
 		if (!query.isEmpty())
@@ -75,8 +76,9 @@ public class CatalogoProducto extends CatalogoBase {
 	    try {   	
 	    	prod.setId(rs.getInt("id"));
 	    	prod.setDescripcion(rs.getString("descripcion"));
+	    	prod.setMarca(rs.getString("marca"));
 	    	prod.setPrecio(cp.getUltimoPrecio(prod.getId()));
-	    	//prod.setActivo(rs.getBoolean("activo"));
+	    	prod.setActivo(rs.getBoolean("activo"));
 	    	prod.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));	
 	    }
 	    catch (SQLException | RespuestaServidor ex) {

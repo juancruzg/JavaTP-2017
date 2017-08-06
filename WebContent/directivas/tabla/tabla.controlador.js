@@ -21,6 +21,8 @@
     vm.porPagina = 10;
     vm.mostrarEditar = mostrarEditar;
     vm.rowSeleccionado = null;
+
+    $scope.control.actualizarTabla = actualizarTabla;
     
     // Lo corro ni bien carga la tabla para que se muestre...
     actualizarTabla(0, 10);

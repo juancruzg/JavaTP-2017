@@ -12,19 +12,19 @@ public class ControladorCliente {
 	public Cliente getCliente(int idCliente) throws RespuestaServidor {
 		CatalogoCliente cc = new CatalogoCliente();
 		
-		return cc.getCliente(idCliente);
+		return cc.getCliente(idCliente, false);
 	}
 	
-	public ArrayList<Cliente> getClientes(int paginaActual, int porPagina) throws RespuestaServidor {
+	public ArrayList<Cliente> getClientes(int paginaActual, int porPagina, boolean mostrarInactivos) throws RespuestaServidor {
 		CatalogoCliente cc = new CatalogoCliente();
 		
-		return cc.getClientes(paginaActual, porPagina);
+		return cc.getClientes(paginaActual, porPagina, mostrarInactivos);
 	}
 	
-	public ArrayList<Cliente> getClientes(int paginaActual, int porPagina, String query) throws RespuestaServidor {
+	public ArrayList<Cliente> getClientes(int paginaActual, int porPagina, boolean mostrarInactivos, String query) throws RespuestaServidor {
 		CatalogoCliente cc = new CatalogoCliente();
 		
-		return cc.getClientes(paginaActual, porPagina, query);
+		return cc.getClientes(paginaActual, porPagina, mostrarInactivos, query);
 	}
 	
 	public int saveCliente(String nombre, String apellido, int idCliente, String telefono, String domicilio, boolean activo, String usuarioAlta) throws RespuestaServidor {
@@ -67,7 +67,7 @@ public class ControladorCliente {
 		RespuestaServidor sr = new RespuestaServidor();
 		
 		if (cliente.getId() != 0) {
-			if (cc.getCliente(cliente.getId()) == null)
+			if (cc.getCliente(cliente.getId(), false) == null)
 				sr.addError("El cliente que intenta editar no existe...");
 		}
 		

@@ -17,6 +17,9 @@
 	  vm.clienteSeleccionado = seleccionarCliente();
 	  vm.guardar = guardar;
 	  vm.cancelar = cancelar;
+
+	  if (angular.equals({}, vm.clienteSeleccionado))
+		  vm.clienteSeleccionado.activo = true;
 	  
 	  function guardar() {
 		  var promesa;
@@ -41,8 +44,14 @@
 			  
 		  if ($stateParams.cliente)
 			  return $stateParams.cliente;
-		  else
-			  return buscarCliente($stateParams.idCliente);
+		  else {
+			  var cliente = buscarCliente($stateParams.idCliente);
+			  
+			  if (cliente)
+				  return cliente;
+			  else
+				  return {};
+		  }
 	  }
 	  
 	  function buscarCliente(idCliente) {

@@ -8,10 +8,11 @@ import entidades.Cliente;
 import excepciones.RespuestaServidor;
 
 public class CatalogoCliente extends CatalogoBase {
-	public Cliente getCliente(int idCliente) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM cliente WHERE id = ? AND activo = 1");
+	public Cliente getCliente(int idCliente, boolean soloActivos) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM cliente WHERE id = ? AND (activo = 1 OR activo = ?)");
 		
 		data.addParameter(idCliente);
+		data.addParameter(soloActivos);
 		
 		return super.getOne(data, rs -> fetchClienteFromDB(rs));
 	}
@@ -22,16 +23,17 @@ public class CatalogoCliente extends CatalogoBase {
 		return super.getAll(data, rs -> fetchClienteFromDB(rs));
 	}
 	
-	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM cliente WHERE activo = 1 LIMIT ?, ?");
+	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina, boolean mostrarInactivos) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM cliente WHERE activo = ? OR activo = 1 LIMIT ?, ?");
 		
+		data.addParameter(!mostrarInactivos);
 		data.addParameter(paginaAtual);
 		data.addParameter(porPagina);
 		
 		return super.getAll(data, rs -> fetchClienteFromDB(rs));
 	}
 	
-	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina, String query) throws RespuestaServidor {
+	public ArrayList<Cliente> getClientes(int paginaAtual, int porPagina, boolean mostrarInactivos, String query) throws RespuestaServidor {
 		DBData data = new DBData("SELECT * FROM cliente WHERE activo = 1 AND (nombre LIKE ? OR apellido LIKE ?) LIMIT ?, ?");
 		
 		if (!query.isEmpty()) {

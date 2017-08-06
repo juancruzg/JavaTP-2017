@@ -31,15 +31,16 @@ public class Clientes extends ServletBase {
 		
 		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
 		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
+		boolean mostrarInactivos = Tipos.toBoolean(request.getParameter("mostrarInactivos"));
 		int idCliente = Tipos.toInt(request.getParameter("idCliente"));
 		String query = request.getParameter("query");
 
 		if (idCliente == 0) {
 			try {
 				if (query != null)
-					rta.setData(cc.getClientes(paginaActual, porPagina, query));
+					rta.setData(cc.getClientes(paginaActual, porPagina, mostrarInactivos, query));
 				else
-					rta.setData(cc.getClientes(paginaActual, porPagina));
+					rta.setData(cc.getClientes(paginaActual, porPagina, mostrarInactivos));
 			}
 			catch(RespuestaServidor rs) {
 				rta.setErrores(rs.getErrores());
