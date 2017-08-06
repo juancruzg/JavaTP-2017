@@ -15,16 +15,32 @@
 		  $util.focus("descripcion");
 		  
 		  vm.productoSeleccionado = seleccionarProducto();
-		  // vm.guardar = guardar;
+		  vm.guardar = guardar;
 		  vm.cancelar = cancelar;
 		  vm.listaLineas = [];
+		  vm.listaTalles = [];
+		  vm.listaColores = [];
 		  
-		  if (vm.productoSeleccionado && vm.productoSeleccionado.lineas) {
+		  if (vm.productoSeleccionado && vm.productoSeleccionado.lineas)
 			  vm.listaLineas = vm.productoSeleccionado.lineas;
-		  }
 		  
 		  if (angular.equals({}, vm.productoSeleccionado))
 			  vm.productoSeleccionado.activo = true;
+		  
+		  buscarTalles();
+		  buscarColores();
+		  
+		  function buscarTalles() {
+			  $api.getData("Talles").then(function(data) {
+				 vm.listaTalles = data; 
+			  });
+		  }
+		  
+		  function buscarColores() {
+			  $api.getData("Colores").then(function(data) {
+				 vm.listaColores = data; 
+			  });
+		  }
 		  
 		  function seleccionarProducto() {
 			  if (!$stateParams.idProducto)
@@ -32,29 +48,25 @@
 				  
 			  if ($stateParams.producto)
 				  return $stateParams.producto;
-			  else {
-				  var producto = buscarProducto($stateParams.idProducto);
-				  
-				  if (producto)
-					  return producto;
-				  else
-					  return {};
-			  }
+			  else
+				  buscarProducto($stateParams.idProducto);
 		  }
 		  
 		  function buscarProducto(idProducto) {
 			  $api.getData("Productos", { "idProducto": idProducto }).then(function(data) {
-				  debugger;
 				  if (data) {
 					  vm.productoSeleccionado = data;	
 
-					  if (vm.productoSeleccionado && vm.productoSeleccionado.lineas) {
+					  if (vm.productoSeleccionado && vm.productoSeleccionado.lineas)
 						  vm.listaLineas = vm.productoSeleccionado.lineas;
-					  }
 				  }
 				  else
 					  vm.productoSeleccionado = null; // En realidad acá debería dar 404...
 			  });
+		  }
+		  
+		  function guardar() {
+			  
 		  }
 		  
 		  function cancelar() {

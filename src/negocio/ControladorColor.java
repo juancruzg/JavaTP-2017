@@ -13,6 +13,12 @@ public class ControladorColor {
 		return cc.getColor(idColor);
 	}
 
+	public ArrayList<Color> getColores() throws RespuestaServidor {
+		CatalogoColor cc = new CatalogoColor();
+		
+		return cc.getColores();
+	}
+	
 	public ArrayList<Color> getColores(int paginaActual, int porPagina) throws RespuestaServidor {
 		CatalogoColor cc = new CatalogoColor();
 		
