@@ -47,20 +47,21 @@ public class CatalogoProducto extends CatalogoBase {
 	}
 	
 	public int insertProducto(Producto producto) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO producto (id, descripcion,usuarioAlta,activo) VALUES (?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO producto (descripcion, marca, usuarioAlta, activo) VALUES (?, ?, ?)");
 		
-		data.addParameter(producto.getId());
 		data.addParameter(producto.getDescripcion());
-		data.addParameter(producto.getUsuarioAlta());
+		data.addParameter(producto.getMarca());
+		data.addParameter(producto.getUsuarioAlta().getUsuario());
 		data.addParameter(producto.isActivo());
 		
 		return super.save(data);
 	}
 	
 	public int updateProducto(Producto producto) throws RespuestaServidor {
-		DBData data = new DBData("UPDATE producto SET descripcion = ?, activo = ? WHERE id = ?");
+		DBData data = new DBData("UPDATE producto SET descripcion = ?, marca = ?, activo = ? WHERE id = ?");
 		
 		data.addParameter(producto.getDescripcion());
+		data.addParameter(producto.getMarca());
 		data.addParameter(producto.isActivo());
 		data.addParameter(producto.getId());
 		

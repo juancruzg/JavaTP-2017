@@ -30,14 +30,32 @@ public class ControladorPrecio {
 		return cu.getPrecios(paginaActual, porPagina);
 	}
 	
+	public int savePrecio(Precio p) throws RespuestaServidor {
+		RespuestaServidor rs = new RespuestaServidor();
+		CatalogoPrecio cp = new CatalogoPrecio();
+		
+		Precio precioDB = cp.getUltimoPrecio(p.getProducto().getId());
+		
+		if (precioDB == null || precioDB.getPrecio() != p.getPrecio()) {
+			p.setFecha(new Timestamp(System.currentTimeMillis()));
+			
+			rs = validarPrecio(p);
+			
+			if (!rs.getStatus())
+				throw rs;
+			
+			return cp.insertPrecio(p);
+		}
+		else
+			return 0;
+	}
+	
 	public int savePrecio(int idProducto, Timestamp fecha, float precio, String usuario) throws RespuestaServidor {
 		RespuestaServidor rs = new RespuestaServidor();
 		CatalogoPrecio cp = new CatalogoPrecio();
 		CatalogoUsuario cu = new CatalogoUsuario();
 		CatalogoProducto cprod = new CatalogoProducto();
-		
-		Precio precioDB = cp.getPrecio(idProducto,fecha);
-		
+			
 		// Fetcheo las FKs
 		Usuario usuarioAlta = cu.getUsuario(usuario);
 		Producto producto = cprod.getProducto(idProducto);
@@ -50,15 +68,7 @@ public class ControladorPrecio {
 		p.setPrecio(precio);
 		p.setUsuarioAlta(usuarioAlta);
 		
-		rs = validarPrecio(p);
-		
-		if (!rs.getStatus())
-			throw rs;
-		
-		if (precioDB == null)
-			return cp.insertPrecio(p);
-		else
-			return cp.updatePrecio(p);
+		return savePrecio(p);
 	}
 	
 	private RespuestaServidor validarPrecio(Precio p) {

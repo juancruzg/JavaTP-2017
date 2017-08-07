@@ -92,16 +92,18 @@ public class Conexion {
 	}
 	
 	public void startTransaction() throws SQLException {
-		conn.setAutoCommit(true);
+		getConn().setAutoCommit(false);
 	}
 	
 	public void commit() throws SQLException {
 		conn.commit();
-		conn.setAutoCommit(false);
+		conn.setAutoCommit(true);
+		CloseConn();
 	}
 	
 	public void rollback() throws SQLException {
 		conn.rollback();
-		conn.setAutoCommit(false);
+		conn.setAutoCommit(true);
+		CloseConn();
 	}
 }

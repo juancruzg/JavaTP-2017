@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Cliente;
+import entidades.Producto;
+import entidades.Usuario;
 import excepciones.RespuestaServidor;
 import negocio.ControladorCliente;
 import negocio.ControladorProducto;
@@ -56,11 +59,55 @@ public class Productos extends ServletBase {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		ControladorProducto cp = new ControladorProducto();
+		
+		Producto p = (Producto) procesarRequest(request, Producto.class);
+		RespuestaServidor sr = new RespuestaServidor();
+		int nro = 0;
+		
+		try
+		{
+			nro = cp.saveProducto(p);
+		} 
+		catch (RespuestaServidor e)
+		{
+			sr = e;
+		}
+		
+		Respuesta rta = new Respuesta();
+		
+		rta.setData(nro);
+		rta.setErrores(sr.getErrores());
+		
+		enviarJSON(request, response, rta.toJson());
 	}
 	
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+		ControladorProducto cp = new ControladorProducto();
+		
+		Producto p = (Producto) procesarRequest(request, Producto.class);
+		RespuestaServidor sr = new RespuestaServidor();
+		int nro = 0;
+		
+		Usuario u = new Usuario();
+		u.setUsuario("juan");
+		p.setUsuarioAlta(new Usuario());
+		
+		try
+		{
+			nro = cp.saveProducto(p);
+		} 
+		catch (RespuestaServidor e)
+		{
+			sr = e;
+		}
+		
+		Respuesta rta = new Respuesta();
+		
+		rta.setData(nro);
+		rta.setErrores(sr.getErrores());
+		
+		enviarJSON(request, response, rta.toJson());
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

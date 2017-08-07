@@ -9,8 +9,10 @@ import datos.CatalogoLineaProducto;
 import datos.CatalogoPrecio;
 import datos.CatalogoProducto;
 import datos.CatalogoUsuario;
+import entidades.LineaProducto;
 import entidades.Precio;
 import entidades.Producto;
+import entidades.Sucursal;
 import excepciones.RespuestaServidor;
 
 public class ControladorProducto {
@@ -51,6 +53,59 @@ public class ControladorProducto {
 		return productos;
 	}
 	
+	public int saveProducto(Producto p) throws RespuestaServidor {
+		RespuestaServidor rs = new RespuestaServidor();
+		CatalogoProducto cp = new CatalogoProducto();
+		ControladorPrecio ctrp = new ControladorPrecio();
+		ControladorLineaProducto ctrlp = new ControladorLineaProducto();
+
+		try {
+			Conexion.getInstancia().startTransaction();
+						
+			// Primero guardo o edito el producto
+			int retorno;
+			
+			if (p.getId() == 0) {
+				retorno = cp.insertProducto(p);
+				p.setId(retorno);
+			}
+			else
+				retorno = cp.updateProducto(p);
+			
+			// Después guardo o edito el precio
+			p.getPrecio().setProducto(p);
+			ctrp.savePrecio(p.getPrecio());
+			
+			// Después guardo o edito las líneas
+			for (LineaProducto linea : p.getLineas()) {
+				if (linea.getProducto() == null)
+					linea.setProducto(p);
+				
+				// TODO: Hardcodeo por ahora
+				linea.setSucursal(new Sucursal(1, "", ""));
+				
+				ctrlp.saveLineaProducto(linea);
+			}
+			
+			// Corren las validaciones
+			rs = validarProducto(p);
+			
+			// Si falla alguna, lanzar el error
+			if (!rs.getStatus()) {
+				Conexion.getInstancia().rollback();
+				throw rs;
+			}
+			
+			Conexion.getInstancia().commit();
+			
+			return retorno;
+		}
+		catch(SQLException e) {
+			rs.addError(e);
+			throw rs;
+		}
+	}
+	
 	public int saveProducto(int id, String descripcion, float precio, String usuario, boolean activo) throws RespuestaServidor {
 		RespuestaServidor rs = new RespuestaServidor();
 		CatalogoProducto cp = new CatalogoProducto();
@@ -62,7 +117,6 @@ public class ControladorProducto {
 		Precio precioDB = null;
 		
 		try {
-		
 			Conexion.getInstancia().startTransaction();
 			
 			if(id == 0)	{

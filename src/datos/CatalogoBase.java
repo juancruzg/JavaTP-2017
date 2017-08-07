@@ -109,6 +109,7 @@ public abstract class CatalogoBase {
 	 * @return Devuelve un entero. Devuelve la cantidad de registros que se editaron o 0 si ninguno se editó.
 	 */
     protected <T extends CatalogoBase> int save(DBData data) throws RespuestaServidor {
+    	int affectedRows = 0;
     	int result = 0;
     	PreparedStatement st = null;
     	RespuestaServidor res = new RespuestaServidor();
@@ -124,7 +125,17 @@ public abstract class CatalogoBase {
     			((PreparedStatement)st).setObject(i, parameter);
     		}
 
-            result = ((PreparedStatement)st).executeUpdate();
+    		affectedRows = ((PreparedStatement)st).executeUpdate();
+    		
+    		if (affectedRows == 0) {
+                throw new SQLException("Creating user failed, no rows affected.");
+            }
+    		
+    		ResultSet generatedKeys = st.getGeneratedKeys();
+    		
+    		if (generatedKeys.next()) {
+    			result = generatedKeys.getInt(1);
+    		}
     	}
     	catch (SQLException ex) {
         	res.addError(ex);
