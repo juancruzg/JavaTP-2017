@@ -9,7 +9,6 @@ app
     });
   }])
 .config(function($stateProvider, $urlRouterProvider) {
-		
 	var home = {
 		name: "home",
 		templateUrl: "./areas/home/home.html",
