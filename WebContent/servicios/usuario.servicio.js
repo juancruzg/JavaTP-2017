@@ -8,7 +8,7 @@
 	servicioUsuario.$inject = ["$api"];
 	  
 	function servicioUsuario ($api) {
-		servicio = this;
+		var servicio = this;
 		
 		servicio.login = login;
 		servicio.getUsuarioConectado = getUsuarioConectado;

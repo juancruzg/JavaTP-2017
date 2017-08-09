@@ -14,12 +14,13 @@
 		<link href="./lib/custom/app.css" rel="stylesheet">
 		<link href="./lib/custom/modal.css" rel="stylesheet">
 		<link href="./directivas/calendario/calendario.css" rel="stylesheet">			
+		<link href="./areas/login/login.css">
 	</head>
 	<body>
   	<body ng-app="shop-management" ng-controller="indexController as indexVm">
   		<toast></toast>
   		<div id="wrapper" ng-class="{'toggled': indexVm.menuToggled}">
-			<div id="sidebar-wrapper">
+			<div id="sidebar-wrapper" ng-if="indexVm.mostrarMenu">
 				<ul class="sidebar-nav">
 					<li class="sidebar-brand">
 	                    <a>Negocio de Ropa</a>
@@ -44,7 +45,7 @@
 			<div id="page-content-wrapper">
               <div class="fluid-row">
                   <div class="col-sm-1">
-                      <a class="toggle-button" ng-click="indexVm.toggleMenu()"><i class="fa fa-3x" ng-class="{'fa-bars': !indexVm.menuToggled, 'fa-times': indexVm.menuToggled}" aria-hidden="true" style="position:fixed;"></i></a>
+                      <a class="toggle-button" ng-click="indexVm.toggleMenu()"><i class="fa fa-3x" ng-class="{'fa-bars': !indexVm.menuToggled, 'fa-times': indexVm.menuToggled}" aria-hidden="true" style="position:fixed;" ng-if="indexVm.mostrarMenu"></i></a>
                   </div>
                   <div class="col-sm-10">
                       <div style="height: 25px;"></div>
@@ -74,6 +75,7 @@
 <script type="text/javascript" src="./servicios/util.servicio.js"></script>
 <script type="text/javascript" src="./servicios/api.servicio.js"></script>
 <script type="text/javascript" src="./servicios/tabla.servicio.js"></script>
+<script type="text/javascript" src="./servicios/usuario.servicio.js"></script>
 
 <!-- DIRECTIVES -->
 <script type="text/javascript" src="./directivas/modal/modal.directiva.js"></script>
@@ -94,6 +96,8 @@
 <script type="text/javascript" src="./areas/productos/productos.editar.controlador.js"></script>
 <script type="text/javascript" src="./areas/usuarios/usuarios.controlador.js"></script>
 <script type="text/javascript" src="./areas/ventas/nueva-venta.controlador.js"></script>
+<script type="text/javascript" src="./areas/login/login.controlador.js"></script>
+
 
 
 
