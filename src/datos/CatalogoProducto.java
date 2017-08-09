@@ -47,7 +47,7 @@ public class CatalogoProducto extends CatalogoBase {
 	}
 	
 	public int insertProducto(Producto producto) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO producto (descripcion, marca, usuarioAlta, activo) VALUES (?, ?, ?)");
+		DBData data = new DBData("INSERT INTO producto (descripcion, marca, usuarioAlta, activo) VALUES (?, ?, ?, ?)");
 		
 		data.addParameter(producto.getDescripcion());
 		data.addParameter(producto.getMarca());

@@ -91,19 +91,37 @@ public class Conexion {
 		}
 	}
 	
-	public void startTransaction() throws SQLException {
-		getConn().setAutoCommit(false);
+	public void beginTransaction() {
+		try {
+			this.getConn().setAutoCommit(false);
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	public void commit() throws SQLException {
-		conn.commit();
-		conn.setAutoCommit(true);
-		CloseConn();
+	public void commitTransaction() {
+		try {
+			this.conn.commit();
+			this.conn.setAutoCommit(true);
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.CloseConn();
+		}
 	}
 	
-	public void rollback() throws SQLException {
-		conn.rollback();
-		conn.setAutoCommit(true);
-		CloseConn();
+	public void rollbackTransaction() {
+		try {
+			this.conn.rollback();
+			this.conn.setAutoCommit(true);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		finally {
+			this.CloseConn();
+		}
 	}
 }

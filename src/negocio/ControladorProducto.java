@@ -1,5 +1,6 @@
 package negocio;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -22,7 +23,8 @@ public class ControladorProducto {
 		
 		Producto producto = cc.getProducto(idProducto);
 		
-		producto.setLineas(clp.getLineaProductos(idProducto));
+		if (producto != null)
+			producto.setLineas(clp.getLineaProductos(idProducto));
 		
 		return producto;
 	}
@@ -59,11 +61,13 @@ public class ControladorProducto {
 		ControladorPrecio ctrp = new ControladorPrecio();
 		ControladorLineaProducto ctrlp = new ControladorLineaProducto();
 
+		Connection conn = Conexion.getInstancia().getConn();
+		int retorno = 0;
+
 		try {
-			Conexion.getInstancia().startTransaction();
-						
+			conn.setAutoCommit(false);
+			
 			// Primero guardo o edito el producto
-			int retorno;
 			
 			if (p.getId() == 0) {
 				retorno = cp.insertProducto(p);
@@ -92,21 +96,41 @@ public class ControladorProducto {
 			
 			// Si falla alguna, lanzar el error
 			if (!rs.getStatus()) {
-				Conexion.getInstancia().rollback();
+				conn.rollback();
 				throw rs;
 			}
 			
-			Conexion.getInstancia().commit();
+			conn.commit();
+			conn.setAutoCommit(true);
+		}
+		catch(RespuestaServidor sr) {
+			try {
+				conn.rollback();
+				conn.setAutoCommit(true);
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			}
 			
-			return retorno;
+			throw sr;
 		}
 		catch(SQLException e) {
-			rs.addError(e);
-			throw rs;
+			try {
+				conn.rollback();
+				conn.setAutoCommit(true);
+			} 
+			catch (SQLException ex) {
+				ex.printStackTrace();
+			}
 		}
+		finally {
+			Conexion.getInstancia().CloseConn();
+		}
+		
+		return retorno;
 	}
 	
-	public int saveProducto(int id, String descripcion, float precio, String usuario, boolean activo) throws RespuestaServidor {
+	/*public int saveProducto(int id, String descripcion, float precio, String usuario, boolean activo) throws RespuestaServidor {
 		RespuestaServidor rs = new RespuestaServidor();
 		CatalogoProducto cp = new CatalogoProducto();
 		CatalogoPrecio cpr = new CatalogoPrecio();
@@ -116,63 +140,57 @@ public class ControladorProducto {
 		Producto p = new Producto();
 		Precio precioDB = null;
 		
-		try {
-			Conexion.getInstancia().startTransaction();
+		//cp.beginTransaction();
+		
+		if(id == 0)	{
+			precioDB = new Precio();
+			precioDB.setFecha(new Timestamp(System.currentTimeMillis()));
+			precioDB.setPrecio(precio);
+			precioDB.setUsuarioAlta(cu.getUsuario(usuario));
+			precioDB.setProducto(new Producto(id, null, null, null));
+			cpr.insertPrecio(precioDB);
+		}
+		else {
+			precioDB = cpr.getUltimoPrecio(id);
 			
-			if(id == 0)	{
-				precioDB = new Precio();
+			if(precioDB == null){
+				rs.addError("Producto a modificar no conten�a un precio");
+				throw rs;
+			}
+			
+			if(precioDB.getPrecio() != precio){
 				precioDB.setFecha(new Timestamp(System.currentTimeMillis()));
 				precioDB.setPrecio(precio);
 				precioDB.setUsuarioAlta(cu.getUsuario(usuario));
 				precioDB.setProducto(new Producto(id, null, null, null));
 				cpr.insertPrecio(precioDB);
 			}
-			else {
-				precioDB = cpr.getUltimoPrecio(id);
-				
-				if(precioDB == null){
-					rs.addError("Producto a modificar no conten�a un precio");
-					throw rs;
-				}
-				
-				if(precioDB.getPrecio() != precio){
-					precioDB.setFecha(new Timestamp(System.currentTimeMillis()));
-					precioDB.setPrecio(precio);
-					precioDB.setUsuarioAlta(cu.getUsuario(usuario));
-					precioDB.setProducto(new Producto(id, null, null, null));
-					cpr.insertPrecio(precioDB);
-				}
-			}
-			
-			p.setId(id);
-			p.setDescripcion(descripcion);
-			p.setPrecio(precioDB);
-			p.setActivo(activo);
-			p.setUsuarioAlta(cu.getUsuario(usuario));
-			
-			// Corren las validaciones
-			rs = validarProducto(p);
-			
-			// Si falla alguna, lanzar el error
-			if (!rs.getStatus())
-				throw rs;
-			
-			int retorno;
-			
-			if (id == 0)
-				retorno = cp.insertProducto(p);
-			else
-				retorno = cp.updateProducto(p);
+		}
 		
-			Conexion.getInstancia().commit();
-
-			return retorno;		
-		}
-		catch(SQLException e) {
-			rs.addError(e);
+		p.setId(id);
+		p.setDescripcion(descripcion);
+		p.setPrecio(precioDB);
+		p.setActivo(activo);
+		p.setUsuarioAlta(cu.getUsuario(usuario));
+		
+		// Corren las validaciones
+		rs = validarProducto(p);
+		
+		// Si falla alguna, lanzar el error
+		if (!rs.getStatus())
 			throw rs;
-		}
-	}
+		
+		int retorno;
+		
+		if (id == 0)
+			retorno = cp.insertProducto(p);
+		else
+			retorno = cp.updateProducto(p);
+	
+		//cp.commitTransaction();
+
+		return retorno;	
+	}*/
 	
 	private RespuestaServidor validarProducto (Producto producto) throws RespuestaServidor {
 		CatalogoProducto cp = new CatalogoProducto();
