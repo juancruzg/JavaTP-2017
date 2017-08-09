@@ -15,6 +15,12 @@ public class ControladorUsuario {
 		return cu.getUsuario(usuario);
 	}
 	
+	public Usuario getUsuario(String usuario, String password) throws RespuestaServidor {
+		CatalogoUsuario cu = new CatalogoUsuario();
+		
+		return cu.getUsuario(usuario, password);
+	}
+	
 	public ArrayList<Usuario> getUsuarios(int paginaActual, int porPagina) throws RespuestaServidor {
 		CatalogoUsuario cu = new CatalogoUsuario();
 		

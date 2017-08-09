@@ -23,13 +23,24 @@ var loginControlador = function($state){
 		.module('shop-management')
 		.controller('controladorLogin', controladorLogin);
 
-	controladorLogin.$inject = ["$state", "$usuario"];
+	controladorLogin.$inject = ["$state", "$usuario", "$scope", "$rootScope"];
 
-	function controladorLogin($state, $usuario) {
+	function controladorLogin($state, $usuario, $scope, $rootScope) {
 		var vm = this;
-		var usuario = $usuario.getUsuarioConectado();
 		
-		if (usuario)
-			$state.go("home");
+		$usuario.isLoggedIn().then(function(isLoggedIn) {
+			if (isLoggedIn)
+				$state.go("home");
+		});
+		
+		vm.login = login;
+					
+		function login() {
+			$usuario.login(vm.usuario, vm.clave).then(function(usuario) {
+				$rootScope.$broadcast("mostrarMenu", true);
+				
+				$state.go("home");
+			});
+		}
 	}
 })();	

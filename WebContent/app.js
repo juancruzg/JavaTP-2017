@@ -9,8 +9,6 @@ app
     });
   }])
 .config(function($stateProvider, $urlRouterProvider, $usuarioProvider) {
-	var usuario = $usuarioProvider.$get().getUsuarioConectado();
-
 	var home = {
 		name: "home",
 		templateUrl: "./areas/home/home.html",
@@ -74,21 +72,16 @@ app
 		controllerAs: "VMLogin"
 	}
 	
-	var notLoggedIn = {
-        security: ['$q', function($q){
-            if(!usuario){
-               return $q.reject("Not Authorized");
-            }
-        }]
-     };
+	var resolution =  {
+		authorize: ["$usuario", function($usuario) {
+			return $usuario.authorize();
+		}]
+	};
 	
-	home.resolve = clientes.resolve = usuarios.resolve = editarClientes.resolve = nuevaVenta.resolve = productos.resolve = editarProductos.resolve = notLoggedIn;
+	home.resolve = clientes.resolve = usuarios.resolve = editarClientes.resolve = nuevaVenta.resolve = productos.resolve = editarProductos.resolve = login.resolve = resolution;
 	
-	var defaultUrl = '/login';
-	
-	if (usuario)
-		defaultUrl = '/home';
-	
+	var defaultUrl = '/home';
+
 	$urlRouterProvider.otherwise(defaultUrl);
 	
 	$stateProvider
@@ -104,12 +97,6 @@ app
 .config(function(hotkeysProvider) {
 	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";
 	hotkeysProvider.templateTitle = "Puede usar los siguientes controles para una mejor experiencia:"
-}).run(function($transitions, $state) {
-	$transitions.onError({}, function(t) {
-	    if(t.error().detail === "Not Authorized"){
-	        $state.go("login");
-	    }
-	});
 }).run(function() {
 	// Esto lo intenté hacer en un servicio, pero no estoy seguro por qué, primero que el servicio cargaban las vistas, entonces en la primera carga tiraba error, pero en las siguientes no
 	// Si alguien sabe por qué pasa esto, acomódelo en el servicio Útil. De última acá no molesta tampoco
@@ -156,28 +143,42 @@ app
 
 app.controller('indexController', indexController);
 
-indexController.$inject = ["hotkeys", "$usuario"];
+indexController.$inject = ["hotkeys", "$usuario", "$scope", "$rootScope"];
 
-function indexController(hotkeys, $usuario) {
+function indexController(hotkeys, $usuario, $scope, $rootScope) {
 	var vm = this;
 	vm.toggleCheatSheet = hotkeys.toggleCheatSheet;
-	vm.menuToggled = false;
+	vm.menuToggled = true;
 	vm.toggleMenu = toggleMenu;
 	vm.mostrarMenu = false;  
 	
-	var usuario = $usuario.getUsuarioConectado();
+	$usuario.isLoggedIn().then(function(isLoggedIn){
+		vm.mostrarMenu = isLoggedIn;
+		
+		if (vm.mostrarMenu) {
+			hotkeys.add({
+				combo: '-',
+			    description: 'Expandir menú principal',
+			    callback: function() {
+			      toggleMenu();
+			    }
+			});
+		} 
+	});
 	
-	if (usuario) {
-		vm.mostrarMenu = true;
-	
-		hotkeys.add({
-			combo: '-',
-		    description: 'Expandir menú principal',
-		    callback: function() {
-		      toggleMenu();
-		    }
-		});
-	} 
+	$rootScope.$on('mostrarMenu', function(mostrarMenu) {
+		vm.mostrarMenu = mostrarMenu;
+		
+		if (vm.mostrarMenu) {
+			hotkeys.add({
+				combo: '-',
+			    description: 'Expandir menú principal',
+			    callback: function() {
+			      toggleMenu();
+			    }
+			});
+		} 
+	});
 	
 	function toggleMenu() {
 	    vm.menuToggled = !vm.menuToggled;

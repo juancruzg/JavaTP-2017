@@ -32,6 +32,15 @@ public class CatalogoUsuario extends CatalogoBase {
 		return super.getOne(data, rs -> fetchUsuarioFromDB(rs));
 	}
 	
+	public Usuario getUsuario(String usuario, String password) throws RespuestaServidor { 
+		DBData data = new DBData("SELECT * FROM usuario WHERE usuario = ? && password = ?");
+		
+		data.addParameter(usuario);
+		data.addParameter(password);
+		
+		return super.getOne(data, rs -> fetchUsuarioFromDB(rs));
+	}
+		
 	public int insertUsuario(Usuario usuario) throws RespuestaServidor {
 		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal, usuarioAlta) VALUES (?, ?, ?, ?, ?, ?)");
 		
