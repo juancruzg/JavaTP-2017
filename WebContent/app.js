@@ -9,6 +9,7 @@ app
     });
   }])
 .config(function($stateProvider, $urlRouterProvider) {
+		
 	var home = {
 		name: "home",
 		templateUrl: "./areas/home/home.html",
@@ -86,61 +87,62 @@ indexController.$inject = ["hotkeys"];
 
 function indexController(hotkeys) {
   var vm = this;
+	  vm.toggleCheatSheet = hotkeys.toggleCheatSheet;
+	  vm.menuToggled = false;
 
-  vm.toggleCheatSheet = hotkeys.toggleCheatSheet;
-  vm.menuToggled = false;
-
-  vm.toggleMenu = toggleMenu;
-  
-  hotkeys.add({
-    combo: '-',
-    description: 'Expandir menú principal',
-    callback: function() {
-      toggleMenu();
-    }
-  });
-  
-  function toggleMenu() {
-    vm.menuToggled = !vm.menuToggled;
-  }
-
-  Date.prototype.add = function(cantidad, tipo) {
-	  var fecha = new Date(this.valueOf());	
-		
-	  if (tipo === 'd') {
-		  fecha.setDate(fecha.getDate() + cantidad);
-	  }
-	  else if (tipo === 'w') {
-		  fecha.setDate(fecha.getDate() + (7 * cantidad));
-	  }
-	  else if (tipo ==='m') {
-		  fecha.setMonth(fecha.getMonth() + cantidad);
-	  }
-		
-	  return fecha;
-  }
-	
-  // Extend Date functions
-  Date.prototype.getDateName = function() {
-	  var fecha = new Date(this.valueOf());
-		
-	  var dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-	
-	  return dias[fecha.getDay()];
-  }
-	
-  Date.prototype.getMonthName = function() {
-	  var fecha = new Date(this.valueOf());
-		
-	  var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-		  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
-
-	  return monthNames[fecha.getMonth()];
-  }
-  
-  Date.prototype.toString = function() {
-	  var fecha = new Date(this.valueOf());
+	  vm.toggleMenu = toggleMenu;
 	  
-	  return fecha.getDate() + ' de ' + fecha.getMonthName() + ' de ' + fecha.getFullYear();
-  }
+	  hotkeys.add({
+	    combo: '-',
+	    description: 'Expandir menú principal',
+	    callback: function() {
+	      toggleMenu();
+	    }
+	  });
+	  
+	  function toggleMenu() {
+	    vm.menuToggled = !vm.menuToggled;
+	  }
+
+	  Date.prototype.add = function(cantidad, tipo) {
+		  var fecha = new Date(this.valueOf());	
+			
+		  if (tipo === 'd') {
+			  fecha.setDate(fecha.getDate() + cantidad);
+		  }
+		  else if (tipo === 'w') {
+			  fecha.setDate(fecha.getDate() + (7 * cantidad));
+		  }
+		  else if (tipo ==='m') {
+			  fecha.setMonth(fecha.getMonth() + cantidad);
+		  }
+			
+		  return fecha;
+	  }
+		
+	  // Extend Date functions
+	  Date.prototype.getDateName = function() {
+		  var fecha = new Date(this.valueOf());
+			
+		  var dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+		
+		  return dias[fecha.getDay()];
+	  }
+		
+	  Date.prototype.getMonthName = function() {
+		  var fecha = new Date(this.valueOf());
+			
+		  var monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+			  "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+		  return monthNames[fecha.getMonth()];
+	  }
+	  
+	  Date.prototype.toString = function() {
+		  var fecha = new Date(this.valueOf());
+		  
+		  return fecha.getDate() + ' de ' + fecha.getMonthName() + ' de ' + fecha.getFullYear();
+	  }
+
+ 
 }
