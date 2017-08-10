@@ -36,10 +36,11 @@ var loginControlador = function($state){
 		vm.login = login;
 					
 		function login() {
-			$usuario.login(vm.usuario, vm.clave).then(function(usuario) {
-				$rootScope.$broadcast("mostrarMenu", true);
-				
-				$state.go("home");
+			$usuario.login(vm.usuario, vm.clave).then(function(isLoggedIn) {
+				if (isLoggedIn) {
+					$rootScope.$broadcast("login", isLoggedIn);
+					$state.go("home");
+				}
 			});
 		}
 	}

@@ -166,7 +166,7 @@ function indexController(hotkeys, $usuario, $scope, $rootScope) {
 		} 
 	});
 	
-	$rootScope.$on('mostrarMenu', function(mostrarMenu) {
+	$rootScope.$on('login', function(mostrarMenu) {
 		vm.mostrarMenu = mostrarMenu;
 		
 		if (vm.mostrarMenu) {
