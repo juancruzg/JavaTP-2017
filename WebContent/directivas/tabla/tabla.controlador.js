@@ -81,7 +81,7 @@
     		if (header.isVisible)
     			headers.push(header.caption);
     	});
-    	
+
     	// Después lleno el array de rows, ordenándolos de la misma manera que se muestran los headers
 		dataSrc.body.forEach(function(originalRow) {
 			var row = {};

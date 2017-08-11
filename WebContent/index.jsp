@@ -1,7 +1,8 @@
  <%@ page 
 	language = "java" 
+	session="false" 	
 	contentType = "text/html; charset=UTF-8"
-    pageEncoding = "UTF-8"%>
+    pageEncoding = "UTF-8" %>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,6 +40,9 @@
 					</li>
 					<li>
 					    <a ui-sref="nueva-venta"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Nueva Venta</a>
+					</li>
+					<li>
+					    <a class="exit" ng-click="indexVm.salir()"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a>
 					</li>
               </ul>
 			</div>
@@ -95,6 +99,7 @@
 <script type="text/javascript" src="./areas/productos/productos.controlador.js"></script>
 <script type="text/javascript" src="./areas/productos/productos.editar.controlador.js"></script>
 <script type="text/javascript" src="./areas/usuarios/usuarios.controlador.js"></script>
+<script type="text/javascript" src="./areas/usuarios/usuarios.editar.controlador.js"></script>
 <script type="text/javascript" src="./areas/ventas/nueva-venta.controlador.js"></script>
 <script type="text/javascript" src="./areas/login/login.controlador.js"></script>
 

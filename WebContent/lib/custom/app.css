@@ -68,6 +68,13 @@ body {
     border-left: solid 4px #987DBF;
 }
 
+.sidebar-nav li a.exit {
+    border-left: solid 4px #9f1111;
+    background: linear-gradient(to right, #1A1A1A 50%, #9f1111 50%);
+    background-size: 200% 100%;
+    transition: background-position 0.5s;
+}
+
 .sidebar-nav li a:hover {
     text-decoration: none;
     background-position: -100% 0;

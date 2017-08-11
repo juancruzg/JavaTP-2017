@@ -27,6 +27,12 @@ public class ControladorUsuario {
 		return cu.getUsuarios(paginaActual, porPagina);
 	}
 	
+	public ArrayList<Usuario> getUsuarios(int paginaActual, int porPagina, boolean mostrarInactivos) throws RespuestaServidor {
+		CatalogoUsuario cu = new CatalogoUsuario();
+		
+		return cu.getUsuarios(paginaActual, porPagina, mostrarInactivos);
+	}
+	
 	public int saveUsuario(String nombre, String apellido, String usuario, String password, int idSucursal, String usuarioUsuarioAlta) throws RespuestaServidor {
 		RespuestaServidor rs = new RespuestaServidor();
 		CatalogoUsuario cu = new CatalogoUsuario();

@@ -31,6 +31,15 @@ app
 		controllerAs: "VMUsuarios"
 	}
 	
+	var editarUsuarios = {
+		name: "usuarios.editar",
+		templateUrl: "./areas/usuarios/usuarios.editar.html",
+		url: "/editar/:loginUsuario",
+		params: {usuario: null},
+		controller: "controladorUsuariosEditar",
+		controllerAs: "VMUsuariosEditar"
+	}
+	
 	var editarClientes = {
 		name: "clientes.editar",
 		templateUrl: "./areas/clientes/clientes.editar.html",
@@ -78,7 +87,15 @@ app
 		}]
 	};
 	
-	home.resolve = clientes.resolve = usuarios.resolve = editarClientes.resolve = nuevaVenta.resolve = productos.resolve = editarProductos.resolve = login.resolve = resolution;
+	home.resolve = 
+		clientes.resolve = 
+			usuarios.resolve = 
+				editarUsuarios.resolve = 
+					editarClientes.resolve = 
+						nuevaVenta.resolve = 
+							productos.resolve = 
+								editarProductos.resolve = 
+									login.resolve = resolution;
 	
 	var defaultUrl = '/home';
 
@@ -88,6 +105,7 @@ app
 		.state(home)
 		.state(clientes)
 		.state(usuarios)
+		.state(editarUsuarios)
 		.state(editarClientes)
 		.state(nuevaVenta)
 		.state(productos)
@@ -148,14 +166,16 @@ indexController.$inject = ["hotkeys", "$usuario", "$scope", "$rootScope"];
 function indexController(hotkeys, $usuario, $scope, $rootScope) {
 	var vm = this;
 	vm.toggleCheatSheet = hotkeys.toggleCheatSheet;
-	vm.menuToggled = true;
+	vm.menuToggled = false;
 	vm.toggleMenu = toggleMenu;
 	vm.mostrarMenu = false;  
+	vm.salir = salir;
 	
-	$usuario.isLoggedIn().then(function(isLoggedIn){
+	$usuario.isLoggedIn().then(function(isLoggedIn) {
 		vm.mostrarMenu = isLoggedIn;
-		
-		if (vm.mostrarMenu) {
+		vm.menuToggled = isLoggedIn;
+
+		if (isLoggedIn) {		
 			hotkeys.add({
 				combo: '-',
 			    description: 'Expandir menú principal',
@@ -168,8 +188,9 @@ function indexController(hotkeys, $usuario, $scope, $rootScope) {
 	
 	$rootScope.$on('login', function(mostrarMenu) {
 		vm.mostrarMenu = mostrarMenu;
+		vm.menuToggled = mostrarMenu;
 		
-		if (vm.mostrarMenu) {
+		if (mostrarMenu) {		
 			hotkeys.add({
 				combo: '-',
 			    description: 'Expandir menú principal',
@@ -179,6 +200,12 @@ function indexController(hotkeys, $usuario, $scope, $rootScope) {
 			});
 		} 
 	});
+	
+	function salir() {
+		$usuario.logout();
+		vm.mostrarMenu = false;
+		vm.menuToggled = false;
+	}
 	
 	function toggleMenu() {
 	    vm.menuToggled = !vm.menuToggled;

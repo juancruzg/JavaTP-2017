@@ -1,14 +1,12 @@
 package servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.gson.Gson;
+import javax.servlet.http.HttpSession;
 
 import entidades.Cliente;
 import entidades.Usuario;
@@ -32,24 +30,48 @@ public class Usuarios extends ServletBase {
 		
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
+		String accion = request.getParameter("accion");
+		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
+		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
+		boolean mostrarInactivos = Tipos.toBoolean(request.getParameter("mostrarInactivos"));
 
-		if ((usuario == null || usuario.isEmpty()) && (password == null || password.isEmpty())) {
-			if (request.getSession().getAttribute("usuario") != null)
-				rta.setData((Usuario) request.getSession().getAttribute("usuario"));
-			else
-				rta.setData(null);
-		}
-		else if (!usuario.isEmpty() && !password.isEmpty()) {
-			try {
-				Usuario u = cu.getUsuario(usuario, password);
+		if(accion != null && !accion.isEmpty()) {
+			if (accion.equals("estaLoggeado")) {
+				HttpSession session = request.getSession(false);
 				
-				if (u != null)
-					request.getSession().setAttribute("usuario", u);
-				
-				rta.setData(u);
+				if (session != null && session.getAttribute("usuario") != null)
+					rta.setData(request.getSession().getAttribute("usuario"));
+				else
+					rta.setData(null);
 			}
-			catch(RespuestaServidor rs) {
-				rta.setErrores(rs.getErrores());
+			else if (accion.equals("login")) {
+				try {
+					Usuario u = cu.getUsuario(usuario, password);
+					
+					if (u != null)
+						request.getSession().setAttribute("usuario", u);
+					
+					rta.setData(u);
+				}
+				catch(RespuestaServidor rs) {
+					rta.setErrores(rs.getErrores());
+				}
+			}
+			else if (accion.equals("logout")) {
+				HttpSession session = request.getSession(false);
+				
+				if (session.getAttribute("usuario") != null)
+					session.removeAttribute("usuario");
+				
+				rta.setData(null);
+			}
+		}
+		else {	
+			try {
+				rta.setData(cu.getUsuarios(paginaActual, porPagina, mostrarInactivos));
+			} 
+			catch (RespuestaServidor e) {
+				rta.setErrores(e.getErrores());
 			}
 		}
 		

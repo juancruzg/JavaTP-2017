@@ -42,9 +42,8 @@
 	  }
 	  
 	  function mostrarEditar(cliente) {		  
-		  if (cliente) {
+		  if (cliente)
 			  $state.go('clientes.editar', { "idCliente": cliente.id, "cliente": cliente });
-		  }
 		  else
 			  $state.go('clientes.editar', { "idCliente": null });		  
 	  }
