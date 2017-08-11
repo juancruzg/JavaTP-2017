@@ -33,12 +33,38 @@ public class ControladorUsuario {
 		return cu.getUsuarios(paginaActual, porPagina, mostrarInactivos);
 	}
 	
+	public int saveUsuario(Usuario usuario) throws RespuestaServidor {
+		RespuestaServidor rs = new RespuestaServidor();
+		CatalogoUsuario cu = new CatalogoUsuario();
+		
+		Usuario usuarioDB = cu.getUsuario(usuario.getUsuario());
+
+		if (usuarioDB == null) {
+			usuario.setPassword("nuevoUsuario");
+		}
+		else {
+			if (usuario.getPassword().equals(usuarioDB.getPassword())) {
+				usuario.setPassword(null);
+			}
+		}
+		
+		// Corren las validaciones
+		rs = validarUsuario(usuario);
+
+		// Si falla alguna, lanzar el error
+		if (!rs.getStatus())
+			throw rs;
+		
+		if (usuarioDB == null)
+			return cu.insertUsuario(usuario);
+		else
+			return cu.updateUsuario(usuario);
+	}
+	
 	public int saveUsuario(String nombre, String apellido, String usuario, String password, int idSucursal, String usuarioUsuarioAlta) throws RespuestaServidor {
 		RespuestaServidor rs = new RespuestaServidor();
 		CatalogoUsuario cu = new CatalogoUsuario();
 		CatalogoSucursal cs = new CatalogoSucursal();
-		
-		Usuario usuarioDB = cu.getUsuario(usuario);
 		
 		// Fetcheo las FKs
 		Usuario usuarioAlta = cu.getUsuario(usuarioUsuarioAlta);
@@ -54,17 +80,7 @@ public class ControladorUsuario {
 		u.setUsuarioAlta(usuarioAlta);
 		u.setUsuario(usuario);
 		
-		// Corren las validaciones
-		rs = validarUsuario(u);
-
-		// Si falla alguna, lanzar el error
-		if (!rs.getStatus())
-			throw rs;
-		
-		if (usuarioDB == null)
-			return cu.insertUsuario(u);
-		else
-			return cu.updateUsuario(u);
+		return saveUsuario(u);
 	}
 	
 	private RespuestaServidor validarUsuario(Usuario u) {
@@ -77,12 +93,14 @@ public class ControladorUsuario {
 		
 		if (u.getUsuario().length() < 5)
 			res.addError("El nombre de usuario debe contener al menos 5 caracteres.");
-		
-		if (u.getPassword() == null || u.getPassword().isEmpty())
-			res.addError("La contraseña no puede estar en blanco.");
-		
-		if (u.getPassword().matches(passwordPattern))
-			res.addError("La contraseña ingresada no es aceptable. Asegúrese de tener una minúscula, una mayúscula, un caracter especial y un número al menos");
+				
+		if (u.getPassword() != null) {
+			if (u.getPassword().isEmpty())
+				res.addError("La contraseña no puede estar en blanco.");
+			
+			if (u.getPassword().matches(passwordPattern))
+				res.addError("La contraseña ingresada no es aceptable. Asegúrese de tener una minúscula, una mayúscula, un caracter especial y un número al menos");
+		}
 		
 		return res;
 	}

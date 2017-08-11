@@ -65,6 +65,9 @@ public class Clientes extends ServletBase {
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
+		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		c.setUsuarioAlta(usuarioSesion);
+		
 		try
 		{
 			nro = cc.saveCliente(c);
@@ -89,9 +92,8 @@ public class Clientes extends ServletBase {
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
-		Usuario u = new Usuario();
-		u.setUsuario("juan");
-		c.setUsuarioAlta(new Usuario());
+		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		c.setUsuarioAlta(usuarioSesion);
 		
 		try
 		{

@@ -41,7 +41,7 @@
 					<li>
 					    <a ui-sref="nueva-venta"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Nueva Venta</a>
 					</li>
-					<li>
+					<li style="cursor: pointer;">
 					    <a class="exit" ng-click="indexVm.salir()"><i class="fa fa-sign-out" aria-hidden="true"></i> Salir</a>
 					</li>
               </ul>

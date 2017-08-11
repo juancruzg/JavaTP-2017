@@ -65,6 +65,9 @@ public class Productos extends ServletBase {
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
+		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		p.setUsuarioAlta(usuarioSesion);
+		
 		try
 		{
 			nro = cp.saveProducto(p);
@@ -89,9 +92,8 @@ public class Productos extends ServletBase {
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
-		Usuario u = new Usuario();
-		u.setUsuario("juan");
-		p.setUsuarioAlta(new Usuario());
+		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		p.setUsuarioAlta(usuarioSesion);
 		
 		try
 		{

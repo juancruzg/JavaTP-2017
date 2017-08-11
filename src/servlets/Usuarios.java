@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import entidades.Cliente;
+import entidades.Sucursal;
 import entidades.Usuario;
 import excepciones.RespuestaServidor;
 import negocio.ControladorCliente;
@@ -60,18 +61,28 @@ public class Usuarios extends ServletBase {
 			else if (accion.equals("logout")) {
 				HttpSession session = request.getSession(false);
 				
-				if (session.getAttribute("usuario") != null)
+				if (session != null && session.getAttribute("usuario") != null)
 					session.removeAttribute("usuario");
 				
 				rta.setData(null);
 			}
 		}
 		else {	
-			try {
-				rta.setData(cu.getUsuarios(paginaActual, porPagina, mostrarInactivos));
-			} 
-			catch (RespuestaServidor e) {
-				rta.setErrores(e.getErrores());
+			if (usuario == null || usuario.isEmpty()) {
+				try {
+					rta.setData(cu.getUsuarios(paginaActual, porPagina, mostrarInactivos));
+				} 
+				catch (RespuestaServidor e) {
+					rta.setErrores(e.getErrores());
+				}
+			}
+			else {
+				try {
+					rta.setData(cu.getUsuario(usuario));
+				}
+				catch (RespuestaServidor e) {
+					rta.setErrores(e.getErrores());
+				}
 			}
 		}
 		
@@ -79,18 +90,20 @@ public class Usuarios extends ServletBase {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorCliente cc = new ControladorCliente();
+		ControladorUsuario cu = new ControladorUsuario();
 		
-		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
+		Usuario u = (Usuario) procesarRequest(request, Usuario.class);
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
-		try
-		{
-			nro = cc.saveCliente(c);
+		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		u.setSucursal(usuarioSesion.getSucursal());
+		u.setUsuarioAlta(usuarioSesion);
+		
+		try {
+			nro = cu.saveUsuario(u);
 		} 
-		catch (RespuestaServidor e)
-		{
+		catch (RespuestaServidor e) {
 			sr = e;
 		}
 		
@@ -103,19 +116,19 @@ public class Usuarios extends ServletBase {
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorCliente cc = new ControladorCliente();
+		ControladorUsuario cu = new ControladorUsuario();
 		
-		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
+		Usuario u = (Usuario) procesarRequest(request, Usuario.class);
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
-		Usuario u = new Usuario();
-		u.setUsuario("juan");
-		c.setUsuarioAlta(new Usuario());
+		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		u.setSucursal(usuarioSesion.getSucursal());
+		u.setUsuarioAlta(usuarioSesion);
 		
 		try
 		{
-			nro = cc.saveCliente(c);
+			nro = cu.saveUsuario(u);
 		} 
 		catch (RespuestaServidor e)
 		{

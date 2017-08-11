@@ -7,6 +7,7 @@ public class Usuario implements EntidadBase {
 	private Usuario usuarioAlta;
 	private Timestamp fechaAlta;
 	private Sucursal sucursal;
+	private boolean activo;
 	
 	/* Constructors */
 	public Usuario () {
@@ -81,6 +82,13 @@ public class Usuario implements EntidadBase {
 		this.sucursal = sucursal;
 	}
 	
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
 	/* Public Methods */
 	
 	public String toJson() {

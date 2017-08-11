@@ -43,11 +43,10 @@
 	  }
 	  
 	  function mostrarEditar(usuario) {
-		  debugger;
 		  if (usuario)
 			  $state.go('usuarios.editar', { "loginUsuario": usuario.usuario, "usuario": usuario });
 		  else
-			  $state.go('usuarios.editar', { "idUsuario": null });		
+			  $state.go('usuarios.editar', { "loginUsuario": null });		
 	  }
   }
 })();

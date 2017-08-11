@@ -30,9 +30,9 @@ public class CatalogoUsuario extends CatalogoBase {
 	}
 	
 	public ArrayList<Usuario> getUsuarios(int paginaActual, int porPagina, boolean mostrarInactivos) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM usuario WHERE (activo = ? OR activo = 1) LIMIT ?, ?");
+		DBData data = new DBData("SELECT * FROM usuario WHERE activo = ? OR activo = 1 LIMIT ?, ?");
 		
-		data.addParameter(mostrarInactivos);
+		data.addParameter(!mostrarInactivos);
 		data.addParameter(paginaActual);
 		data.addParameter(porPagina);
 		
@@ -57,7 +57,7 @@ public class CatalogoUsuario extends CatalogoBase {
 	}
 		
 	public int insertUsuario(Usuario usuario) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal, usuarioAlta) VALUES (?, ?, ?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal, usuarioAlta, activo) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 		data.addParameter(usuario.getUsuario());
 		data.addParameter(encriptarContrasena(usuario.getPassword()));
@@ -65,17 +65,25 @@ public class CatalogoUsuario extends CatalogoBase {
 		data.addParameter(usuario.getApellido());
 		data.addParameter(usuario.getSucursal().getId());
 		data.addParameter(usuario.getUsuarioAlta().getUsuario());
+		data.addParameter(usuario.isActivo());
 		
 		return super.save(data);
 	}
 	
 	public int updateUsuario(Usuario usuario) throws RespuestaServidor {
-		DBData data = new DBData("UPDATE usuario SET password = ?, nombre = ?, apellido = ?, idSucursal = ? WHERE usuario = ?");
+		DBData data;
 		
-		data.addParameter(encriptarContrasena(usuario.getPassword()));
+		if (usuario.getPassword() != null) {
+			data = new DBData("UPDATE usuario SET password = ?, nombre = ?, apellido = ?, idSucursal = ?, activo = ? WHERE usuario = ?");
+			data.addParameter(encriptarContrasena(usuario.getPassword()));
+		}
+		else {
+			data = new DBData("UPDATE usuario SET nombre = ?, apellido = ?, idSucursal = ?, activo = ? WHERE usuario = ?");
+		}
 		data.addParameter(usuario.getNombre());
 		data.addParameter(usuario.getApellido());
 		data.addParameter(usuario.getSucursal().getId());
+		data.addParameter(usuario.isActivo());
 		data.addParameter(usuario.getUsuario());
 		
 		return super.save(data);
@@ -92,6 +100,7 @@ public class CatalogoUsuario extends CatalogoBase {
 	    	user.setApellido(rs.getString("apellido"));
 	    	user.setFechaAlta(rs.getTimestamp("fechaAlta"));
 	    	user.setPassword(rs.getString("password"));
+	    	user.setActivo(rs.getBoolean("activo"));
 	    	
 	    	user.setUsuarioAlta(getUsuario(rs.getString("usuarioAlta")));
 	    	user.setSucursal(cs.getSucursal(rs.getInt("idSucursal")));
