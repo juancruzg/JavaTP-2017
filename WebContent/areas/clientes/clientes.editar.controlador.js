@@ -11,7 +11,7 @@
 	  var vm = this;
 	  
 	  // Ni bien carga el controller, scrolleo hasta el fondo y hago focus al nombre.
-	  $util.scrollTo(document.body, document.body.scrollHeight, 500);	
+	  $util.scrollTo(document.documentElement, document.documentElement.scrollHeight, 500);	
 	  $util.focus("nombre");
 	  
 	  vm.clienteSeleccionado = seleccionarCliente();

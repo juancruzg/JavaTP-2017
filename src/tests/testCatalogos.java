@@ -10,7 +10,6 @@ public class testCatalogos {
 	public static void main(String[] args) {
 		CatalogoUsuario cu = new CatalogoUsuario();
 		
-		System.out.println(cu.encriptarContrasena("juan"));
 	}
 
 }

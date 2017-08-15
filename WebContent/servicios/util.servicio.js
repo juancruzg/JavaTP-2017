@@ -13,7 +13,9 @@
 		this.containsObject = containsObject;
 		
 		function scrollTo(element, to, duration) {
-		    if (duration <= 0) 
+			debugger;
+
+		    if (duration <= 0) 	
 		    	return;
 		    
 		    var difference = to - element.scrollTop;
@@ -21,7 +23,7 @@
 
 		    setTimeout(function() {
 		        element.scrollTop = element.scrollTop + perTick;
-		        
+
 		        if (element.scrollTop === to) 
 		        	return;
 		        

@@ -11,7 +11,7 @@
 		this.getData = function (url, data) {
 			var deferred = $q.defer();
 			var queryString = "";
-		
+
 			// Si viene data, genero el QueryString
 			if (data) {			
 				for (var properties in data) {
@@ -28,7 +28,7 @@
 			})
 			.then(function(data) {
 				if (data.data.errores) {
-					$mensajes.mostrarErroress(data.data.errores);
+					$mensajes.mostrarErrores(data.data.errores);
 		    		deferred.reject;
 		    	}
 		    	else

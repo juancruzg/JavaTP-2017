@@ -1,5 +1,8 @@
 package negocio;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import datos.CatalogoSucursal;
@@ -18,7 +21,14 @@ public class ControladorUsuario {
 	public Usuario getUsuario(String usuario, String password) throws RespuestaServidor {
 		CatalogoUsuario cu = new CatalogoUsuario();
 		
-		return cu.getUsuario(usuario, password);
+		Usuario u = cu.getUsuario(usuario);
+		
+		RespuestaServidor rs = validarLogin(u, password);
+		
+		if (!rs.getStatus())
+			throw rs;
+		
+		return u;
 	}
 	
 	public ArrayList<Usuario> getUsuarios(int paginaActual, int porPagina) throws RespuestaServidor {
@@ -103,5 +113,43 @@ public class ControladorUsuario {
 		}
 		
 		return res;
+	}
+	
+	private RespuestaServidor validarLogin(Usuario usuario, String password) {
+		RespuestaServidor rs = new RespuestaServidor();
+		String passwordEncriptada = encriptarContrasena(password);
+		
+		if (usuario == null || !usuario.getPassword().equals(passwordEncriptada)) {
+			rs.addError("La combinación usuario-contraseña no es correcta. Intente de nuevo.");
+			return rs;
+		}
+		
+		if (!usuario.isActivo())
+			rs.addError("El usuario con el que intenta loggearse no se encuentra activo.");
+		
+		return rs;
+	}
+	
+	private String encriptarContrasena(String passwordOriginal) {
+		try {			
+			MessageDigest md = MessageDigest.getInstance("MD5");
+						
+			byte[] bytes = md.digest(passwordOriginal.getBytes("UTF-8"));
+			
+			StringBuilder sb = new StringBuilder();
+	        for(int i=0; i< bytes.length ;i++) {
+	            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	        }
+	        
+	        return sb.toString();
+		} 
+		catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} 
+		catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		return "";
 	}
 }

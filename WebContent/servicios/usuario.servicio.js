@@ -25,7 +25,7 @@
 				"accion": "login"
 			}
 			
-			$api.getData("Usuarios", data).then(function(data) {
+			$api.getData("Login", data).then(function(data) {
 				deferred.resolve(!!data);
 			});
 			
@@ -38,7 +38,7 @@
 				"accion": "logout"
 			}
 			
-			$api.getData("Usuarios", data).then(function(data) {
+			$api.getData("Login", data).then(function(data) {
 				$state.go("login");
 			});			
 		}
@@ -49,7 +49,7 @@
 			}
 			
 			// Acá habría que, cada vez llamar al API para ver si el user sigue conectado en la variable de sesión
-			$api.getData("Usuarios", data).then(function(data) {
+			$api.getData("Login", data).then(function(data) {
 				if (!data)
 					$state.go("login");
 			});			
@@ -62,7 +62,7 @@
 			
 			var deferred = $q.defer();
 			
-			$api.getData("Usuarios", data).then(function(data) {
+			$api.getData("Login", data).then(function(data) {
 				deferred.resolve(!!data);
 			});
 			

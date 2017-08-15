@@ -46,21 +46,12 @@ public class CatalogoUsuario extends CatalogoBase {
 		
 		return super.getOne(data, rs -> fetchUsuarioFromDB(rs));
 	}
-	
-	public Usuario getUsuario(String usuario, String password) throws RespuestaServidor { 
-		DBData data = new DBData("SELECT * FROM usuario WHERE usuario = ? && password = ?");
-		
-		data.addParameter(usuario);
-		data.addParameter(encriptarContrasena(password));
-		
-		return super.getOne(data, rs -> fetchUsuarioFromDB(rs));
-	}
 		
 	public int insertUsuario(Usuario usuario) throws RespuestaServidor {
 		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal, usuarioAlta, activo) VALUES (?, ?, ?, ?, ?, ?, ?)");
 
 		data.addParameter(usuario.getUsuario());
-		data.addParameter(encriptarContrasena(usuario.getPassword()));
+		data.addParameter(usuario.getPassword());
 		data.addParameter(usuario.getNombre());
 		data.addParameter(usuario.getApellido());
 		data.addParameter(usuario.getSucursal().getId());
@@ -75,7 +66,7 @@ public class CatalogoUsuario extends CatalogoBase {
 		
 		if (usuario.getPassword() != null) {
 			data = new DBData("UPDATE usuario SET password = ?, nombre = ?, apellido = ?, idSucursal = ?, activo = ? WHERE usuario = ?");
-			data.addParameter(encriptarContrasena(usuario.getPassword()));
+			data.addParameter(usuario.getPassword());
 		}
 		else {
 			data = new DBData("UPDATE usuario SET nombre = ?, apellido = ?, idSucursal = ?, activo = ? WHERE usuario = ?");
@@ -112,26 +103,4 @@ public class CatalogoUsuario extends CatalogoBase {
 	    return user;
 	}
 	
-	public String encriptarContrasena(String passwordOriginal) {
-		try {			
-			MessageDigest md = MessageDigest.getInstance("MD5");
-						
-			byte[] bytes = md.digest(passwordOriginal.getBytes("UTF-8"));
-			
-			StringBuilder sb = new StringBuilder();
-	        for(int i=0; i< bytes.length ;i++) {
-	            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-	        }
-	        
-	        return sb.toString();
-		} 
-		catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		} 
-		catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		
-		return "";
-	}
 }

@@ -30,61 +30,27 @@ public class Usuarios extends ServletBase {
 		Respuesta rta = new Respuesta();
 		
 		String usuario = request.getParameter("usuario");
-		String password = request.getParameter("password");
-		String accion = request.getParameter("accion");
 		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
 		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
 		boolean mostrarInactivos = Tipos.toBoolean(request.getParameter("mostrarInactivos"));
 
-		if(accion != null && !accion.isEmpty()) {
-			if (accion.equals("estaLoggeado")) {
-				HttpSession session = request.getSession(false);
-				
-				if (session != null && session.getAttribute("usuario") != null)
-					rta.setData(request.getSession().getAttribute("usuario"));
-				else
-					rta.setData(null);
-			}
-			else if (accion.equals("login")) {
-				try {
-					Usuario u = cu.getUsuario(usuario, password);
-					
-					if (u != null)
-						request.getSession().setAttribute("usuario", u);
-					
-					rta.setData(u);
-				}
-				catch(RespuestaServidor rs) {
-					rta.setErrores(rs.getErrores());
-				}
-			}
-			else if (accion.equals("logout")) {
-				HttpSession session = request.getSession(false);
-				
-				if (session != null && session.getAttribute("usuario") != null)
-					session.removeAttribute("usuario");
-				
-				rta.setData(null);
+		if (usuario == null || usuario.isEmpty()) {
+			try {
+				rta.setData(cu.getUsuarios(paginaActual, porPagina, mostrarInactivos));
+			} 
+			catch (RespuestaServidor e) {
+				rta.setErrores(e.getErrores());
 			}
 		}
-		else {	
-			if (usuario == null || usuario.isEmpty()) {
-				try {
-					rta.setData(cu.getUsuarios(paginaActual, porPagina, mostrarInactivos));
-				} 
-				catch (RespuestaServidor e) {
-					rta.setErrores(e.getErrores());
-				}
+		else {
+			try {
+				rta.setData(cu.getUsuario(usuario));
 			}
-			else {
-				try {
-					rta.setData(cu.getUsuario(usuario));
-				}
-				catch (RespuestaServidor e) {
-					rta.setErrores(e.getErrores());
-				}
+			catch (RespuestaServidor e) {
+				rta.setErrores(e.getErrores());
 			}
 		}
+		
 		
 		enviarJSON(request, response, rta.toJson());
 	}
