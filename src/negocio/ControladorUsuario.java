@@ -58,6 +58,9 @@ public class ControladorUsuario {
 			}
 		}
 		
+		if (!(usuario.getPassword() == null || usuario.getPassword().isEmpty()))
+			usuario.setPassword(encriptarContrasena(usuario.getPassword()));
+		
 		// Corren las validaciones
 		rs = validarUsuario(usuario);
 
@@ -130,7 +133,7 @@ public class ControladorUsuario {
 		return rs;
 	}
 	
-	private String encriptarContrasena(String passwordOriginal) {
+	public String encriptarContrasena(String passwordOriginal) {
 		try {			
 			MessageDigest md = MessageDigest.getInstance("MD5");
 						

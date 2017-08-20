@@ -14,10 +14,13 @@
 	  $util.scrollTo(document.body, document.body.scrollHeight, 500);	
 	  $util.focus("nombre");
 	  
-	  seleccionarUsuario();
 	  vm.guardar = guardar;
 	  vm.cancelar = cancelar;
+	  vm.listaTipos = [];
 	  
+	  listarTipos();
+	  seleccionarUsuario();
+
 	  function guardar() {
 		  var promesa;
 		  
@@ -29,7 +32,14 @@
 	  }
 	  
 	  function cancelar() {
-		  
+		  $state.go('^');
+		  $util.scrollTo(document.body, 0, 500);
+	  }
+	  
+	  function listarTipos() {
+		  $api.getData("TiposUsuario").then(function (data) {
+			 vm.listaTipos = data; 
+		  });
 	  }
 	  
 	  function seleccionarUsuario() {

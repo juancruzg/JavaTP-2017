@@ -62,16 +62,7 @@
 		  }
 		  
 		  function guardar() {
-			  var promesa;
-			  
-			  if (vm.productoSeleccionado && vm.productoSeleccionado.id && vm.productoSeleccionado.id != 0) { 
-				  // Si ya existe, lo edito.
-				  promesa = $api.postData("Productos", vm.productoSeleccionado);
-			  }
-			  else {
-				  // Si no existe lo creo.
-				  promesa = $api.putData("Productos", vm.productoSeleccionado);
-			  }
+			  var promesa = $api.postData("Productos", vm.productoSeleccionado);
 			  
 			  promesa.then(function (data) {
 				  $state.go('productos', null, { 'reload': true });	  

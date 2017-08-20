@@ -13,8 +13,6 @@
 		this.containsObject = containsObject;
 		
 		function scrollTo(element, to, duration) {
-			debugger;
-
 		    if (duration <= 0) 	
 		    	return;
 		    

@@ -35,14 +35,16 @@ public class Login extends ServletBase {
 
 		if(accion != null && !accion.isEmpty()) {
 			if (accion.equals("estaLoggeado")) {
+				// Devuelve el usuario loggeado, o nulo si no está.
 				HttpSession session = request.getSession(false);
 				
 				if (session != null && session.getAttribute("usuario") != null)
-					rta.setData(request.getSession().getAttribute("usuario"));
+					rta.setData(session.getAttribute("usuario"));
 				else
 					rta.setData(null);
 			}
 			else if (accion.equals("login")) {
+				// Intenta hacer login. Si no, devuelve nulo.
 				try {
 					Usuario u = cu.getUsuario(usuario, password);
 					
@@ -56,6 +58,7 @@ public class Login extends ServletBase {
 				}
 			}
 			else if (accion.equals("logout")) {
+				// Devuelve siempre nulo, pero si existe el atributo de sesión lo quita.
 				HttpSession session = request.getSession(false);
 				
 				if (session != null && session.getAttribute("usuario") != null)

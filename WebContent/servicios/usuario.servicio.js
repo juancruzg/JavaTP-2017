@@ -14,6 +14,7 @@
 		servicio.authorize = authorize;
 		servicio.isLoggedIn = isLoggedIn;
 		servicio.logout = logout;
+		servicio.permitir = permitir;
 		
 		function login(nombreUsuario, password) {
 			var deferred = $q.defer();
@@ -26,7 +27,7 @@
 			}
 			
 			$api.getData("Login", data).then(function(data) {
-				deferred.resolve(!!data);
+				deferred.resolve(data);
 			});
 			
 			return deferred.promise;
@@ -63,7 +64,33 @@
 			var deferred = $q.defer();
 			
 			$api.getData("Login", data).then(function(data) {
-				deferred.resolve(!!data);
+				deferred.resolve(data);
+			});
+			
+			return deferred.promise;
+		}
+		
+		function permitir(nombreEstado) {
+			var deferred = $q.defer();
+			
+			isLoggedIn().then(function(usuario) {
+				if (usuario) {
+					var tienePermisos = false;
+					
+					usuario.tipoUsuario.modulos.forEach(function(modulo) {
+						if (modulo.nombre === nombreEstado) {
+							tienePermisos = true;
+							return;
+						}
+					});
+					
+					if (tienePermisos)
+						deferred.resolve();
+					else
+						deferred.reject();
+				}
+				else
+					deferred.resolve();
 			});
 			
 			return deferred.promise;

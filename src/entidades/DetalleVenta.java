@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class DetalleVenta implements EntidadBase {
 	private Venta venta;
-	private Producto producto;
+	private LineaProducto linea;
 	private int cantidad;
 	private boolean llevaAProbar;
 	private Timestamp fechaDevolucion;
@@ -17,12 +17,12 @@ public class DetalleVenta implements EntidadBase {
 		this.venta = venta;
 	}
 
-	public Producto getProducto() {
-		return producto;
+	public LineaProducto getLineaProducto() {
+		return linea;
 	}
 
-	public void setProducto(Producto producto) {
-		this.producto = producto;
+	public void setLineaProducto(LineaProducto linea) {
+		this.linea = linea;
 	}
 
 	public int getCantidad() {

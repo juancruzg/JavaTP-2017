@@ -15,6 +15,12 @@ app
 		url: "/home"
 	}
 	
+	var error = {
+		name: "error",
+		templateUrl: "./areas/error/error.html",
+		url: "/error"
+	}
+	
 	var clientes = {
 		name: "clientes",
 		templateUrl: "./areas/clientes/clientes.html",
@@ -35,7 +41,7 @@ app
 		name: "usuarios.editar",
 		templateUrl: "./areas/usuarios/usuarios.editar.html",
 		url: "/editar/:loginUsuario",
-		params: {usuario: null},
+		params: { usuario: null },
 		controller: "controladorUsuariosEditar",
 		controllerAs: "VMUsuariosEditar"
 	}
@@ -44,7 +50,7 @@ app
 		name: "clientes.editar",
 		templateUrl: "./areas/clientes/clientes.editar.html",
 		url: "/editar/:idCliente",
-		params: {cliente: null},
+		params: { cliente: null },
 		controller: "controladorClientesEditar",
 		controllerAs: "VMClientesEditar"
 	}
@@ -69,6 +75,7 @@ app
 		name: "productos.editar",
 		templateUrl: "./areas/productos/productos.editar.html", 
 		url: "/editar/:idProducto",
+		params: { producto: null },
 		controller: "controladorProductosEditar",
 		controllerAs: "VMProductosEditar"
 	} 
@@ -95,7 +102,8 @@ app
 						nuevaVenta.resolve = 
 							productos.resolve = 
 								editarProductos.resolve = 
-									login.resolve = resolution;
+									error.resolve = 
+										login.resolve = resolution;
 	
 	var defaultUrl = '/home';
 
@@ -110,8 +118,20 @@ app
 		.state(nuevaVenta)
 		.state(productos)
 		.state(editarProductos)
-		.state(login);
+		.state(login)
+		.state(error);
 })
+.run(['$transitions', '$usuario', '$state', function($transitions, $usuario, $state) {
+	$transitions.onBefore({}, function(tran) {
+		var to = tran.$to();
+		
+		if (to.name != "error" && to.name != "login") {
+			return $usuario.permitir(to.name).catch(function() {
+				return $state.target("error");
+			});
+		}
+	}); 
+}])
 .config(function(hotkeysProvider) {
 	hotkeysProvider.cheatSheetDescription = "Mostrar/Ocultar este menú de ayuda";
 	hotkeysProvider.templateTitle = "Puede usar los siguientes controles para una mejor experiencia:"
@@ -170,12 +190,15 @@ function indexController(hotkeys, $usuario, $scope, $rootScope) {
 	vm.toggleMenu = toggleMenu;
 	vm.mostrarMenu = false;  
 	vm.salir = salir;
+	vm.itemsMenu = [];
 	
-	$usuario.isLoggedIn().then(function(isLoggedIn) {
-		vm.mostrarMenu = isLoggedIn;
-		vm.menuToggled = isLoggedIn;
+	$usuario.isLoggedIn().then(function(usuario) {
+		vm.mostrarMenu = !!usuario;
+		vm.menuToggled = !!usuario;
+				
+		if (usuario) {	
+			vm.itemsMenu = usuario.tipoUsuario.modulos;
 
-		if (isLoggedIn) {		
 			hotkeys.add({
 				combo: '-',
 			    description: 'Expandir menú principal',
@@ -186,11 +209,13 @@ function indexController(hotkeys, $usuario, $scope, $rootScope) {
 		} 
 	});
 	
-	$rootScope.$on('login', function(mostrarMenu) {
-		vm.mostrarMenu = mostrarMenu;
-		vm.menuToggled = mostrarMenu;
+	$rootScope.$on('login', function(ev, usuario) {
+		vm.mostrarMenu = !!usuario;
+		vm.menuToggled = !!usuario;
 		
-		if (mostrarMenu) {		
+		if (usuario) {		
+			vm.itemsMenu = usuario.tipoUsuario.modulos;
+
 			hotkeys.add({
 				combo: '-',
 			    description: 'Expandir menú principal',

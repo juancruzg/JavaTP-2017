@@ -1,12 +1,14 @@
 package entidades;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 public class Venta implements EntidadBase {
 	private int id;
 	private Cliente cliente;
 	private TipoPago tipoPago;
 	private Timestamp fecha;
+	private ArrayList<DetalleVenta> detalles;
 	
 	public int getId() {
 		return id;
@@ -38,6 +40,14 @@ public class Venta implements EntidadBase {
 
 	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
+	}
+
+	public ArrayList<DetalleVenta> getDetalles() {
+		return detalles;
+	}
+
+	public void setDetalles(ArrayList<DetalleVenta> detalles) {
+		this.detalles = detalles;
 	}
 
 	public String toJson() {

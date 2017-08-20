@@ -34,11 +34,11 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-lg-6" ng-if="VMNuevaVenta.listaProductos.length > 0">
+	<div class="col-lg-6" ng-if="VMNuevaVenta.listaDetalles.length > 0">
 		<ul class="list-group">
-			<li ng-repeat="producto in VMNuevaVenta.listaProductos track by $index" class="row list-group-item" ng-click="VMNuevaVenta.quitarUnProducto(producto);" style="margin-right: 0; margin-left: 0;">
-				<div class="col-md-8">{{ producto.cantidad + ' x ' + producto.descripcion + ' ' + producto.color.color + ' ' + producto.talle.talle }}</div> 
-				<div class="col-md-4"><span class="pull-right">${{ producto.precio * producto.cantidad }}</span></div>
+			<li ng-repeat="detalle in VMNuevaVenta.listaDetalles track by $index" class="row list-group-item" ng-click="VMNuevaVenta.quitarUnProducto(producto);" style="margin-right: 0; margin-left: 0;">
+				<div class="col-md-8">{{ detalle.cantidad + ' x ' + detalle.linea.producto.descripcion + ' ' + detalle.linea.color.color + ' ' + detalle.linea.talle.talle }}</div> 
+				<div class="col-md-4"><span class="pull-right">${{ detalle.linea.producto.precio.precio * detalle.cantidad }}</span></div>
 			</li>
 		</ul>
 	</div>
@@ -51,7 +51,7 @@
 			<span class="input-group-addon">
 				<i class="fa fa-money"></i>
 			</span>
-			<input type="text" class="form-control" value="${{ VMNuevaVenta.listaProductos.total }}" disabled>
+			<input type="text" class="form-control" value="${{ VMNuevaVenta.listaDetalles.total }}" disabled>
 		</div>
 	</div>
 	<div class="col-lg-4">
@@ -80,6 +80,6 @@
 <hr>
 <div class="row">
 	<div class="col-lg-12">
-		<button class="btn btn-success pull-right">Finalizar venta</button>
+		<button class="btn btn-success pull-right" ng-click="VMNuevaVenta.finalizar()">Finalizar venta</button>
 	</div>
 </div>

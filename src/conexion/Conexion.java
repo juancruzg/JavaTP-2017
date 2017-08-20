@@ -25,6 +25,7 @@ public class Conexion {
 	private static String dbUrl;
 	private static String dbUser;
 	private static String dbPassword;
+	private static String env = "DEV";
 	
 	private Connection conn;
 	static int cantCon=0;
@@ -46,9 +47,16 @@ public class Conexion {
 			
 			prop.load(input);
 			
-			dbUrl = prop.getProperty("db-url");
-			dbUser = prop.getProperty("db-user");
-			dbPassword = prop.getProperty("db-password");
+			if (env.equals("PRD")) {
+				dbUrl = prop.getProperty("db-url-prd");
+				dbUser = prop.getProperty("db-user-prd");
+				dbPassword = prop.getProperty("db-password-prd");
+			}
+			else if (env.equals("DEV")) {
+				dbUrl = prop.getProperty("db-url-dev");
+				dbUser = prop.getProperty("db-user-dev");
+				dbPassword = prop.getProperty("db-password-dev");
+			}
 			
 			if(conn==null || !conn.isValid(3)) {
 				Class.forName("com.mysql.jdbc.Driver").newInstance();

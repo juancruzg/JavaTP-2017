@@ -8,8 +8,10 @@ public class Usuario implements EntidadBase {
 	private Timestamp fechaAlta;
 	private Sucursal sucursal;
 	private boolean activo;
+	private TipoUsuario tipoUsuario;
 	
 	/* Constructors */
+	
 	public Usuario () {
 		
 	}
@@ -91,6 +93,14 @@ public class Usuario implements EntidadBase {
 	}
 	/* Public Methods */
 	
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+	public void setTipoUsuario(TipoUsuario tipoUsuario) {
+		this.tipoUsuario = tipoUsuario;
+	}
+
 	public String toJson() {
 		return null;
 	}

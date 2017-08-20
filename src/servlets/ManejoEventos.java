@@ -1,28 +1,24 @@
 package servlets;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionAttributeListener;
 import javax.servlet.http.HttpSessionBindingEvent;
-import javax.servlet.http.HttpSessionBindingListener;
-import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import entidades.Usuario;
 
 @WebListener
-public class SessionListener implements HttpSessionListener, HttpSessionAttributeListener, HttpSessionBindingListener {
-    public SessionListener() {
+public class ManejoEventos implements ServletContextListener, HttpSessionListener, HttpSessionAttributeListener {
+	public void contextDestroyed(ServletContextEvent sce)  { 
+    	System.out.println("Soy un evento que se lanza al finalizar el server");
     }
 
-    public void sessionCreated(HttpSessionEvent se)  { 
+    public void contextInitialized(ServletContextEvent sce)  { 
+    	System.out.println("Soy un evento que se lanza al iniciar el server");
     }
-
-    public void valueBound(HttpSessionBindingEvent event)  { 
-    }
-
-    public void sessionDestroyed(HttpSessionEvent se)  { 
-    }
-
+    
     public void attributeAdded(HttpSessionBindingEvent se)  { 
     	// Acá puedo manejar eventos disparados al loggear
     	// Este tal vez sería un buen lugar para manejar permisos y validaciones de permisos
@@ -37,11 +33,4 @@ public class SessionListener implements HttpSessionListener, HttpSessionAttribut
     		System.out.println("Chau " + ((Usuario)se.getValue()).getNombre());
     	}
     }
-
-    public void attributeReplaced(HttpSessionBindingEvent se)  { 
-    }
-
-    public void valueUnbound(HttpSessionBindingEvent event)  { 
-    }
-	
 }

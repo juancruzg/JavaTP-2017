@@ -36,9 +36,9 @@ var loginControlador = function($state){
 		vm.login = login;
 					
 		function login() {
-			$usuario.login(vm.usuario, vm.clave).then(function(isLoggedIn) {
-				if (isLoggedIn) {
-					$rootScope.$broadcast("login", isLoggedIn);
+			$usuario.login(vm.usuario, vm.clave).then(function(data) {
+				if (data) {
+					$rootScope.$broadcast("login", data);
 					$state.go("home");
 				}
 			});

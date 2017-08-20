@@ -10,10 +10,10 @@ import entidades.DetalleVenta;
 import excepciones.RespuestaServidor;
 
 public class ControladorDetalleVenta {
-	public DetalleVenta getDetalleVenta(int idProducto, int idVenta) throws RespuestaServidor {
+	public DetalleVenta getDetalleVenta(int idVenta, int idProducto, int idTalle, int idColor, int idSucursal) throws RespuestaServidor {
 		CatalogoDetalleVenta cdv = new CatalogoDetalleVenta();
 		
-		return cdv.getDetalleVenta(idVenta, idProducto);
+		return cdv.getDetalleVenta(idVenta, idProducto, idTalle, idColor, idSucursal);
 	}
 	
 	public ArrayList<DetalleVenta> getDetallesVenta(int paginaActual, int porPagina) throws RespuestaServidor {
@@ -22,26 +22,18 @@ public class ControladorDetalleVenta {
 		return cdv.getDetallesVenta(paginaActual, porPagina);
 	}
 	
-	public int saveDetalleVenta(int cantidad, Timestamp fechaDevolucion, boolean llevaAProbar, int idProducto, int idVenta) throws RespuestaServidor { 
+	public int saveDetalleVenta(DetalleVenta dv) throws RespuestaServidor { 
 		RespuestaServidor res = new RespuestaServidor();
 		CatalogoDetalleVenta cdv = new CatalogoDetalleVenta();
 		CatalogoVenta cv = new CatalogoVenta();
 		CatalogoProducto cp = new CatalogoProducto();
-		
-		DetalleVenta dv = new DetalleVenta();
-		
-		dv.setCantidad(cantidad);
-		dv.setFechaDevolucion(fechaDevolucion);
-		dv.setLlevaAProbar(llevaAProbar);
-		dv.setProducto(cp.getProducto(idProducto));
-		dv.setVenta(cv.getVenta(idVenta));
 		
 		res = validarDetalleVenta(dv);
 		
 		if (!res.getStatus())
 			throw res;
 		
-		if (cdv.getDetalleVenta(idVenta, idProducto) == null)
+		if (cdv.getDetalleVenta(dv.getVenta().getId(), dv.getLineaProducto().getProducto().getId(), dv.getLineaProducto().getTalle().getId(), dv.getLineaProducto().getColor().getId(), dv.getLineaProducto().getSucursal().getId()) == null)
 			return cdv.insertDetalleVenta(dv);
 		else
 			return cdv.updateDetalleVenta(dv);

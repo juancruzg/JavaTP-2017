@@ -22,8 +22,9 @@
 		vm.limpiarProducto = limpiarProducto;
 		vm.agregarProductoSeleccionado = agregarProductoSeleccionado;
 		vm.productoSeleccionado = null;
-		vm.listaProductos = [];
+		vm.listaDetalles = [];
 		vm.quitarUnProducto = quitarUnProducto;
+		vm.controlProductos = {};
 		
 		vm.fecha = new Date();
 		vm.cantidad = 1;
@@ -33,7 +34,7 @@
 		vm.colores = [];
 		vm.talles = [];
 		
-		vm.controlProductos = {};
+		vm.finalizar = finalizar;
 		
 		// Clientes
 		function limpiarCliente() {
@@ -111,7 +112,7 @@
 			return deferred.promise;
 		}
 		
-		function agregarProductoSeleccionado() {
+		/*function agregarProductoSeleccionado() {
 			// Si tengo todos los select asignados.
 			if (vm.productoSeleccionado && vm.colorSeleccionado && vm.talleSeleccionado) {
 				var producto = {};
@@ -168,6 +169,61 @@
 					$mensajes.mostrarError(error);
 				}	
 			}
+		}*/
+		
+		function agregarProductoSeleccionado() {
+			// Si tengo todos los select asignados.
+			if (vm.productoSeleccionado && vm.colorSeleccionado && vm.talleSeleccionado) {
+				var detalle = {};
+				var talle = vm.talleSeleccionado;
+				var color = vm.colorSeleccionado;
+				
+				var detalleDistinto = true;
+				var detalleActual = null;
+				var lineaSeleccionada;
+				var stock = 0;
+				
+				vm.productoSeleccionado.lineas.forEach(function(l) {
+					if (l.color.id === color.id && l.talle.id === talle.id) {
+						lineaSeleccionada = l;
+						return;
+					}
+				});
+				
+				detalle.linea = lineaSeleccionada;
+				detalle.linea.producto = vm.productoSeleccionado;
+				
+				// Me fijo que no haya seleccionado antes el mismo producto, y línea.
+				vm.listaDetalles.forEach(function(d) {
+					if (detalle.linea.producto.id === d.linea.producto.id && detalle.linea.color.id === d.linea.color.id && detalle.linea.talle.id === d.linea.talle.id && detalle.linea.sucursal.id === d.linea.sucursal.id) {
+						detalleActual = d;
+						return;
+					}
+				});	
+
+				if(detalleActual && detalleActual.linea.cantidad)
+					stock = detalleActual.linea.cantidad + vm.cantidad;
+				else
+					stock = vm.cantidad;
+				
+				if (stock <= lineaSeleccionada.stock) {
+					if (!detalleActual) {
+						detalle.cantidad = vm.cantidad;
+						vm.listaDetalles.push(detalle);
+					}
+					else
+						detalleActual.cantidad = detalleActual.cantidad + vm.cantidad;
+						
+					// Al final calculo el total.
+					calcularTotal();
+				
+					vm.controlProductos.quitarItem();
+				}
+				else {
+					var error = "No hay suficiente stock del producto seleccionado."
+					$mensajes.mostrarError(error);
+				}	
+			}
 		}
 		
 		function limpiarProducto() {
@@ -192,11 +248,22 @@
 		function calcularTotal() {
 			var total = 0;
 			
-			vm.listaProductos.forEach(function(p) {
-				total = total + (p.precio * p.cantidad)
+			vm.listaDetalles.forEach(function(d) {
+				total = total + (d.linea.producto.precio.precio * d.cantidad)
 			});
 			
-			vm.listaProductos.total = total;
+			vm.listaDetalles.total = total;
+		}
+		
+		function finalizar() {
+			var venta = {};			
+			
+			venta.cliente = vm.clienteSeleccionado;
+			venta.fecha = vm.fecha;
+			venta.tipoPago = 1;//vm.tipoPagoSeleccionado;
+			venta.detalles = vm.listaDetalles;
+			debugger;
+			//$api.postData("Ventas", venta);
 		}
 	}
 })();

@@ -65,7 +65,7 @@ public class Clientes extends ServletBase {
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
-		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
+		Usuario usuarioSesion = obtenerUsuarioEnSesion(request);
 		c.setUsuarioAlta(usuarioSesion);
 		
 		try
@@ -86,30 +86,7 @@ public class Clientes extends ServletBase {
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		ControladorCliente cc = new ControladorCliente();
-		
-		Cliente c = (Cliente) procesarRequest(request, Cliente.class);
-		RespuestaServidor sr = new RespuestaServidor();
-		int nro = 0;
-		
-		Usuario usuarioSesion = (Usuario) request.getSession().getAttribute("usuario");
-		c.setUsuarioAlta(usuarioSesion);
-		
-		try
-		{
-			nro = cc.saveCliente(c);
-		} 
-		catch (RespuestaServidor e)
-		{
-			sr = e;
-		}
-		
-		Respuesta rta = new Respuesta();
-		
-		rta.setData(nro);
-		rta.setErrores(sr.getErrores());
-		
-		enviarJSON(request, response, rta.toJson());
+
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

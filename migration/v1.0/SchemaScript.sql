@@ -10,18 +10,43 @@ CREATE TABLE IF NOT EXISTS sucursal (
   PRIMARY KEY (id)
 );
 
+CREATE TABLE IF NOT EXISTS tipoUsuario (
+  id int NOT NULL AUTO_INCREMENT,
+  descripcion varchar(20),
+  PRIMARY KEY (id)
+);
+
 CREATE TABLE IF NOT EXISTS usuario (
   usuario varchar(20) NOT NULL,
   password varchar(100), /*le pongo 100 con la intención de encriptar*/
   nombre varchar(50),
   apellido varchar(50),
   idSucursal int,
+  idTipoUsuario int,
   usuarioAlta varchar(20),
   fechaAlta datetime,
   activo boolean,
   PRIMARY KEY (usuario),
   CONSTRAINT fk_usuario_usuario FOREIGN KEY (usuarioAlta) REFERENCES usuario (usuario),
+  CONSTRAINT fk_usuario_tipoUsuario FOREIGN KEY (idTipoUsuario) REFERENCES tipoUsuario (id),
   CONSTRAINT fk_usuario_sucursal FOREIGN KEY (idSucursal) REFERENCES sucursal (id)
+);
+
+CREATE TABLE IF NOT EXISTS modulo (
+  id int NOT NULL AUTO_INCREMENT,
+  nombre varchar(100),
+  mostrarEnMenu boolean,
+  nombreAMostrar varchar(100),
+  claseIcono varchar(50),
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS tipoUsuarioModulo (
+  idTipoUsuario int NOT NULL,
+  idModulo int NOT NULL,
+  PRIMARY KEY (idTipoUsuario, idModulo),
+  CONSTRAINT fk_tipoUsuarioModulo_tipoUsuario FOREIGN KEY (idTipoUsuario) REFERENCES tipoUsuario (id),
+  CONSTRAINT fk_tipoUsuarioModulo_modulo FOREIGN KEY (idModulo) REFERENCES modulo (id)
 );
 
 CREATE TABLE IF NOT EXISTS cliente (
@@ -122,10 +147,13 @@ CREATE TABLE IF NOT EXISTS venta (
 CREATE TABLE IF NOT EXISTS detalleVenta (
   idVenta int NOT NULL,
   idProducto int NOT NULL,
+  idTalle int NOT NULL,
+  idColor int NOT NULL,
+  idSucursal int NOT NULL,
   cantidad int,
   llevaAProbar boolean,
   fechaDevolucion datetime,
-  PRIMARY KEY (idVenta, idProducto),
+  PRIMARY KEY (idVenta, idProducto, idTalle, idColor, idSucursals),
   CONSTRAINT fk_detalleVenta_venta FOREIGN KEY (idVenta) REFERENCES venta (id),
-  CONSTRAINT fk_detalleVenta_producto FOREIGN KEY (idProducto) REFERENCES producto (id)
+  CONSTRAINT fk_detalleVenta_lineaProducto FOREIGN KEY (idProducto, idTalle, idColor, idSucursal) REFERENCES lineaProducto (idProducto, idTalle, idColor, idSucursal)
 );

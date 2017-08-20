@@ -48,7 +48,7 @@ public class CatalogoUsuario extends CatalogoBase {
 	}
 		
 	public int insertUsuario(Usuario usuario) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal, usuarioAlta, activo) VALUES (?, ?, ?, ?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO usuario (usuario, password, nombre, apellido, idSucursal, usuarioAlta, idTipoUsuario, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 
 		data.addParameter(usuario.getUsuario());
 		data.addParameter(usuario.getPassword());
@@ -56,6 +56,7 @@ public class CatalogoUsuario extends CatalogoBase {
 		data.addParameter(usuario.getApellido());
 		data.addParameter(usuario.getSucursal().getId());
 		data.addParameter(usuario.getUsuarioAlta().getUsuario());
+		data.addParameter(usuario.getTipoUsuario().getId());
 		data.addParameter(usuario.isActivo());
 		
 		return super.save(data);
@@ -65,15 +66,16 @@ public class CatalogoUsuario extends CatalogoBase {
 		DBData data;
 		
 		if (usuario.getPassword() != null) {
-			data = new DBData("UPDATE usuario SET password = ?, nombre = ?, apellido = ?, idSucursal = ?, activo = ? WHERE usuario = ?");
+			data = new DBData("UPDATE usuario SET password = ?, nombre = ?, apellido = ?, idSucursal = ?, idTipoUsuario = ?, activo = ? WHERE usuario = ?");
 			data.addParameter(usuario.getPassword());
 		}
 		else {
-			data = new DBData("UPDATE usuario SET nombre = ?, apellido = ?, idSucursal = ?, activo = ? WHERE usuario = ?");
+			data = new DBData("UPDATE usuario SET nombre = ?, apellido = ?, idSucursal = ?, idTipoUsuario = ?, activo = ? WHERE usuario = ?");
 		}
 		data.addParameter(usuario.getNombre());
 		data.addParameter(usuario.getApellido());
 		data.addParameter(usuario.getSucursal().getId());
+		data.addParameter(usuario.getTipoUsuario().getId());
 		data.addParameter(usuario.isActivo());
 		data.addParameter(usuario.getUsuario());
 		
@@ -83,6 +85,7 @@ public class CatalogoUsuario extends CatalogoBase {
 	// Métodos privados
 	private Usuario fetchUsuarioFromDB(ResultSet rs) {
 		CatalogoSucursal cs = new CatalogoSucursal();
+		CatalogoTipoUsuario ctu = new CatalogoTipoUsuario();
 	    Usuario user = new Usuario();
 	    
 	    try {
@@ -95,6 +98,7 @@ public class CatalogoUsuario extends CatalogoBase {
 	    	
 	    	user.setUsuarioAlta(getUsuario(rs.getString("usuarioAlta")));
 	    	user.setSucursal(cs.getSucursal(rs.getInt("idSucursal")));
+	    	user.setTipoUsuario(ctu.getTipoUsuario(rs.getInt("idTipoUsuario")));
 	    }
 	    catch (SQLException | RespuestaServidor ex) {
 	    	ex.printStackTrace();

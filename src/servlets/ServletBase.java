@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 
 import entidades.EntidadBase;
+import entidades.Usuario;
 import excepciones.RespuestaServidor;
 
 public class ServletBase extends HttpServlet {
@@ -37,5 +38,9 @@ public class ServletBase extends HttpServlet {
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		response.getWriter().print(json);
+	}
+	
+	protected Usuario obtenerUsuarioEnSesion(HttpServletRequest request) {
+		return (Usuario) request.getSession().getAttribute("usuario");
 	}
 }

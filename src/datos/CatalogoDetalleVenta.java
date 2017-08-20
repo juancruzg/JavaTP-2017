@@ -8,10 +8,13 @@ import entidades.DetalleVenta;
 import excepciones.RespuestaServidor;
 
 public class CatalogoDetalleVenta extends CatalogoBase {
-	public DetalleVenta getDetalleVenta(int idVenta, int idProducto) throws RespuestaServidor {
-		DBData data = new DBData("SELECT * FROM detalleVenta WHERE idVenta = ? AND idProducto = ?");
+	public DetalleVenta getDetalleVenta(int idVenta, int idProducto, int idTalle, int idColor, int idSucursal) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM detalleVenta WHERE idVenta = ? AND idProducto = ? AND idColor = ? AND idTalle = ? AND idSucursal = ?");
 		
 		data.addParameter(idVenta);
+		data.addParameter(idColor);
+		data.addParameter(idTalle);
+		data.addParameter(idSucursal);
 		data.addParameter(idProducto);
 		
 		return super.getOne(data, rs -> fetchDetalleVentaFromDB(rs));
@@ -35,7 +38,7 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 	// TODO:Revisar este método...
 	public int insertDetalleVenta(DetalleVenta dv) throws RespuestaServidor {
 		CatalogoVenta cv = new CatalogoVenta();
-		DBData data = new DBData("INSERT INTO detalleVenta (idVenta, idProducto, cantidad, llevaAProbar, fechaDevolucion) VALUES (?, ?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO detalleVenta (idVenta, idProducto, idColor, idTalle, idSucursal, cantidad, llevaAProbar, fechaDevolucion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		
 		int guardado = 0;
 		
@@ -44,7 +47,10 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 		
 		if (guardado != 0) {
 			data.addParameter(dv.getVenta().getId());
-			data.addParameter(dv.getProducto().getId());
+			data.addParameter(dv.getLineaProducto().getProducto().getId());
+			data.addParameter(dv.getLineaProducto().getColor().getId());
+			data.addParameter(dv.getLineaProducto().getTalle().getId());
+			data.addParameter(dv.getLineaProducto().getSucursal().getId());
 			data.addParameter(dv.getCantidad());
 			data.addParameter(dv.isLlevaAProbar());
 			data.addParameter(dv.getFechaDevolucion());
@@ -56,19 +62,23 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 	}
 	
 	public int updateDetalleVenta(DetalleVenta dv) throws RespuestaServidor {
-		DBData data = new DBData("UPDATE detalleVenta cantidad = ?, llevaAProbar = ?, fechaDevolucion = ? WHERE idVenta = ? AND idProducto = ?");
+		DBData data = new DBData("UPDATE detalleVenta cantidad = ?, llevaAProbar = ?, fechaDevolucion = ? WHERE idVenta = ? AND (idProducto = ? AND idColor = ? AND idTalle = ? AND idSucursal = ?)");
 		
 		data.addParameter(dv.getCantidad());
 		data.addParameter(dv.isLlevaAProbar());
 		data.addParameter(dv.getFechaDevolucion());
 		data.addParameter(dv.getVenta().getId());
-		data.addParameter(dv.getProducto().getId());
+		data.addParameter(dv.getLineaProducto().getProducto().getId());
+		data.addParameter(dv.getLineaProducto().getColor().getId());
+		data.addParameter(dv.getLineaProducto().getTalle().getId());
+		data.addParameter(dv.getLineaProducto().getSucursal().getId());
+
 		
 		return super.save(data);
 	}
 	
 	private DetalleVenta fetchDetalleVentaFromDB(ResultSet rs) {
-		CatalogoProducto cp = new CatalogoProducto();
+		CatalogoLineaProducto cp = new CatalogoLineaProducto();
 		CatalogoVenta cv = new CatalogoVenta();
 		DetalleVenta dv = new DetalleVenta();
 		
@@ -76,7 +86,7 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 			dv.setCantidad(rs.getInt("cantidad"));
 			dv.setFechaDevolucion(rs.getTimestamp("fechaDevolucion"));
 			dv.setLlevaAProbar(rs.getBoolean("llevaAProbar"));
-			dv.setProducto(cp.getProducto(rs.getInt("idProducto")));
+			dv.setLineaProducto(cp.getLineaProducto(rs.getInt("idProducto"), rs.getInt("idTalle"), rs.getInt("idColor"), rs.getInt("idSucursal")));
 			dv.setVenta(cv.getVenta(rs.getInt("idVenta")));
 		} 
 		catch (SQLException | RespuestaServidor e) {

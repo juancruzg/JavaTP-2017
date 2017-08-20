@@ -22,16 +22,7 @@
 		  vm.clienteSeleccionado.activo = true;
 	  
 	  function guardar() {
-		  var promesa;
-		  
-		  if (vm.clienteSeleccionado && vm.clienteSeleccionado.id && vm.clienteSeleccionado.id != 0) { 
-			  // Si ya existe, lo edito.
-			  promesa = $api.postData("Clientes", vm.clienteSeleccionado);
-		  }
-		  else {
-			  // Si no existe lo creo.
-			  promesa = $api.putData("Clientes", vm.clienteSeleccionado);
-		  }
+		  var promesa = $api.postData("Clientes", vm.clienteSeleccionado);
 		  
 		  promesa.then(function (data) {
 			  $state.go('clientes', null, { 'reload': true });	  
