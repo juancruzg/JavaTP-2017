@@ -89,24 +89,7 @@ app
 		controller: "controladorLogin",
 		controllerAs: "VMLogin"
 	}
-	
-	var resolution =  {
-		authorize: ["$usuario", function($usuario) {
-			return $usuario.authorize();
-		}]
-	};
-	
-	home.resolve = 
-		clientes.resolve = 
-			usuarios.resolve = 
-				editarUsuarios.resolve = 
-					editarClientes.resolve = 
-						nuevaVenta.resolve = 
-							productos.resolve = 
-								editarProductos.resolve = 
-									error.resolve = 
-										login.resolve = resolution;
-	
+		
 	var defaultUrl = '/home';
 
 	$urlRouterProvider.otherwise(defaultUrl);
@@ -127,9 +110,9 @@ app
 	$transitions.onBefore({}, function(tran) {
 		var to = tran.$to();
 		
-		if (to.name != "error" && to.name != "login") {
-			return $usuario.permitir(to.name).catch(function() {
-				return $state.target("error");
+		if (to.name != "error" && to.name != "login") {			
+			return $usuario.permitir(to.name).catch(function(target) {
+				return $state.target(target);
 			});
 		}
 	}); 

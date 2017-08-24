@@ -87,10 +87,10 @@
 					if (tienePermisos)
 						deferred.resolve();
 					else
-						deferred.reject();
+						deferred.reject("error");
 				}
 				else
-					deferred.resolve();
+					deferred.reject("login");
 			});
 			
 			return deferred.promise;
