@@ -13,10 +13,10 @@ public class ControladorTipoPago {
 		return ctp.getTipoPago(idTipoPago);
 	}
 
-	public ArrayList<TipoPago> getTiposPago(int paginaActual, int porPagina) throws RespuestaServidor {
+	public ArrayList<TipoPago> getTiposPago() throws RespuestaServidor {
 		CatalogoTipoPago ctp = new CatalogoTipoPago();
 		
-		return ctp.getTiposPago(paginaActual, porPagina);
+		return ctp.getTiposPago();
 	}
 	
 	public int saveColor(String tipoPago, int idTipoPago) throws RespuestaServidor {

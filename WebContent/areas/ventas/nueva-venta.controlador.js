@@ -34,8 +34,11 @@
 
 		vm.colores = [];
 		vm.talles = [];
+		vm.tiposPago = [];
 		
 		vm.finalizar = finalizar;
+		
+		listarTiposPago();
 		
 		// Clientes
 		function limpiarCliente() {
@@ -113,6 +116,12 @@
 			return deferred.promise;
 		}
 		
+		function listarTiposPago(){
+			$api.getData("TiposPago").then(function(data){
+				vm.tiposPago = data;
+			});
+		}
+		
 		function agregarProductoSeleccionado() {
 			// Si tengo todos los select asignados.
 			if (vm.productoSeleccionado && vm.colorSeleccionado && vm.talleSeleccionado) {
@@ -187,6 +196,9 @@
 			calcularTotal();
 		}
 		
+		
+		
+		
 		function calcularTotal() {
 			var total = 0;
 			
@@ -202,16 +214,14 @@
 			
 			venta.cliente = vm.clienteSeleccionado;
 			venta.fecha = vm.fecha;
-			venta.tipoPago = {};
-			venta.tipoPago.id = 1;//vm.tipoPagoSeleccionado;
-			venta.tipoPago.tipoPago = "Efectivo";
+			venta.tipoPago= vm.tipoPagoSeleccionado;
 			venta.detalles = vm.listaDetalles;
 			console.log(venta.fecha);
-
+	
 			$api.postData("Ventas", venta).then(function(data) {
 				$state.reload();
 				$mensajes.mostrarExito("Venta realizada correctamente.");
 			});
-		}
+		}	
 	}
 })();

@@ -1,4 +1,5 @@
-CREATE SCHEMA IF NOT EXISTS NegocioRopa;
+﻿﻿DROP SCHEMA IF EXISTS NegocioRopa;
+CREATE SCHEMA NegocioRopa;
 
 USE NegocioRopa;
 
@@ -64,7 +65,7 @@ CREATE TABLE IF NOT EXISTS cliente (
 
 CREATE TABLE IF NOT EXISTS producto (
   id int NOT NULL AUTO_INCREMENT,
-  descripcion varchar(50),
+  descripcion varchar(255),
   marca varchar(50),
   usuarioAlta varchar(20),
   fechaAlta datetime,
@@ -157,3 +158,13 @@ CREATE TABLE IF NOT EXISTS detalleVenta (
   CONSTRAINT fk_detalleVenta_venta FOREIGN KEY (idVenta) REFERENCES venta (id),
   CONSTRAINT fk_detalleVenta_lineaProducto FOREIGN KEY (idProducto, idTalle, idColor, idSucursal) REFERENCES lineaProducto (idProducto, idTalle, idColor, idSucursal)
 );
+
+
+INSERT INTO `modulo` VALUES (1,'home',1,'Home','fa fa-home'),(2,'clientes',1,'Clientes','fa fa-black-tie'),(3,'clientes.editar',0,'Editar Clientes',NULL),(4,'usuarios',1,'Usuarios','fa fa-user'),(5,'usuarios.editar',0,'Editar usuarios',NULL),(6,'nueva-venta',1,'Nueva Venta','fa fa-shopping-bag'),(7,'productos',1,'Productos','fa fa-shirtsinbulk'),(8,'productos.editar',0,'Editar Productos',NULL);
+INSERT INTO `tipousuario` VALUES (1,'Administrador'),(2,'Normal');
+INSERT INTO `tipousuariomodulo` VALUES (1,1),(2,1),(1,2),(2,2),(1,3),(2,3),(1,4),(1,5),(1,6),(2,6),(1,7),(2,7),(1,8),(2,8);
+INSERT INTO `sucursal` (domicilio, telefono) VALUES ('San Lorenzo 123', '0341546103');
+INSERT INTO `color` (color) VALUES ('Rojo'), ('Verde'), ('Azul'), ('Amarillo');
+INSERT INTO `talle` (talle) VALUES ('XL'), ('L'), ('M'), ('S');
+INSERT INTO `usuario` VALUES ('juan_cruzg','9893f9b90ebd9e22f0eba9a8af67d424','Juan Cruz','Grasso',1,1,NULL,NULL,1),('usuarionormal','25d55ad283aa400af464c76d713c07ad','Usuario','Normal',1,2,NULL,NULL,1);
+INSERT INTO `tipoPago` (id,tipoPago) VALUES(1,'Efectivo'),(2,'Cuenta corriente'),(3,'Tarjeta de crédito'),(4,'Tarjeta de Débito');
