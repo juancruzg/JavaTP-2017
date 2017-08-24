@@ -15,9 +15,9 @@ FRONT END (Ordenados por prioridad)
 ----------------------------------------------------
 
 •ABMClientes -> Hecho (JUAN)
-•ABMUsuarios
-•ABMProductos/línea/precio
-•Venta (Este va a ser el más complicado de todos. Creo que en mi otro proyecto se los mostré, pero yo había hecho un miniwizard.) -> A medias (JUAN)
+•ABMUsuarios -> Hecho (JUAN)
+•ABMProductos/línea/precio -> Hecho (JUAN)
+•Venta (Este va a ser el más complicado de todos. Creo que en mi otro proyecto se los mostré, pero yo había hecho un miniwizard.) -> Hecho pero no testeado a fondo (JUAN)
 •Reporte de Ventas || Filtros: fecha, cliente, usuario)
 •Reporte estadístico de productos vendidos
 •Reporte estadístico de clientes más concurrentes

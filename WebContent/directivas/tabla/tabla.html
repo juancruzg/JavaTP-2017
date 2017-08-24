@@ -1,6 +1,6 @@
 <button type="button" class="btn btn-success btn-circle btn-lg btn-fixed" ng-click="VMTabla.mostrarEditar()"><i class="fa fa-plus"></i></button> 
-<div style="height: 300px; overflow: auto;">
-	<table class="table table-hover table-bordered unselectable">
+<div style="max-height: 300px; overflow: auto;">
+	<table class="table table-hover table-bordered table-sm unselectable">
 		<thead>
 	      	<tr>
 	      		<th ng-repeat="header in VMTabla.data.headers">{{header}}</th>
@@ -12,15 +12,4 @@
 	     	</tr>
 	    </tbody>
 	</table>
-</div>
-<div class="row">
-  <div class="col-md-10">
-    <button class="btn btn-link" ng-click="VMTabla.previousPage()"><i class="fa fa-arrow-left"></i> Anterior</button>
-    <span>Página actual: <b>{{ VMTabla.currentPage + 1 }}</b></span>
-    <button class="btn btn-link" ng-click="VMTabla.nextPage();">Siguiente <i class="fa fa-arrow-right"></i></button>
-  </div>
- <div class="col-md-2">
-    <br>
-    <span class="pull-right">Total: <b>{{ VMTabla.totalPages }} páginas</b></span>
-  </div>
 </div>

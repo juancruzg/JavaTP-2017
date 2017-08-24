@@ -101,9 +101,14 @@ public class ControladorVenta {
 		if (venta.getCliente() == null)
 			rs.addError("Debe seleccionar un cliente");
 		
-		if (venta.getDetalles() == null || venta.getDetalles().isEmpty()) {
+		if (venta.getDetalles() == null || venta.getDetalles().isEmpty())
 			rs.addError("Debe seleccionar al menos un producto");
-		}
+		
+		if (venta.getFecha() == null)
+			rs.addError("Debe seleccionar una fecha");
+		
+		if (venta.getTipoPago() == null)
+			rs.addError("Debe seleccionar una forma de pago");
 		
 		return rs;
 	}

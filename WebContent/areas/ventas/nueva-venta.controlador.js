@@ -105,7 +105,7 @@
 			
 			$api.getData("Productos", data).then(function(data) {
 				output.data = data;
-				output.columnasAMostrar = ["descripcion"];
+				output.columnasAMostrar = [ "descripcion", "marca" ];
 				
 				deferred.resolve(output);
 			});

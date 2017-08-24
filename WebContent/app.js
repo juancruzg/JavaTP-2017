@@ -12,7 +12,9 @@ app
 	var home = {
 		name: "home",
 		templateUrl: "./areas/home/home.html",
-		url: "/home"
+		url: "/home",
+		controller: "controladorHome",
+		controllerAs: "VMHome"
 	}
 	
 	var error = {
