@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import entidades.EntidadBase;
 import entidades.Usuario;
@@ -29,8 +30,9 @@ public class ServletBase extends HttpServlet {
 		catch (Exception e) { 
 			System.out.println("woops...");
 		}
-		
+				
 		Gson gson = new Gson();
+		
 		return gson.fromJson(jb.toString(), T);
 	}
 	

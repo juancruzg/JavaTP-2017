@@ -78,8 +78,10 @@ public class CatalogoProducto extends CatalogoBase {
 	    	prod.setId(rs.getInt("id"));
 	    	prod.setDescripcion(rs.getString("descripcion"));
 	    	prod.setMarca(rs.getString("marca"));
-	    	prod.setPrecio(cp.getUltimoPrecio(prod.getId()));
 	    	prod.setActivo(rs.getBoolean("activo"));
+	    	
+	    	prod.setPrecio(cp.getUltimoPrecio(prod.getId()));
+	    	prod.setHistoricoPrecios(cp.getPrecios(prod.getId()));
 	    	prod.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));	
 	    }
 	    catch (SQLException | RespuestaServidor ex) {

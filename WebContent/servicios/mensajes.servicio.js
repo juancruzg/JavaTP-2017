@@ -12,6 +12,7 @@
 		
 		servicio.mostrarError = mostrarError;
 		servicio.mostrarErrores = mostrarErrores;
+		servicio.mostrarExito = mostrarExito;
 		
 		function mostrarError(html) {
 			ngToast.create({
@@ -30,6 +31,14 @@
 			msg = msg + "</ul>"
     		
     		mostrarError(msg);
+		}
+		
+		function mostrarExito(html) {
+			ngToast.create({
+				'content': html,
+				'className': "success",
+				'dismissButton': true
+			});
 		}
 	}
 })();

@@ -21,6 +21,7 @@
 		
 		function seleccionarFecha(dia) {
 			vm.fechaStr = dia.fecha.toString();
+			$scope.fechaSeleccionada = dia.fecha;
 		}
 		
 		function mostrarCalendario(mostrar) {

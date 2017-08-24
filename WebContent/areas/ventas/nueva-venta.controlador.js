@@ -5,9 +5,9 @@
 		.module('shop-management')
 		.controller('controladorNuevaVenta', controladorNuevaVenta);
 	
-	controladorNuevaVenta.$inject = ['$scope', '$api', '$tabla', '$q', '$util', '$mensajes'];
+	controladorNuevaVenta.$inject = ['$scope', '$api', '$tabla', '$q', '$util', '$mensajes', '$state'];
 	
-	function controladorNuevaVenta($scope, $api, $tabla, $q, $util, $mensajes) {
+	function controladorNuevaVenta($scope, $api, $tabla, $q, $util, $mensajes, $state) {
 		var vm = this;
 		
 		// Clientes
@@ -15,6 +15,7 @@
 		vm.accionClientes = accionClientes;
 		vm.limpiarCliente = limpiarCliente;
 		vm.clienteSeleccionado = null;
+		vm.controlClientes = {};
 		
 		// Productos
 		vm.listarProductos = listarProductos;
@@ -112,65 +113,6 @@
 			return deferred.promise;
 		}
 		
-		/*function agregarProductoSeleccionado() {
-			// Si tengo todos los select asignados.
-			if (vm.productoSeleccionado && vm.colorSeleccionado && vm.talleSeleccionado) {
-				var producto = {};
-				
-				producto.color = vm.colorSeleccionado;
-				producto.talle = vm.talleSeleccionado;
-	
-				producto.id = vm.productoSeleccionado.id;
-				producto.descripcion = vm.productoSeleccionado.descripcion;
-				producto.precio = vm.productoSeleccionado.precio.precio;
-				
-				var productoDistinto = true;
-				var lineaSeleccionada;
-				
-				vm.productoSeleccionado.lineas.forEach(function(l) {
-					if (l.color.id === producto.color.id && l.talle.id === producto.talle.id) {
-						lineaSeleccionada = l;
-						return;
-					}
-				});
-				
-				var productoActual = null;
-				var stock = 0;
-				
-				// Me fijo que no haya seleccionado antes el mismo producto, y línea.
-				vm.listaProductos.forEach(function(p) {
-					if (producto.id === p.id && producto.color.id === p.color.id && producto.talle.id === p.talle.id) {
-						
-						productoActual = p;
-						return;
-					}
-				});	
-
-				if(productoActual && productoActual.cantidad)
-					stock = productoActual.cantidad + vm.cantidad;
-				else
-					stock = vm.cantidad;
-				
-				if (stock <= lineaSeleccionada.stock) {
-					if (!productoActual) {
-						producto.cantidad = vm.cantidad;
-						vm.listaProductos.push(producto);
-					}
-					else
-						productoActual.cantidad = productoActual.cantidad + vm.cantidad;
-						
-					// Al final calculo el total.
-					calcularTotal();
-				
-					vm.controlProductos.quitarItem();
-				}
-				else {
-					var error = "No hay suficiente stock del producto seleccionado."
-					$mensajes.mostrarError(error);
-				}	
-			}
-		}*/
-		
 		function agregarProductoSeleccionado() {
 			// Si tengo todos los select asignados.
 			if (vm.productoSeleccionado && vm.colorSeleccionado && vm.talleSeleccionado) {
@@ -191,11 +133,11 @@
 				});
 				
 				detalle.linea = lineaSeleccionada;
-				detalle.linea.producto = vm.productoSeleccionado;
+				detalle.linea.producto.id = vm.productoSeleccionado.id;
 				
 				// Me fijo que no haya seleccionado antes el mismo producto, y línea.
 				vm.listaDetalles.forEach(function(d) {
-					if (detalle.linea.producto.id === d.linea.producto.id && detalle.linea.color.id === d.linea.color.id && detalle.linea.talle.id === d.linea.talle.id && detalle.linea.sucursal.id === d.linea.sucursal.id) {
+					if (vm.productoSeleccionado.id === d.linea.producto.id && lineaSeleccionada.color.id === d.linea.color.id && lineaSeleccionada.talle.id === d.linea.talle.id && lineaSeleccionada.sucursal.id === d.linea.sucursal.id) {
 						detalleActual = d;
 						return;
 					}
@@ -232,11 +174,11 @@
 			vm.productoSeleccionado = null;
 		}
 		
-		function quitarUnProducto(producto) {
-			vm.listaProductos.forEach(function(p, index, object) {
-				if (p.id === producto.id && p.color.id === producto.color.id && p.talle.id === producto.talle.id) {
-					if (p.cantidad > 1)
-						p.cantidad --;
+		function quitarUnProducto(detalle) {
+			vm.listaDetalles.forEach(function(d, index, object) {
+				if (d.linea.producto.id === detalle.linea.producto.id && d.linea.color.id === detalle.linea.color.id && d.linea.talle.id === detalle.linea.talle.id && d.linea.sucursal.id === detalle.linea.sucursal.id) {
+					if (d.cantidad > 1)
+						d.cantidad --;
 					else
 						object.splice(index, 1);
 				}
@@ -260,10 +202,16 @@
 			
 			venta.cliente = vm.clienteSeleccionado;
 			venta.fecha = vm.fecha;
-			venta.tipoPago = 1;//vm.tipoPagoSeleccionado;
+			venta.tipoPago = {};
+			venta.tipoPago.id = 1;//vm.tipoPagoSeleccionado;
+			venta.tipoPago.tipoPago = "Efectivo";
 			venta.detalles = vm.listaDetalles;
-			debugger;
-			//$api.postData("Ventas", venta);
+			console.log(venta.fecha);
+
+			$api.postData("Ventas", venta).then(function(data) {
+				$state.reload();
+				$mensajes.mostrarExito("Venta realizada correctamente.");
+			});
 		}
 	}
 })();

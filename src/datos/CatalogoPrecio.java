@@ -15,6 +15,14 @@ public class CatalogoPrecio extends CatalogoBase {
 		return super.getAll(data, rs -> fetchPrecioFromDB(rs));
 	}
 	
+	public ArrayList<Precio> getPrecios(int idProducto) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM precio WHERE idProducto = ? ORDER BY fecha");
+		
+		data.addParameter(idProducto);
+		
+		return super.getAll(data, rs -> fetchPrecioFromDB(rs));
+	}
+	
 	public ArrayList<Precio> getPrecios(int paginaActual, int porPagina) throws RespuestaServidor {
 		DBData data = new DBData("SELECT * FROM precio LIMIT ?, ?");
 		

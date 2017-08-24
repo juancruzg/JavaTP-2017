@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-sm-8">
 		<label>Seleccione un cliente:</label>
-		<selector listar="VMNuevaVenta.listarClientes" accion="VMNuevaVenta.accionClientes" clase-icono="'fa fa-user'" quitar-item="VMNuevaVenta.limpiarCliente"></selector>
+		<selector listar="VMNuevaVenta.listarClientes" accion="VMNuevaVenta.accionClientes" clase-icono="'fa fa-user'" quitar-item="VMNuevaVenta.limpiarCliente" control="VMNuevaVenta.controlClientes"></selector>
 	</div>
 	<div class="col-sm-4">
 		<label>Fecha:</label>
@@ -36,7 +36,7 @@
 	</div>
 	<div class="col-lg-6" ng-if="VMNuevaVenta.listaDetalles.length > 0">
 		<ul class="list-group">
-			<li ng-repeat="detalle in VMNuevaVenta.listaDetalles track by $index" class="row list-group-item" ng-click="VMNuevaVenta.quitarUnProducto(producto);" style="margin-right: 0; margin-left: 0;">
+			<li ng-repeat="detalle in VMNuevaVenta.listaDetalles track by $index" class="row list-group-item" ng-click="VMNuevaVenta.quitarUnProducto(detalle);" style="margin-right: 0; margin-left: 0;">
 				<div class="col-md-8">{{ detalle.cantidad + ' x ' + detalle.linea.producto.descripcion + ' ' + detalle.linea.color.color + ' ' + detalle.linea.talle.talle }}</div> 
 				<div class="col-md-4"><span class="pull-right">${{ detalle.linea.producto.precio.precio * detalle.cantidad }}</span></div>
 			</li>

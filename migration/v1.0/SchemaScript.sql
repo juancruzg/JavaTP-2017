@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS detalleVenta (
   cantidad int,
   llevaAProbar boolean,
   fechaDevolucion datetime,
-  PRIMARY KEY (idVenta, idProducto, idTalle, idColor, idSucursals),
+  PRIMARY KEY (idVenta, idProducto, idTalle, idColor, idSucursal),
   CONSTRAINT fk_detalleVenta_venta FOREIGN KEY (idVenta) REFERENCES venta (id),
   CONSTRAINT fk_detalleVenta_lineaProducto FOREIGN KEY (idProducto, idTalle, idColor, idSucursal) REFERENCES lineaProducto (idProducto, idTalle, idColor, idSucursal)
 );

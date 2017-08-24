@@ -15,7 +15,7 @@ public class testCatalogos {
 		ControladorUsuario cu = new ControladorUsuario();
 		Gson gson = new Gson();
 
-			System.out.println(cu.encriptarContrasena("juan37544355"));
+			System.out.println(cu.encriptarContrasena("facafaca"));
 	}
 
 }

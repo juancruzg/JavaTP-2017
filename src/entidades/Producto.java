@@ -8,6 +8,7 @@ public class Producto implements EntidadBase {
 	private Precio precio;
 	private Usuario usuarioAlta;
 	private boolean activo;
+	private ArrayList<Precio> historicoPrecios;
 	private ArrayList<LineaProducto> lineas;
 	
 	/* Constructors */
@@ -82,6 +83,14 @@ public class Producto implements EntidadBase {
 	}
 	/* Public Methods */
 	
+	public ArrayList<Precio> getHistoricoPrecios() {
+		return historicoPrecios;
+	}
+
+	public void setHistoricoPrecios(ArrayList<Precio> historicoPrecios) {
+		this.historicoPrecios = historicoPrecios;
+	}
+
 	public String toJson() {
 		return "";
 	}

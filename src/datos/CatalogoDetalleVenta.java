@@ -37,28 +37,18 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 	
 	// TODO:Revisar este método...
 	public int insertDetalleVenta(DetalleVenta dv) throws RespuestaServidor {
-		CatalogoVenta cv = new CatalogoVenta();
 		DBData data = new DBData("INSERT INTO detalleVenta (idVenta, idProducto, idColor, idTalle, idSucursal, cantidad, llevaAProbar, fechaDevolucion) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
 		
-		int guardado = 0;
+		data.addParameter(dv.getVenta().getId());
+		data.addParameter(dv.getLineaProducto().getProducto().getId());
+		data.addParameter(dv.getLineaProducto().getColor().getId());
+		data.addParameter(dv.getLineaProducto().getTalle().getId());
+		data.addParameter(dv.getLineaProducto().getSucursal().getId());
+		data.addParameter(dv.getCantidad());
+		data.addParameter(dv.isLlevaAProbar());
+		data.addParameter(dv.getFechaDevolucion());
 		
-		if (cv.getVenta(dv.getVenta().getId()) == null)
-			guardado = cv.insertVenta(dv.getVenta());
-		
-		if (guardado != 0) {
-			data.addParameter(dv.getVenta().getId());
-			data.addParameter(dv.getLineaProducto().getProducto().getId());
-			data.addParameter(dv.getLineaProducto().getColor().getId());
-			data.addParameter(dv.getLineaProducto().getTalle().getId());
-			data.addParameter(dv.getLineaProducto().getSucursal().getId());
-			data.addParameter(dv.getCantidad());
-			data.addParameter(dv.isLlevaAProbar());
-			data.addParameter(dv.getFechaDevolucion());
-			
-			return super.save(data);
-		}
-		
-		return 0;
+		return super.save(data);
 	}
 	
 	public int updateDetalleVenta(DetalleVenta dv) throws RespuestaServidor {

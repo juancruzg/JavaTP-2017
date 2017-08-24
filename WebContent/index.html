@@ -11,7 +11,7 @@
 		<link href="./lib/custom/app.css" rel="stylesheet">
 		<link href="./lib/custom/modal.css" rel="stylesheet">
 		<link href="./directivas/calendario/calendario.css" rel="stylesheet">			
-		<link href="./areas/login/login.css">
+		<link href="./areas/login/login.css" rel="stylesheet">
 	</head>
 
 	<body ng-app="shop-management" ng-controller="indexController as indexVm">
@@ -22,11 +22,6 @@
           			<ul>
             			<li class="sidebar-brand"><a>Negocio de Ropa</a></li>
            				<li class="sidebar-brand mini"><a>NR</a></li>
-						<!--li><a ui-sref="home"><i class="fa fa-home" aria-hidden="true"></i><span> Inicio</span></a></li>
-						<li><a ui-sref="clientes"><i class="fa fa-users" aria-hidden="true"></i><span> Clientes</span></a></li>
-						<li><a ui-sref="usuarios"><i class="fa fa-users" aria-hidden="true"></i><span> Usuarios</span></a></li>
-						<li><a ui-sref="productos"><i class="fa fa-user-secret" aria-hidden="true"></i><span> Productos</span></a></li>
-						<li><a ui-sref="nueva-venta"><i class="fa fa-shopping-cart" aria-hidden="true"></i><span> Nueva Venta</span></a></li-->
 						<li ng-repeat="item in indexVm.itemsMenu" ng-if="item.mostrarEnMenu"><a ui-sref="{{ item.nombre }}"><i class="{{ item.claseIcono }}" aria-hidden="true"></i><span> {{ item.nombreAMostrar }}</span></a></li>
 						<li style="cursor: pointer;"><a class="exit" ng-click="indexVm.salir()"><i class="fa fa-sign-out" aria-hidden="true"></i><span> Salir</span></a></li>
           			</ul>
@@ -38,7 +33,15 @@
 								<a class="toggle-button" ng-click="indexVm.toggleMenu()"><i class="fa fa-3x" ng-class="{'fa-bars': !indexVm.menuToggled, 'fa-times': indexVm.menuToggled}" aria-hidden="true" ng-if="indexVm.mostrarMenu"></i></a>	
                 			</div>
                 			<div class="btn-fixed-right-top">
-								<a class="toggle-button btn-fixed-right-top" ng-click="indexVm.toggleCheatSheet()"><i class="fa fa-question-circle fa-3x"></i></a>
+                				<div class="row">
+									<div class="col-lg-6 col-sm-6">
+										<a class="toggle-button"><i class="fa fa-user-circle fa-3x"></i></a>
+                					</div>
+                					<div class="col-lg-6 col-sm-6">
+                						<a class="toggle-button" ng-click="indexVm.toggleCheatSheet()"><i class="fa fa-question-circle fa-3x"></i></a>
+                					</div>
+                				</div>
+								
                 			</div>
                 			<div style="height: 25px;"></div>
                 			<div style="padding-left: 4%; padding-right: 4%;">

@@ -7,6 +7,7 @@ import datos.CatalogoDetalleVenta;
 import datos.CatalogoProducto;
 import datos.CatalogoVenta;
 import entidades.DetalleVenta;
+import entidades.Producto;
 import excepciones.RespuestaServidor;
 
 public class ControladorDetalleVenta {
@@ -25,23 +26,29 @@ public class ControladorDetalleVenta {
 	public int saveDetalleVenta(DetalleVenta dv) throws RespuestaServidor { 
 		RespuestaServidor res = new RespuestaServidor();
 		CatalogoDetalleVenta cdv = new CatalogoDetalleVenta();
-		CatalogoVenta cv = new CatalogoVenta();
-		CatalogoProducto cp = new CatalogoProducto();
 		
 		res = validarDetalleVenta(dv);
 		
 		if (!res.getStatus())
 			throw res;
 		
-		if (cdv.getDetalleVenta(dv.getVenta().getId(), dv.getLineaProducto().getProducto().getId(), dv.getLineaProducto().getTalle().getId(), dv.getLineaProducto().getColor().getId(), dv.getLineaProducto().getSucursal().getId()) == null)
+		DetalleVenta detalleDB = cdv.getDetalleVenta(dv.getVenta().getId(), dv.getLineaProducto().getProducto().getId(), dv.getLineaProducto().getTalle().getId(), dv.getLineaProducto().getColor().getId(), dv.getLineaProducto().getSucursal().getId());
+		
+		if (detalleDB == null)
 			return cdv.insertDetalleVenta(dv);
 		else
 			return cdv.updateDetalleVenta(dv);
 	}
 	
 	private RespuestaServidor validarDetalleVenta(DetalleVenta dv) {
-		RespuestaServidor res = new RespuestaServidor();
+		RespuestaServidor rs = new RespuestaServidor();
 		
-		return res;
+		if (dv.getCantidad() > dv.getLineaProducto().getStock()) {
+			Producto producto = dv.getLineaProducto().getProducto();
+			
+			rs.addError("No hay suficiente stock para el siguiente producto: " + producto.getDescripcion() + " " + producto.getMarca());
+		}
+		
+		return rs;
 	}
 }
