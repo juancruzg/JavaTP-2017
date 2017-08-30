@@ -5,9 +5,9 @@
 		.module('shop-management')
 		.controller('controladorProductosEditar', controladorProductosEditar);
 	
-	controladorProductosEditar.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$stateParams", "$util"];
+	controladorProductosEditar.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$stateParams", "$util", "hotkeys"];
 	
-	function controladorProductosEditar ($scope, $state, $api, $tabla, $q, $stateParams, $util) {
+	function controladorProductosEditar ($scope, $state, $api, $tabla, $q, $stateParams, $util, hotkeys) {
 		  var vm = this;
 		  
 		  // Ni bien carga el controller, scrolleo hasta el fondo y hago focus al nombre.
@@ -28,6 +28,13 @@
 		  
 		  buscarTalles();
 		  buscarColores();
+		  
+		  hotkeys.bindTo($scope).add({
+			  combo: 'esc',
+			  description: 'Cancelar',
+			  allowIn: ['INPUT'],
+			  callback: cancelar
+	      });
 		  
 		  function buscarTalles() {
 			  $api.getData("Talles").then(function(data) {

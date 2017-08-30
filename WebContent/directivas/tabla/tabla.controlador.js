@@ -29,20 +29,6 @@
     
     
     hotkeys.bindTo($scope).add({
-        combo: 'right',
-        description: 'Navegar a la derecha en la tabla',
-        allowIn: ['INPUT'],
-        callback: function() {
-        	avanzarPagina();
-        }
-      }).add({
-        combo: 'left',
-        description: 'Navegar a la izquierda en la tabla',
-        allowIn: ['INPUT'],
-        callback: function() {
-        	volverPagina();
-        }
-      }).add({
         combo: '+',
         description: 'Agregar un nuevo registro',
         callback: function() {

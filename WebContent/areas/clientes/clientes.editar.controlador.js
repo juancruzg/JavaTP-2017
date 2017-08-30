@@ -5,9 +5,9 @@
       .module('shop-management')
       .controller('controladorClientesEditar', controladorClientesEditar);
 
-  controladorClientesEditar.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$stateParams", "$util"];
+  controladorClientesEditar.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$stateParams", "$util", "hotkeys"];
 
-  function controladorClientesEditar($scope, $state, $api, $tabla, $q, $stateParams, $util) {
+  function controladorClientesEditar($scope, $state, $api, $tabla, $q, $stateParams, $util, hotkeys) {
 	  var vm = this;
 	  
 	  // Ni bien carga el controller, scrolleo hasta el fondo y hago focus al nombre.
@@ -20,6 +20,13 @@
 
 	  if (angular.equals({}, vm.clienteSeleccionado))
 		  vm.clienteSeleccionado.activo = true;
+	  
+	  hotkeys.bindTo($scope).add({
+		  combo: 'esc',
+		  description: 'Cancelar',
+		  allowIn: ['INPUT'],
+		  callback: cancelar
+      });
 	  
 	  function guardar() {
 		  var promesa = $api.postData("Clientes", vm.clienteSeleccionado);

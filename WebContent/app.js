@@ -89,6 +89,14 @@ app
 		controller: "controladorLogin",
 		controllerAs: "VMLogin"
 	}
+	
+	var perfil = {
+		name: "perfil",
+		templateUrl: "./areas/perfil/perfil.html",
+		url: "/perfil",
+		controller: "controladorPerfil",
+		controllerAs: "VMPerfil"	
+	}
 		
 	var defaultUrl = '/home';
 
@@ -104,6 +112,7 @@ app
 		.state(productos)
 		.state(editarProductos)
 		.state(login)
+		.state(perfil)
 		.state(error);
 })
 .run(['$transitions', '$usuario', '$state', function($transitions, $usuario, $state) {

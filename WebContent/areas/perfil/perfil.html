@@ -1,0 +1,25 @@
+<h1>Mi perfil</h1>
+<hr>
+<form>
+	<div class="form-group">
+    	<label>Nombre:</label>
+    	<input type="text" ng-model="VMPerfil.usuario.nombre" id="nombre" class="form-control">
+  	</div>
+  	<div class="form-group">
+    	<label>Apellido:</label>
+    	<input type="text" ng-model="VMPerfil.usuario.apellido" class="form-control">
+  	</div>
+  	<div class="form-group">
+  		<label>Nombre de usuario:</label>
+    	<input type="text" ng-model="VMPerfil.usuario.usuario" class="form-control" readonly>
+  	</div>
+  	<div class="form-group">
+  		<label>Cambiar contraseña:</label>
+    	<input type="password" ng-model="VMPerfil.nuevaPassword" class="form-control">
+  	</div>
+  	<div class="form-group">
+  		<label>Reingrese la contraseña:</label>
+    	<input type="password" ng-model="VMPerfil.reingresoPassword" class="form-control">
+  	</div>
+  	<button type="submit" class="btn btn-success pull-right">Guardar</button>
+</form>

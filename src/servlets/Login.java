@@ -31,6 +31,7 @@ public class Login extends ServletBase {
 		
 		String usuario = request.getParameter("usuario");
 		String password = request.getParameter("password");
+		boolean recordar = Tipos.toBoolean(request.getParameter("recordar"));
 		String accion = request.getParameter("accion");
 
 		if(accion != null && !accion.isEmpty()) {
@@ -48,8 +49,10 @@ public class Login extends ServletBase {
 				try {
 					Usuario u = cu.getUsuario(usuario, password);
 					
-					if (u != null)
+					if (u != null) {
+						request.getSession().setMaxInactiveInterval(5*60);
 						request.getSession().setAttribute("usuario", u);
+					}
 					
 					rta.setData(u);
 				}

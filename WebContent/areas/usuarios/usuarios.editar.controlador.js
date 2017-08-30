@@ -5,9 +5,9 @@
       .module('shop-management')
       .controller('controladorUsuariosEditar', controladorUsuariosEditar);
 
-  controladorUsuariosEditar.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$stateParams", "$util"];
+  controladorUsuariosEditar.$inject = ["$scope", "$state", "$api", "$tabla", "$q", "$stateParams", "$util", "hotkeys"];
 
-  function controladorUsuariosEditar($scope, $state, $api, $tabla, $q, $stateParams, $util) {
+  function controladorUsuariosEditar($scope, $state, $api, $tabla, $q, $stateParams, $util, hotkeys) {
 	  var vm = this;
 	  
 	  // Ni bien carga el controller, scrolleo hasta el fondo y hago focus al nombre.
@@ -21,6 +21,13 @@
 	  listarTipos();
 	  seleccionarUsuario();
 
+	  hotkeys.bindTo($scope).add({
+		  combo: 'esc',
+		  description: 'Cancelar',
+		  allowIn: ['INPUT'],
+		  callback: cancelar
+      });
+	  
 	  function guardar() {
 		  var promesa;
 		  

@@ -77,20 +77,14 @@ CREATE TABLE IF NOT EXISTS producto (
 CREATE TABLE IF NOT EXISTS talle (
   id int NOT NULL AUTO_INCREMENT,
   talle varchar(3),
-  usuarioAlta varchar(20),
-  fechaAlta datetime,
-  PRIMARY KEY (id),
-  CONSTRAINT fk_talle_usuario FOREIGN KEY (usuarioAlta) REFERENCES usuario (usuario)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS color (
   id int NOT NULL AUTO_INCREMENT,
   color varchar(30),
   codigoColor varchar(30),
-  usuarioAlta varchar(20),
-  fechaAlta datetime,
-  PRIMARY KEY (id),
-  CONSTRAINT fk_color_usuario FOREIGN KEY (usuarioAlta) REFERENCES usuario (usuario)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS lineaProducto (
@@ -160,9 +154,9 @@ CREATE TABLE IF NOT EXISTS detalleVenta (
 );
 
 
-INSERT INTO `modulo` VALUES (1,'home',1,'Home','fa fa-home'),(2,'clientes',1,'Clientes','fa fa-black-tie'),(3,'clientes.editar',0,'Editar Clientes',NULL),(4,'usuarios',1,'Usuarios','fa fa-user'),(5,'usuarios.editar',0,'Editar usuarios',NULL),(6,'nueva-venta',1,'Nueva Venta','fa fa-shopping-bag'),(7,'productos',1,'Productos','fa fa-shirtsinbulk'),(8,'productos.editar',0,'Editar Productos',NULL);
+INSERT INTO `modulo` VALUES (1,'home',1,'Home','fa fa-home'),(2,'clientes',1,'Clientes','fa fa-black-tie'),(3,'clientes.editar',0,'Editar Clientes',NULL),(4,'usuarios',1,'Usuarios','fa fa-user'),(5,'usuarios.editar',0,'Editar usuarios',NULL),(6,'nueva-venta',1,'Nueva Venta','fa fa-shopping-bag'),(7,'productos',1,'Productos','fa fa-shirtsinbulk'),(8,'productos.editar',0,'Editar Productos',NULL), (9,'perfil',0,'Perfil',NULL);
 INSERT INTO `tipousuario` VALUES (1,'Administrador'),(2,'Normal');
-INSERT INTO `tipousuariomodulo` VALUES (1,1),(2,1),(1,2),(2,2),(1,3),(2,3),(1,4),(1,5),(1,6),(2,6),(1,7),(2,7),(1,8),(2,8);
+INSERT INTO `tipousuariomodulo` VALUES (1,1),(2,1),(1,2),(2,2),(1,3),(2,3),(1,4),(1,5),(1,6),(2,6),(1,7),(2,7),(1,8),(2,8),(1,9),(2,9);
 INSERT INTO `sucursal` (domicilio, telefono) VALUES ('San Lorenzo 123', '0341546103');
 INSERT INTO `color` (color) VALUES ('Rojo'), ('Verde'), ('Azul'), ('Amarillo');
 INSERT INTO `talle` (talle) VALUES ('XL'), ('L'), ('M'), ('S');

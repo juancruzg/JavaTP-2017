@@ -35,7 +35,7 @@
                 			<div class="btn-fixed-right-top">
                 				<div class="row">
 									<div class="col-lg-6 col-sm-6">
-										<a class="toggle-button"><i class="fa fa-user-circle fa-3x"></i></a>
+										<a ui-sref="perfil" class="toggle-button"><i class="fa fa-user-circle fa-3x"></i></a>
                 					</div>
                 					<div class="col-lg-6 col-sm-6">
                 						<a class="toggle-button" ng-click="indexVm.toggleCheatSheet()"><i class="fa fa-question-circle fa-3x"></i></a>
@@ -55,7 +55,7 @@
     	</div>
   	</body>
 
-
+	<!-- LIBRARIES -->
 	<script type="text/javascript" src="./lib/angular/angular.min.js"></script>
 	<script type="text/javascript" src="./lib/angular/angular-animate.min.js"></script>
 	<script type="text/javascript" src="./lib/angular/angular-sanitize.min.js"></script>
@@ -64,6 +64,7 @@
 	<script type="text/javascript" src="./lib/ng-toast/ngToast.min.js"></script>
 	<script type="text/javascript" src="./lib/hotkeys/hotkeys.min.js"></script>
 	
+	<!-- MAIN -->
 	<script type="text/javascript" src="./app.js"></script>
 	
 	<!-- SERVICES -->
@@ -85,7 +86,7 @@
 	<script type="text/javascript" src="./directivas/selector-fecha/selector-fecha.directiva.js"></script>
 	<script type="text/javascript" src="./directivas/selector-fecha/selector-fecha.controlador.js"></script>
 	
-	<!-- ABM's CONTROLLERS -->
+	<!-- CONTROLLERS -->
 	<script type="text/javascript" src="./areas/home/home.controlador.js"></script>
 	<script type="text/javascript" src="./areas/clientes/clientes.controlador.js"></script>
 	<script type="text/javascript" src="./areas/clientes/clientes.editar.controlador.js"></script>
@@ -95,6 +96,7 @@
 	<script type="text/javascript" src="./areas/usuarios/usuarios.editar.controlador.js"></script>
 	<script type="text/javascript" src="./areas/ventas/nueva-venta.controlador.js"></script>
 	<script type="text/javascript" src="./areas/login/login.controlador.js"></script>
+	<script type="text/javascript" src="./areas/perfil/perfil.controlador.js"></script>
 
 </html>
 
