@@ -161,4 +161,4 @@ INSERT INTO `sucursal` (domicilio, telefono) VALUES ('San Lorenzo 123', '0341546
 INSERT INTO `color` (color) VALUES ('Rojo'), ('Verde'), ('Azul'), ('Amarillo');
 INSERT INTO `talle` (talle) VALUES ('XL'), ('L'), ('M'), ('S');
 INSERT INTO `usuario` VALUES ('juan_cruzg','9893f9b90ebd9e22f0eba9a8af67d424','Juan Cruz','Grasso',1,1,NULL,NULL,1),('usuarionormal','25d55ad283aa400af464c76d713c07ad','Usuario','Normal',1,2,NULL,NULL,1);
-INSERT INTO `tipoPago` (id,tipoPago) VALUES(1,'Efectivo'),(2,'Cuenta corriente'),(3,'Tarjeta de crédito'),(4,'Tarjeta de Débito');
+INSERT INTO `tipoPago` (id,tipoPago) VALUES(1,'Efectivo'),(2,'Cuenta corriente'),(3,'Tarjeta'),(4,'Lleva a probar');

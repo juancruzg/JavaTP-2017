@@ -20,7 +20,7 @@ public class ManejoEventos implements ServletContextListener, HttpSessionListene
     }
     
     public void attributeAdded(HttpSessionBindingEvent se)  { 
-    	// Acá puedo manejar eventos disparados al loggear
+    	// Acá puedo manejar eventos disparados al loguear
     	// Este tal vez sería un buen lugar para manejar permisos y validaciones de permisos
     	if (se.getName().equals("usuario")) {
     		System.out.println("Hola " + ((Usuario)se.getValue()).getNombre());
@@ -28,7 +28,7 @@ public class ManejoEventos implements ServletContextListener, HttpSessionListene
     }
 
     public void attributeRemoved(HttpSessionBindingEvent se)  { 
-    	// Y acá al desloggear
+    	// Y acá al desloguear
     	if (se.getName().equals("usuario")) {
     		System.out.println("Chau " + ((Usuario)se.getValue()).getNombre());
     	}

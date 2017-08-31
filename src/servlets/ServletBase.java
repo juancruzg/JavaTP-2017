@@ -28,7 +28,7 @@ public class ServletBase extends HttpServlet {
 				jb.append(line);
 		}
 		catch (Exception e) { 
-			System.out.println("woops...");
+			System.out.println("Sos un zapallo iup...");
 		}
 				
 		Gson gson = new Gson();
