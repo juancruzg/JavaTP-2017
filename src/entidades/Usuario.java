@@ -3,7 +3,7 @@ package entidades;
 import java.sql.Timestamp;
 
 public class Usuario implements EntidadBase {
-	private String usuario, password, nombre, apellido;
+	private String usuario, password, nombre, apellido, nuevaPassword, reingresoPassword;
 	private Usuario usuarioAlta;
 	private Timestamp fechaAlta;
 	private Sucursal sucursal;
@@ -99,6 +99,22 @@ public class Usuario implements EntidadBase {
 
 	public void setTipoUsuario(TipoUsuario tipoUsuario) {
 		this.tipoUsuario = tipoUsuario;
+	}
+
+	public String getNuevaPassword() {
+		return nuevaPassword;
+	}
+
+	public void setNuevaPassword(String nuevaPassword) {
+		this.nuevaPassword = nuevaPassword;
+	}
+
+	public String getReingresoPassword() {
+		return reingresoPassword;
+	}
+
+	public void setReingresoPassword(String rereingresoPassword) {
+		this.reingresoPassword = rereingresoPassword;
 	}
 
 	public String toJson() {

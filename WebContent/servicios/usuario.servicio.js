@@ -15,6 +15,7 @@
 		servicio.isLoggedIn = isLoggedIn;
 		servicio.logout = logout;
 		servicio.permitir = permitir;
+		servicio.reload = reload;
 		
 		function login(nombreUsuario, password) {
 			var deferred = $q.defer();
@@ -24,6 +25,22 @@
 				"usuario": nombreUsuario,
 				"password": password,
 				"accion": "login"
+			}
+			
+			$api.getData("Login", data).then(function(data) {
+				deferred.resolve(data);
+			});
+			
+			return deferred.promise;
+		}
+		
+		function reload(nombreUsuario) {
+			var deferred = $q.defer();
+
+			// Este bien podría ir en el controlador... Pero ya que tenemos este servicio, usémsolo
+			var data = {
+				"usuario": nombreUsuario,
+				"accion": "reload"
 			}
 			
 			$api.getData("Login", data).then(function(data) {

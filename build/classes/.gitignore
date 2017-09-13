@@ -1,2 +1,8 @@
-/servlets/
 /negocio/
+/servlets/
+/tests/
+/util/
+/conexion/
+/datos/
+/entidades/
+/excepciones/

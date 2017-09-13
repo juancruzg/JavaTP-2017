@@ -62,6 +62,28 @@ public class Usuarios extends ServletBase {
 		RespuestaServidor sr = new RespuestaServidor();
 		int nro = 0;
 		
+		try {
+			nro = cu.saveUsuario(u);
+		} 
+		catch (RespuestaServidor e) {
+			sr = e;
+		}
+		
+		Respuesta rta = new Respuesta();
+		
+		rta.setData(nro);
+		rta.setErrores(sr.getErrores());
+		
+		enviarJSON(request, response, rta.toJson());
+	}
+
+	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ControladorUsuario cu = new ControladorUsuario();
+		
+		Usuario u = (Usuario) procesarRequest(request, Usuario.class);
+		RespuestaServidor sr = new RespuestaServidor();
+		int nro = 0;
+		
 		Usuario usuarioSesion = obtenerUsuarioEnSesion(request);
 		u.setSucursal(usuarioSesion.getSucursal());
 		u.setUsuarioAlta(usuarioSesion);
@@ -79,10 +101,6 @@ public class Usuarios extends ServletBase {
 		rta.setErrores(sr.getErrores());
 		
 		enviarJSON(request, response, rta.toJson());
-	}
-
-	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 	}
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

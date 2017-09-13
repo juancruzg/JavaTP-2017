@@ -31,7 +31,7 @@
 	  function guardar() {
 		  var promesa;
 		  
-		  promesa = $api.postData("Usuarios", vm.usuarioSeleccionado);
+		  promesa = $api.putData("Usuarios", vm.usuarioSeleccionado);
 		 
 		  promesa.then(function (data) {
 			  $state.go('usuarios', null, { 'reload': true });	  

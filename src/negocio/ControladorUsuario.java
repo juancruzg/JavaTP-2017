@@ -53,9 +53,10 @@ public class ControladorUsuario {
 			usuario.setPassword("nuevoUsuario");
 		}
 		else {
-			if (usuario.getPassword().equals(usuarioDB.getPassword())) {
+			if (usuario.getNuevaPassword() == null || usuario.getNuevaPassword().isEmpty())
 				usuario.setPassword(null);
-			}
+			else
+				usuario.setPassword(usuario.getNuevaPassword());
 		}
 		
 		if (!(usuario.getPassword() == null || usuario.getPassword().isEmpty()))
@@ -113,6 +114,11 @@ public class ControladorUsuario {
 			
 			if (u.getPassword().matches(passwordPattern))
 				res.addError("La contraseña ingresada no es aceptable. Asegúrese de tener una minúscula, una mayúscula, un caracter especial y un número al menos");
+		}
+		
+		if (u.getNuevaPassword() != null && !u.getNuevaPassword().isEmpty()) {
+			if (!u.getNuevaPassword().equals(u.getReingresoPassword()))
+				res.addError("Las contrase�as ingresadas no coinciden");
 		}
 		
 		return res;

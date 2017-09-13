@@ -60,6 +60,21 @@ public class Login extends ServletBase {
 					rta.setErrores(rs.getErrores());
 				}
 			}
+			else if (accion.equals("reload")) {
+				try {
+					Usuario u = cu.getUsuario(usuario);
+					
+					if (u != null) {
+						request.getSession().setMaxInactiveInterval(5*60);
+						request.getSession().setAttribute("usuario", u);
+					}
+					
+					rta.setData(u);
+				} catch (RespuestaServidor rs) {
+					rta.setErrores(rs.getErrores());
+				}
+
+			}
 			else if (accion.equals("logout")) {
 				// Devuelve siempre nulo, pero si existe el atributo de sesión lo quita.
 				HttpSession session = request.getSession(false);
