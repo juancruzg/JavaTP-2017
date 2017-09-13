@@ -1,3 +1,60 @@
 <h1>Â¡Bienvenido {{ VMHome.usuarioLoggeado.nombre }}!</h1>
 <h2>al sistema de gestiÃ³n y administraciÃ³n del local.</h2>
 <p>puede navegar por las funcionalidades utilizando el menÃº desplegable que se encuentra del lado izquierdo.</p>
+<hr>
+
+<div class="row">
+	<div class="col-lg-3">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Nuevo cliente</h3>
+		  </div>
+		  <div class="panel-body">
+		  	<p style="color: black;">Puede acceder directamente desde este menú para cargar un nuevo cliente, o puede tambier hacerlo accediendo desde el menú del lado izquierdo.</p>
+		  </div>
+		  <div class="panel-footer" style="text-align: right;">
+ 		  	<a ui-sref="clientes.editar( {'cliente': null, 'idCliente': 0} )" class="btn btn-success"><i class="fa fa-plus"></i> Cargar nuevo cliente</a>
+		  </div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Buscar cliente</h3>
+		  </div>
+		  <div class="panel-body">
+		  	<p style="color: black;">Puede uasr esta opción para buscar un cliente específico, y sus ventas relacionadas.</p>
+		  </div>
+		  <div class="panel-footer" style="text-align: right;">
+ 		  	<a href="#" class="btn btn-success"><i class="fa fa-search"></i> Buscar cliente</a>
+		  </div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Nueva venta</h3>
+		  </div>
+		  <div class="panel-body">
+		  	<p style="color: black;">Puede acceder directamente desde este menú para cargar una nueva venta, o puede tambier hacerlo accediendo desde el menú del lado izquierdo.</p>
+		  </div>
+		  <div class="panel-footer" style="text-align: right;">
+ 		  	<a href="#" class="btn btn-success"><i class="fa fa-plus"></i> Realizar venta</a>
+		  </div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<div class="panel panel-default">
+		  <div class="panel-heading">
+		    <h3 class="panel-title">Buscar venta</h3>
+		  </div>
+		  <div class="panel-body">
+		  	<p style="color: black;">Puede uasr esta opción para mostrar el reporte de una venta específica.</p>
+		  </div>
+		  <div class="panel-footer" style="text-align: right;">
+ 		  	<a href="#" class="btn btn-success"><i class="fa fa-search"></i> Buscar venta</a>
+		  </div>
+		</div>
+	</div>
+</div>
+
