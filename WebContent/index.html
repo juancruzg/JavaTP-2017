@@ -16,12 +16,35 @@
 
 	<body ng-app="shop-management" ng-controller="indexController as indexVm">
 		<toast></toast>
+		<nav class="navbar navbar-default navbar-fixed-top">
+			<div class="container-fluid">
+				<div class="row" style="padding-top: 10.5px;">
+					<div class="col-lg-11 col-sm-11 col-xs-11">
+						<a class="toggle-button" ng-click="indexVm.toggleMenu()" style="color: #888888;"><i class="fa fa-2x fa-bars" aria-hidden="true" ng-if="indexVm.mostrarMenu"></i></a>
+						<span style="color: #888888; font-size:1.5em; padding-left:55px; padding-bottom: 5px;">Negocio Ropa</span>
+					</div>
+					<div class="col-lg-1 col-sm-1 col-xs-1" style="padding-right:10px;" ng-if="indexVm.mostrarMenu">
+						<div class="row">
+							<div class="col-lg-4 col-sm-4 col-xs-4">
+								<a style="color: #888888;" ui-sref="perfil" class="toggle-button"><i class="fa fa-user-circle fa-2x"></i></a>
+							</div>
+							<div class="col-lg-4 col-sm-4 col-xs-4">
+								<a style="color: #888888;" class="toggle-button" ng-click="indexVm.toggleCheatSheet()"><i class="fa fa-question-circle fa-2x"></i></a>
+							</div>
+							<div class="col-lg-4 col-sm-4 col-xs-4">
+								<a style="color: #888888;" class="toggle-button" ng-click="indexVm.salir()"><i class="fa fa-sign-out fa-2x"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
     	<div class="container menu">
      		<div class="row menu">
         		<div class="menu izquierda col-lg-2 col-sm-2 col-xs-2" ng-show="indexVm.menuToggled">
           			<ul>
-            			<li class="sidebar-brand"><a>Negocio de Ropa</a></li>
-           				<li class="sidebar-brand mini"><a>NR</a></li>
+            			<!-- <li class="sidebar-brand"><a>Negocio de Ropa</a></li>
+           				<li class="sidebar-brand mini"><a>NR</a></li> -->
 						<li ng-repeat="item in indexVm.itemsMenu" ng-if="item.mostrarEnMenu"><a ui-sref="{{ item.nombre }}"><i class="{{ item.claseIcono }}" aria-hidden="true"></i><span> {{ item.nombreAMostrar }}</span></a></li>
 						<li style="cursor: pointer;"><a class="exit" ng-click="indexVm.salir()"><i class="fa fa-sign-out" aria-hidden="true"></i><span> Salir</span></a></li>
           			</ul>
@@ -29,10 +52,10 @@
         		<div class="contenido" ng-class="indexVm.menuToggled ? 'col-lg-10 col-sm-10 col-xs-10' : 'col-lg-12 col-sm-12 col-xs-12'">
 					<div class="row">
                 		<div class="col-sm-12">
-                			<div class="btn-fixed-left-top">
+                			<!--<div class="btn-fixed-left-top">
 								<a class="toggle-button" ng-click="indexVm.toggleMenu()"><i class="fa fa-3x" ng-class="{'fa-bars': !indexVm.menuToggled, 'fa-times': indexVm.menuToggled}" aria-hidden="true" ng-if="indexVm.mostrarMenu"></i></a>	
-                			</div>
-                			<div class="btn-fixed-right-top">
+                			</div> -->
+                			<!--<div class="btn-fixed-right-top">
                 				<div class="row">
 									<div class="col-lg-6 col-sm-6">
 										<a ui-sref="perfil" class="toggle-button"><i class="fa fa-user-circle fa-3x"></i></a>
@@ -42,7 +65,7 @@
                 					</div>
                 				</div>
 								
-                			</div>
+                			</div> -->
                 			<div style="height: 25px;"></div>
                 			<div style="padding-left: 4%; padding-right: 4%;">
                 				<ui-view></ui-view>
