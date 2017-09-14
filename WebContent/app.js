@@ -195,7 +195,7 @@ function indexController(hotkeys, $usuario, $scope, $rootScope) {
 
 			hotkeys.add({
 				combo: '-',
-			    description: 'Expandir menú principal',
+			    description: 'Mostrar/Ocultar menú principal',
 			    callback: function() {
 			      toggleMenu();
 			    }
