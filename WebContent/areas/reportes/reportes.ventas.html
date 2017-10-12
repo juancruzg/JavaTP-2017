@@ -1,0 +1,22 @@
+
+<div class="row">
+	<div class="col-lg-12" ng-if="VMReporteVenta.detalle.length > 0">
+		<h1 class="text-center titulo-centrado">Detalle de la venta</h1>
+		<div class="col-lg-12">
+			<div class="col-md-4 letra-cabecera">Producto</div>
+			<div class="col-md-4 letra-cabecera text-center">Cantidad</div>
+			<div class="col-md-4 letra-cabecera text-center">Precio</div>
+		</div>
+		<div style="clear:both;"> </div>
+	
+		
+		<ul class="list-group">
+			<li ng-repeat="detalle in VMReporteVenta.detalle track by $index" class="row list-group-item" style="margin-right: 0; margin-left: 0;">
+				<div class="col-md-4">{{ detalle.linea.producto.descripcion + ' ' + detalle.linea.color.color + ' ' + detalle.linea.talle.talle }}</div>
+				<div class="col-md-4 text-center">{{ detalle.cantidad }}</div>
+				<div class="col-md-4 text-center">${{ detalle.linea.producto.precio.precio * detalle.cantidad }}</div>
+			</li>
+		</ul>
+	
+	</div>
+</div>

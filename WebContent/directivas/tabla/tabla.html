@@ -3,11 +3,11 @@
 	<table class="table table-hover table-bordered table-sm unselectable">
 		<thead>
 	      	<tr>
-	      		<th ng-repeat="header in VMTabla.data.headers">{{header}}</th>
+	      		<th ng-repeat="header in VMTabla.data.headers track by $index">{{header}}</th>
 	      	</tr>
 	    </thead>
 	     <tbody class="tabla-puntero">
-	     	<tr ng-repeat="row in VMTabla.data.rows" ng-click="VMTabla.mostrarEditar(row.originalRow)" ng-class="{ selected: (row.originalRow === VMTabla.rowSeleccionado) }">
+	     	<tr ng-repeat="row in VMTabla.data.rows track by $index" ng-click="VMTabla.mostrarEditar(row.originalRow)" ng-class="{ selected: (row.originalRow === VMTabla.rowSeleccionado) }">
 	     		<td ng-repeat="(key, value) in row.data track by $index">{{value}}</td>
 	     	</tr>
 	    </tbody>

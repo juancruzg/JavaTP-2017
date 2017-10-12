@@ -97,6 +97,23 @@ app
 		controller: "controladorPerfil",
 		controllerAs: "VMPerfil"	
 	}
+	
+	var reporte = {
+			name: "reportes",
+			templateUrl: "./areas/reportes/reportes.html",
+			url: "/reportes",
+			controller: "controladorReportes",
+			controllerAs: "VMReporte"	
+		}
+	
+	var reporteVenta = {
+			name: "reportes.venta",
+			templateUrl: "./areas/reportes/reportes.ventas.html",
+			url: "/venta",
+			params: { detalle: null },
+			controller: "controladorReportesVenta",
+			controllerAs: "VMReporteVenta"	
+		}
 		
 	var defaultUrl = '/home';
 
@@ -113,6 +130,8 @@ app
 		.state(editarProductos)
 		.state(login)
 		.state(perfil)
+		.state(reporte)
+		.state(reporteVenta)
 		.state(error);
 })
 .run(['$transitions', '$usuario', '$state', function($transitions, $usuario, $state) {

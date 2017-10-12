@@ -67,6 +67,14 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 		return super.save(data);
 	}
 	
+	public ArrayList<DetalleVenta> getDetallesVenta(int idVenta) throws RespuestaServidor {
+		DBData data = new DBData("SELECT * FROM detalleVenta WHERE idVenta = ?");
+		
+		data.addParameter(idVenta);
+		
+		return super.getAll(data, rs -> fetchDetalleVentaFromDB(rs));
+	}
+	
 	private DetalleVenta fetchDetalleVentaFromDB(ResultSet rs) {
 		CatalogoLineaProducto cp = new CatalogoLineaProducto();
 		CatalogoVenta cv = new CatalogoVenta();
@@ -77,7 +85,7 @@ public class CatalogoDetalleVenta extends CatalogoBase {
 			dv.setFechaDevolucion(rs.getTimestamp("fechaDevolucion"));
 			dv.setLlevaAProbar(rs.getBoolean("llevaAProbar"));
 			dv.setLineaProducto(cp.getLineaProducto(rs.getInt("idProducto"), rs.getInt("idTalle"), rs.getInt("idColor"), rs.getInt("idSucursal")));
-			dv.setVenta(cv.getVenta(rs.getInt("idVenta")));
+			//dv.setVenta(cv.getVenta(rs.getInt("idVenta")));
 		} 
 		catch (SQLException | RespuestaServidor e) {
 			e.printStackTrace();

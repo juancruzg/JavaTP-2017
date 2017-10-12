@@ -1,0 +1,11 @@
+<h1>Informes</h1>
+<div class="row">
+	<div class="col-lg-12">
+		<label class="pull-right">
+			Mostrar inactivos
+			<input type="checkbox" class="form-cnotrol" ng-model="VMReporte.mostrarInactivos" ng-change="VMReporte.control.actualizarTabla(0, 10)">
+		</label>
+	</div>
+</div>
+<tabla listar="VMReporte.listar" mostrar-editar="VMReporte.mostrarEditar" control="VMReporte.control"></tabla>
+<ui-view></ui-view>

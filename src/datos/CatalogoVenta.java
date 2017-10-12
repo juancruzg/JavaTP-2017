@@ -54,6 +54,7 @@ public class CatalogoVenta extends CatalogoBase{
 	private Venta fetchVentaFromDB(ResultSet rs) {
 		CatalogoCliente cc = new CatalogoCliente();
 		CatalogoTipoPago ctp = new CatalogoTipoPago();
+		CatalogoDetalleVenta cdv = new CatalogoDetalleVenta();
 		Venta venta = new Venta();
 		
 		try {
@@ -61,6 +62,7 @@ public class CatalogoVenta extends CatalogoBase{
 			venta.setFecha(rs.getTimestamp("fecha"));
 			venta.setCliente(cc.getCliente(rs.getInt("idCliente"), false));
 			venta.setTipoPago(ctp.getTipoPago(rs.getInt("idTipoPago")));
+			venta.setDetalles(cdv.getDetallesVenta(rs.getInt("id")));
 		} 
 		catch (SQLException | RespuestaServidor e) {
 			e.printStackTrace();

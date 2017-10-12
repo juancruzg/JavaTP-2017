@@ -76,8 +76,26 @@
 			
 			dataSrc.headers.forEach(function(header) {
 				if (header.isVisible) {
-					if (originalRow[header.dataField])
-						row.data.push(originalRow[header.dataField]);
+					if (!originalRow[header.dataField]){
+						if(header.dataField.indexOf('.') !== -1){
+							var aux = {};
+							var datafields = header.dataField.split('.');
+							datafields.forEach(function(string, key) {
+								if (key === 0)
+									aux = originalRow[string];
+								else
+									aux = aux[string];
+							});
+							row.data.push(aux);
+						}
+						else{
+							row.data.push(null);
+						}
+							
+					}	
+					else{
+						row.data.push(originalRow[header.dataField]);	
+					}
 				}
 			});
 			

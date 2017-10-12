@@ -5,6 +5,10 @@ body {
     padding-top: 50px;
  }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 /*Nuevo CSS para el menú*/
 html, body, .container.menu, .row.menu, .menu.izquierda, .contenido {
  	display:block;
@@ -283,4 +287,14 @@ hr.body-separator {
 input[type="text"]:disabled {
 	background-color: #FFF0DD;
 	color: black;
+}
+
+.letra-cabecera{
+	font-size: 35px;
+}
+
+.titulo-centrado{	
+    border-bottom: 1px solid white;
+    margin-bottom: 30px;
+    height: 50px;
 }

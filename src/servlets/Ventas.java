@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,7 +27,19 @@ public class Ventas extends ServletBase {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		ControladorVenta cv = new ControladorVenta();
+		Respuesta rta = new Respuesta();
+		int porPagina = Tipos.toInt(request.getParameter("porPagina"));
+		int paginaActual = Tipos.toInt(request.getParameter("paginaActual"));
+		
+		try	{
+			rta.setData(cv.getVentas(paginaActual, porPagina));
+		} 
+		catch (RespuestaServidor e) {
+			rta.setErrores(e.getErrores());
+		}
+		
+		enviarJSON(request, response, rta.toJson());
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
