@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class Venta implements EntidadBase {
 	private int id;
 	private Cliente cliente;
-	private TipoPago tipoPago;
 	private Timestamp fecha;
 	private ArrayList<DetalleVenta> detalles;
+	private ArrayList<Pago> pagos;
 	
 	public int getId() {
 		return id;
@@ -26,14 +26,6 @@ public class Venta implements EntidadBase {
 		this.cliente = cliente;
 	}
 
-	public TipoPago getTipoPago() {
-		return tipoPago;
-	}
-
-	public void setTipoPago(TipoPago tipoPago) {
-		this.tipoPago = tipoPago;
-	}
-
 	public Timestamp getFecha() {
 		return fecha;
 	}
@@ -48,6 +40,14 @@ public class Venta implements EntidadBase {
 
 	public void setDetalles(ArrayList<DetalleVenta> detalles) {
 		this.detalles = detalles;
+	}
+
+	public ArrayList<Pago> getPagos() {
+		return pagos;
+	}
+
+	public void setPagos(ArrayList<Pago> pagos) {
+		this.pagos = pagos;
 	}
 
 	public String toJson() {

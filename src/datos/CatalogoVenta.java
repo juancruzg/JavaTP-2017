@@ -35,7 +35,6 @@ public class CatalogoVenta extends CatalogoBase{
 		DBData data = new DBData("INSERT INTO venta (idCliente, idTipoPago, fecha) VALUES (?, ?, ?)");
 		
 		data.addParameter(venta.getCliente().getId());
-		data.addParameter(venta.getTipoPago().getId());
 		data.addParameter(venta.getFecha());
 		
 		return super.save(data);
@@ -45,7 +44,6 @@ public class CatalogoVenta extends CatalogoBase{
 		DBData data = new DBData("UPDATE venta SET idCliente = ?, idTipoPago = ?, fecha = ? WHERE id = ?");
 		
 		data.addParameter(venta.getCliente().getId());
-		data.addParameter(venta.getTipoPago().getId());
 		data.addParameter(venta.getFecha());
 		
 		return super.save(data);
@@ -53,16 +51,19 @@ public class CatalogoVenta extends CatalogoBase{
 	
 	private Venta fetchVentaFromDB(ResultSet rs) {
 		CatalogoCliente cc = new CatalogoCliente();
-		CatalogoTipoPago ctp = new CatalogoTipoPago();
 		CatalogoDetalleVenta cdv = new CatalogoDetalleVenta();
+		CatalogoPago cp = new CatalogoPago();
+		
 		Venta venta = new Venta();
 		
 		try {
-			venta.setId(rs.getInt("id"));
+			int idVenta = rs.getInt("id");
+			
+			venta.setId(idVenta);
 			venta.setFecha(rs.getTimestamp("fecha"));
 			venta.setCliente(cc.getCliente(rs.getInt("idCliente"), false));
-			venta.setTipoPago(ctp.getTipoPago(rs.getInt("idTipoPago")));
-			venta.setDetalles(cdv.getDetallesVenta(rs.getInt("id")));
+			venta.setDetalles(cdv.getDetallesVenta(idVenta));
+			venta.setPagos(cp.getPagos(idVenta));
 		} 
 		catch (SQLException | RespuestaServidor e) {
 			e.printStackTrace();

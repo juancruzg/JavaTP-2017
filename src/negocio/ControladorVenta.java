@@ -7,10 +7,12 @@ import java.util.ArrayList;
 
 import conexion.Conexion;
 import datos.CatalogoCliente;
+import datos.CatalogoPago;
 import datos.CatalogoTipoPago;
 import datos.CatalogoVenta;
 import entidades.DetalleVenta;
 import entidades.LineaProducto;
+import entidades.Pago;
 import entidades.Producto;
 import entidades.Venta;
 import excepciones.RespuestaServidor;
@@ -33,11 +35,14 @@ public class ControladorVenta {
 		ControladorDetalleVenta cdv = new ControladorDetalleVenta();
 		ControladorLineaProducto clp = new ControladorLineaProducto();
 		CatalogoVenta cv = new CatalogoVenta();
+		CatalogoPago cp = new CatalogoPago();
 		
 		Connection conn = Conexion.getInstancia().getConn();
 		int retorno = 0;
 
 		try {
+			// Esto a este nivel es muy raro, pero no lo pude resolver de otra manera.
+			// Por lo menos funciona. Esto es un BEGIN TRAN, y como tengo que hacer todo el proceso entre controladores, no pude de otra forma...
 			conn.setAutoCommit(false);
 			
 			res = validarVenta(v);
@@ -63,6 +68,13 @@ public class ControladorVenta {
 				lp.setStock(lp.getStock() - detalle.getCantidad());
 				
 				clp.saveLineaProducto(lp);
+			}
+			
+			for (Pago pago : v.getPagos()) {
+				if (pago.getVenta() == null)
+					pago.setVenta(v);
+				
+				cp.savePago(pago);
 			}
 			
 			conn.commit();
@@ -106,9 +118,6 @@ public class ControladorVenta {
 		
 		if (venta.getFecha() == null)
 			rs.addError("Debe seleccionar una fecha");
-		
-		if (venta.getTipoPago() == null)
-			rs.addError("Debe seleccionar una forma de pago");
 		
 		return rs;
 	}
