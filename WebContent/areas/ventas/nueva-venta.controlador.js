@@ -214,10 +214,15 @@
 			
 			venta.cliente = vm.clienteSeleccionado;
 			venta.fecha = vm.fecha;
-			venta.tipoPago= vm.tipoPagoSeleccionado;
 			venta.detalles = vm.listaDetalles;
-			console.log(venta.fecha);
 	
+			venta.pagos = [];
+			
+			venta.pagos.push({ 
+				tipoPago: vm.tipoPagoSeleccionado,
+				fechaPago: vm.fecha
+			});
+			
 			$api.postData("Ventas", venta).then(function(data) {
 				$state.reload();
 				$mensajes.mostrarExito("Venta realizada correctamente.");

@@ -1,14 +1,32 @@
 package tests;
 
+import java.util.ArrayList;
+
+import entidades.Cliente;
+import entidades.DetalleVenta;
+import entidades.Venta;
 import excepciones.RespuestaServidor;
 import negocio.ControladorUsuario;
+import negocio.ControladorVenta;
 
 public class testControladores {
 	public static void main(String[] args) {
-		ControladorUsuario cu = new ControladorUsuario();
+		ControladorVenta cv = new ControladorVenta();
 		
 		try {
-			cu.saveUsuario("Test", "Test", "test12", "testes123", 0, null);
+			Venta v = new Venta();
+			
+			Cliente cliente = new Cliente();
+			
+			ArrayList<E>
+			DetalleVenta dv = new DetalleVenta();
+			
+			
+			
+			v.setCliente(cliente);
+			v.setDetalles(detalles);
+			
+			cv.saveVenta(v);
 		} catch (RespuestaServidor e) {
 			System.out.println(e.toString());
 		}

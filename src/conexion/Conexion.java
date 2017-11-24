@@ -99,25 +99,17 @@ public class Conexion {
 		}
 	}
 	
-	public void beginTransaction() {
-		try {
-			this.getConn().setAutoCommit(false);
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public void beginTransaction() throws SQLException {
+		this.getConn().setAutoCommit(false);
 	}
 	
 	public void commitTransaction() {
 		try {
 			this.conn.commit();
 			this.conn.setAutoCommit(true);
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		finally {
-			this.CloseConn();
 		}
 	}
 	
@@ -127,9 +119,6 @@ public class Conexion {
 			this.conn.setAutoCommit(true);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		finally {
-			this.CloseConn();
 		}
 	}
 }

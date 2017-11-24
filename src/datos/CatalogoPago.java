@@ -35,7 +35,7 @@ public class CatalogoPago extends CatalogoBase {
 	}
 	
 	public int savePago(Pago pago) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO pago (idVenta, idTipoPago, monto, nroCuota, fechaPago, fechaVencimiento, pagado) VALUES (?, ?, ?, ?, ?, ?, ?)");
+		DBData data = new DBData("INSERT INTO pago (idVenta, idTipoPago, monto, fechaPago) VALUES (?, ?, ?, ?)");
 	
 		data.addParameter(pago.getVenta().getId());
 		data.addParameter(pago.getTipoPago().getId());

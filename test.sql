@@ -156,10 +156,8 @@ CREATE TABLE IF NOT EXISTS pago (
   idVenta int NOT NULL,
   idTipoPago int NOT NULL,
   fechaPago datetime NOT NULL,
-  fechaVencimiento datetime NOT NULL,
-  nroCuota int NOT NULL,
+  nroPago int NOT NULL,
   monto decimal NOT NULL,
-  pagado boolean,
   PRIMARY KEY (id),
   CONSTRAINT fk_pago_venta FOREIGN KEY (idVenta) REFERENCES venta (id),
   CONSTRAINT fk_pago_tipoPago FOREIGN KEY (idTipoPago) REFERENCES tipoPago (id)

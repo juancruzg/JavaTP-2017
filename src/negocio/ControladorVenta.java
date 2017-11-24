@@ -13,9 +13,11 @@ import datos.CatalogoVenta;
 import entidades.DetalleVenta;
 import entidades.LineaProducto;
 import entidades.Pago;
+import entidades.PagoEfectivo;
 import entidades.Producto;
 import entidades.Venta;
 import excepciones.RespuestaServidor;
+import modelos.ModeloPago;
 
 public class ControladorVenta {
 	public Venta getVenta(int idVenta) throws RespuestaServidor {
@@ -30,20 +32,17 @@ public class ControladorVenta {
 		return cv.getVentas(paginaActual, porPagina);
 	}
 	
-	public int saveVenta(Venta v) throws RespuestaServidor {
+	public int saveVenta(Venta v,ModeloPago mp) throws RespuestaServidor {
 		RespuestaServidor res = new RespuestaServidor();
 		ControladorDetalleVenta cdv = new ControladorDetalleVenta();
 		ControladorLineaProducto clp = new ControladorLineaProducto();
 		CatalogoVenta cv = new CatalogoVenta();
 		CatalogoPago cp = new CatalogoPago();
 		
-		Connection conn = Conexion.getInstancia().getConn();
 		int retorno = 0;
-
+		
 		try {
-			// Esto a este nivel es muy raro, pero no lo pude resolver de otra manera.
-			// Por lo menos funciona. Esto es un BEGIN TRAN, y como tengo que hacer todo el proceso entre controladores, no pude de otra forma...
-			conn.setAutoCommit(false);
+			Conexion.getInstancia().beginTransaction();
 			
 			res = validarVenta(v);
 			
@@ -70,36 +69,26 @@ public class ControladorVenta {
 				clp.saveLineaProducto(lp);
 			}
 			
-			for (Pago pago : v.getPagos()) {
+			for (Pago p: v.getPagos()) {
+				// TODO: Acá meteríamos lógica dependiendo del tipo de pago para calcular la cantidad de pagos en caso de que sea en cuotas.
+				
+				Pago pago = null; 
+				
+				if (pago.getTipoPago().getId() == 1) {// efectivo
+					pago = new PagoEfectivo(p);
+				}
+				
 				if (pago.getVenta() == null)
 					pago.setVenta(v);
 				
 				cp.savePago(pago);
 			}
 			
-			conn.commit();
-			conn.setAutoCommit(true);
-		}
-		catch(RespuestaServidor sr) {
-			try {
-				conn.rollback();
-				conn.setAutoCommit(true);
-			} 
-			catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-			throw sr;
-		}
-		catch(SQLException e) {
-			try {
-				conn.rollback();
-				conn.setAutoCommit(true);
-			} 
-			catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-		}
+			Conexion.getInstancia().commitTransaction();
+		} 
+		catch (SQLException e) {
+			Conexion.getInstancia().rollbackTransaction();
+		} 
 		finally {
 			Conexion.getInstancia().CloseConn();
 		}

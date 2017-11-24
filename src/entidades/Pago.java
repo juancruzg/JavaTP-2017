@@ -9,6 +9,18 @@ public class Pago implements EntidadBase {
 	private TipoPago tipoPago;
 	private float monto;
 	
+	public Pago() {
+		
+	}
+	
+	public Pago(Pago p) {
+		this.id = p.getId();
+		this.fechaPago = p.getFechaPago();
+		this.venta = p.getVenta();
+		this.tipoPago = p.getTipoPago();
+		this.monto = p.getMonto();
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -49,6 +61,7 @@ public class Pago implements EntidadBase {
 		this.tipoPago = tipoPago;
 	}
 	
+
 	@Override
 	public String toJson() {
 		// TODO Auto-generated method stub

@@ -32,7 +32,7 @@ public class CatalogoVenta extends CatalogoBase{
 	}
 	
 	public int insertVenta(Venta venta) throws RespuestaServidor {
-		DBData data = new DBData("INSERT INTO venta (idCliente, idTipoPago, fecha) VALUES (?, ?, ?)");
+		DBData data = new DBData("INSERT INTO venta (idCliente, fecha) VALUES (?, ?)");
 		
 		data.addParameter(venta.getCliente().getId());
 		data.addParameter(venta.getFecha());
@@ -41,7 +41,7 @@ public class CatalogoVenta extends CatalogoBase{
 	}
 	
 	public int updateVenta(Venta venta) throws RespuestaServidor {
-		DBData data = new DBData("UPDATE venta SET idCliente = ?, idTipoPago = ?, fecha = ? WHERE id = ?");
+		DBData data = new DBData("UPDATE venta SET idCliente = ?, fecha = ? WHERE id = ?");
 		
 		data.addParameter(venta.getCliente().getId());
 		data.addParameter(venta.getFecha());

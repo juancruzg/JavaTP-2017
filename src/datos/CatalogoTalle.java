@@ -60,10 +60,10 @@ public class CatalogoTalle extends CatalogoBase {
 	    	
 	    	talle.setId(rs.getInt("id"));
 	    	talle.setTalle(rs.getString("talle"));
-	    	talle.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));
+	    	// talle.setUsuarioAlta(cu.getUsuario(rs.getString("usuarioAlta")));
 	    	
 	    }
-	    catch (SQLException | RespuestaServidor ex) {
+	    catch (SQLException ex ) {
 	    	ex.printStackTrace();
 	    }
 	    

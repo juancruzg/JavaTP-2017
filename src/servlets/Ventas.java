@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entidades.Venta;
 import excepciones.RespuestaServidor;
+import modelos.ModeloPago;
 import negocio.ControladorCliente;
 import negocio.ControladorColor;
 import negocio.ControladorProducto;
@@ -47,9 +48,10 @@ public class Ventas extends ServletBase {
 		Respuesta rta = new Respuesta();
 		
 		Venta venta = (Venta)procesarRequest(request, Venta.class);
+		ModeloPago modeloPago = (ModeloPago)procesarRequest(request, ModeloPago.class);
 
 		try {
-			rta.setData(cv.saveVenta(venta));
+			rta.setData(cv.saveVenta(venta,modeloPago));
 		}
 		catch(RespuestaServidor sr) {
 			rta.setErrores(sr.getErrores());
