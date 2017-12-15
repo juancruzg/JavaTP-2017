@@ -26,8 +26,7 @@
 					  { "caption": "Numero", "isVisible": true, "dataField": "id" },
 					  { "caption": "Fecha", "isVisible": true, "dataField": "fecha" },
 					  { "caption": "Nombre", "isVisible": true, "dataField": "cliente.nombre" },
-					  { "caption": "Apellido", "isVisible": true, "dataField": "cliente.apellido" },
-					  { "caption": "Tipo de Pago", "isVisible": true, "dataField": "tipoPago.tipoPago" }
+					  { "caption": "Apellido", "isVisible": true, "dataField": "cliente.apellido" }
 				  ];
 				  deferred.resolve($tabla.popularTabla(data, headers));
 			 });
@@ -35,7 +34,7 @@
 		}
 		
 		function mostrarEditar(venta){
-			$state.go("reportes.venta", { "detalle" : venta.detalles });
+			$state.go("reporte.venta", { "detalle" : venta.detalles });
 		}
 		//$state.go('reporte.venta', { "idCliente": undefined, "venta": undefined });
 	}

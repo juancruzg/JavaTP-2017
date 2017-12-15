@@ -69,7 +69,7 @@ public class ControladorVenta {
 				clp.saveLineaProducto(lp);
 			}
 			
-			for (Pago p: v.getPagos()) {
+			/*for (Pago p: v.getPagos()) {
 				// TODO: Acá meteríamos lógica dependiendo del tipo de pago para calcular la cantidad de pagos en caso de que sea en cuotas.
 				
 				Pago pago = null; 
@@ -82,7 +82,7 @@ public class ControladorVenta {
 					pago.setVenta(v);
 				
 				cp.savePago(pago);
-			}
+			}*/
 			
 			Conexion.getInstancia().commitTransaction();
 		} 

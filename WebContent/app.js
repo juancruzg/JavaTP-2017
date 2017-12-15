@@ -99,15 +99,15 @@ app
 	}
 	
 	var reporte = {
-			name: "reportes",
+			name: "reporte",
 			templateUrl: "./areas/reportes/reportes.html",
-			url: "/reportes",
+			url: "/reporte",
 			controller: "controladorReportes",
 			controllerAs: "VMReporte"	
 		}
 	
 	var reporteVenta = {
-			name: "reportes.venta",
+			name: "reporte.venta",
 			templateUrl: "./areas/reportes/reportes.ventas.html",
 			url: "/venta",
 			params: { detalle: null },

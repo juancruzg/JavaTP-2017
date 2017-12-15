@@ -82,70 +82,42 @@
 			</div>
 		</div>
 		<div ng-switch-when="3">
-			<div class="col-lg-12">
-				<label>Numero de Tarjeta:</label>
-				<div class="input-group">
-					<span class="input-group-addon">
-						<i class="fa fa-card"></i>
-					</span>
-					<input type="number" class="form-control" readonly="readonly" ng-model="VMNuevaVenta.numeroTarjeta">
+			<div class="col-lg-12" style="padding-left:0; padding-right:0;">
+				<div class="col-lg-4">
+					<label>Numero de Tarjeta:</label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-credit-card"></i>
+						</span>
+						<input type="text" class="form-control" ng-model="VMNuevaVenta.numeroTarjeta">
+					</div>
 				</div>
-			</div>
-			<div class="col-lg-12">
-				<label>Tipo de tarjeta:</label>
-				<select class="form-control" ng-model="VMNuevaVenta.tipoTarjeta">
-					<option value="">Seleccione un tipo de tarjeta:</option>
-					<option value="1">VISA</option>
-					<option value="2">MASTERCARD</option>
-				</select>
-			</div>
-				
-				<div class="col-lg-3">
-				<label>Fecha de vencimiento:</label>
-					<select class="form-control" ng-model="VMNuevaVenta.mesTarjeta">
-						<option value="">MM</option>
-						<option value="1">01</option>
-						<option value="2">02</option>
-						<option value="3">03</option>
-						<option value="4">04</option>
-						<option value="5">05</option>
-						<option value="6">06</option>
-						<option value="7">07</option>
-						<option value="8">08</option>
-						<option value="9">09</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-						</select>
+				<div class="col-lg-4">
+					<label>Fecha de vencimiento:</label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-calendar"></i>
+						</span>
+						<input type="text" class="form-control" ng-model="VMNuevaVenta.fechaTarjeta">
+					</div>
 				</div>
-				<div class="col-lg-3">
-				<label>  &nbsp; </label>
-					<select class="form-control" ng-model="VMNuevaVenta.anoTarjeta" ng-options="ano for ano in VMNuevaVenta.anos">
-						<option value="">AA</option>
-						<option value="17">17</option>
-						<option value="18">18</option>
-						<option value="19">19</option>
-						<option value="20">20</option>
-						<option value="21">21</option>
-						<option value="22">22</option>
-						</select>
-				</div>
-			<div class="col-lg-12">
-				<label>Nombre del titular de la tarjeta:</label>
-				<div class="input-group">
-					<span class="input-group-addon">
-						<i class="fa fa-user-o"></i>
-					</span>
-					<input type="text" class="form-control" readonly="readonly" ng-model="VMNuevaVenta.nombreTitularTarjeta">
-				</div>
-			</div>
-			<div class="col-lg-3">
+				<div class="col-lg-4">
 				<label>Codigo de seguridad:</label>
 				<div class="input-group">
 					<span class="input-group-addon">
 						<i class="fa fa-lock"></i>
 					</span>
-					<input type="number" class="form-control" readonly="readonly" ng-model="VMNuevaVenta.codigoSeguridadTarjeta">
+					<input type="number" class="form-control" ng-model="VMNuevaVenta.codigoSeguridadTarjeta">
+				</div>
+			</div>
+			</div>
+			<div class="col-lg-8">
+				<label>Nombre del titular de la tarjeta:</label>
+				<div class="input-group">
+					<span class="input-group-addon">
+						<i class="fa fa-user-o"></i>
+					</span>
+					<input type="text" class="form-control" ng-model="VMNuevaVenta.nombreTitularTarjeta">
 				</div>
 			</div>
 		</div>
