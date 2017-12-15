@@ -210,8 +210,19 @@
 		}
 		
 		function finalizar() {
-			var venta = {};			
 			
+			var venta = {};			
+			var modeloPago = {
+				tipoPago:{
+					id: vm.tipoPagoSeleccionado.id,
+					tipoPago: vm.tipoPagoSeleccionado.tipoPago
+				},
+				nroTarjeta: vm.numeroTarjeta,
+				nombreTitular: vm.nombreTitularTarjeta,
+				vencimientoTarjeta: vm.mesTarjeta,
+				fechaPago: new Date(),
+				monto: parseFloat(vm.monto)
+			}
 			venta.cliente = vm.clienteSeleccionado;
 			venta.fecha = vm.fecha;
 			venta.detalles = vm.listaDetalles;
@@ -222,8 +233,11 @@
 				tipoPago: vm.tipoPagoSeleccionado,
 				fechaPago: vm.fecha
 			});
-			
-			$api.postData("Ventas", venta).then(function(data) {
+			var modeloModeloPagoVenta = {
+				venta: venta,
+				modeloPago: modeloPago
+			};
+			$api.postData("Ventas", modeloModeloPagoVenta).then(function(data) {
 				$state.reload();
 				$mensajes.mostrarExito("Venta realizada correctamente.");
 			});
