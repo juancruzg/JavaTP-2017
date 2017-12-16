@@ -11,12 +11,9 @@ public class ModeloPago implements EntidadBase{
 	private String nroTarjeta, nombreTitular, vencimientoTarjeta; // Pongo el vencimiento como String de momento porque es mm/yyyy
 	private int id, nroCuota;
 	private Timestamp fechaPago;
-	private Timestamp fechaVencimiento;
 	private Venta venta;
 	private TipoPago tipoPago;
 	private float monto;
-	private boolean pagado;
-	
 	
 	
 	public int getId() {
@@ -56,6 +53,10 @@ public class ModeloPago implements EntidadBase{
 		this.tipoPago = tipoPago;
 	}
 
+	public TipoPago getTipoPago() {
+		return tipoPago;
+	}
+	
 	public String getNroTarjeta() {
 		return nroTarjeta;
 	}
