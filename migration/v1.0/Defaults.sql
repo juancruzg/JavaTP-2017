@@ -80,3 +80,10 @@ VALUES
   (2,'Cuenta corriente'),
   (3,'Tarjeta'),
   (4,'Lleva a probar');
+
+INSERT INTO
+  `cliente` (nombre, apellido, domicilio, telefono, activo)
+VALUES
+  ('Leonardo', 'Peretti', 'Iturraspe 1991', '3406427222', 1),
+  ('Juan', 'Grasso', 'Gualeguay', '12345666', 1),
+  ('Nicolas', 'Giordano', 'Cañada Rosquin', '8127363', 1);
