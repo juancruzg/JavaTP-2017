@@ -31,6 +31,7 @@
 		vm.cantidad = 1;
 		
 		vm.seleccionarColor = seleccionarColor;
+		vm.ingresaMonto = ingresaMonto;
 
 		vm.colores = [];
 		vm.talles = [];
@@ -93,6 +94,10 @@
 						vm.talles.push(p.talle);
 				});
 			}
+		}
+		
+		function ingresaMonto(){
+			vm.vuelto = vm.monto - vm.listaDetalles.total;
 		}
 		
 		function listarProductos(texto) {

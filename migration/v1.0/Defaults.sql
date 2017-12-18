@@ -87,3 +87,10 @@ VALUES
   ('Leonardo', 'Peretti', 'Iturraspe 1991', '3406427222', 1),
   ('Juan', 'Grasso', 'Gualeguay', '12345666', 1),
   ('Nicolas', 'Giordano', 'Cañada Rosquin', '8127363', 1);
+
+INSERT INTO
+  `producto` (descripcion, marca, activo)
+VALUES
+  ('Ojota', 'Havaiana', 1),
+  ('Remera', 'Legacy', 1),
+  ('Short', 'La akade', 1);

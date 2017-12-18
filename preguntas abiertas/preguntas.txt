@@ -1,0 +1,4 @@
+-.Paga en efectivo. Paga menos que el valor total? El sistema lo registra. ¿Va a cuenta corriente?
+-.Booleano pagado en pago? Para que sirve?
+-.¿El cliente paga una parte de la compra que esta realizado, el sistema donde registra lo que debió de esa venta? Recomendacion: agregar un campo total en venta.
+

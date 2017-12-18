@@ -1,0 +1,6 @@
+Cuando el cliente decide hacer cuenta corriente.
+
+1.-Al realizar una venta, el sistema ofrece ingresar un monto, en caso de que el cliente al momento de comprar decida entregar algo de dinero a esa venta.
+1.a-Se genera un pago con ese monto y se establece el total en la venta.
+2.-El cliente puede entregar plata cuando el decida, no se generan cuotas. Se genera un pago cada vez que el cliente quiera cancelar deuda de la cuenta corriente.
+2.a-El sistema tiene un modulo donde muestra la cuenta corriente correspondiente a ese cliente. Desde aqui se cancelan las deudas cada vez que el cliente entrega dinero.
